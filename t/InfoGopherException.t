@@ -1,20 +1,22 @@
-# Before 'make install' is performed this script should be runnable with
-# 'make test'. After 'make install' it should work as 'perl InfoGopherException.t'
-
-#########################
-
-# change 'tests => 1' to 'tests => last_test_to_print';
-
+#  test exceptions:
+#
+# Note: Dont die - that corrupts the intention stack ...
+#
 use strict;
 use warnings;
 
 use Test::More tests => 3;
 
 use Try::Tiny ;
-
-use lib '/home/klaus/src/owngit/perl_magick/InfoGopher/lib' ;
+use InfoGopher::Logger;
 
 BEGIN { use_ok('InfoGopherException') };
+
+BEGIN {
+    open( my $loghandle, ">", "testInfoGopherException.log" ) 
+        or die "cannot open log: $!" ;
+    InfoGopher::Logger -> handle ( $loghandle ) ;
+    }
 
 try 
     {

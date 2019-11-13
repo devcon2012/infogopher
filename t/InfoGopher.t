@@ -1,9 +1,3 @@
-# Before 'make install' is performed this script should be runnable with
-# 'make test'. After 'make install' it should work as 'perl InfoGopher.t'
-
-#########################
-
-# change 'tests => 1' to 'tests => last_test_to_print';
 
 use strict;
 use warnings;
@@ -23,8 +17,14 @@ BEGIN
     { 
     $mock = TinyMock::HTTP -> new ();
     $mock -> setup('four_o_four', 7081) ; 
+
+    open( my $loghandle, ">", "testInfoGopher.log" ) 
+        or die "cannot open log: $!" ;
+    InfoGopher::Logger -> handle ( $loghandle ) ;
+
     } ;
 
+# make testdb TEST_FILE=t/InfoGopher.t
 #########################
 
 my $gopher = InfoGopher -> new ;
@@ -37,19 +37,31 @@ try
     }
 catch
     {
-    ok ('Failed due to 404') ;
+    note ( $_ -> what ) ;
+    ok ('Failed due to 404', 'Failed due to 404') ;
     };
+
+InfoGopher::IntentionStack -> reset ;
 
 $mock -> set_responsefile_content('RSS') ;     
 
-ok ('1') ;
-
-$gopher -> collect() ;
+try
+    {
+    $gopher -> collect() ;
+    ok ( 'gopher collected', 'gopher collected' ) ;
+    }
+catch
+    {
+    fail ( "gopher choked" ) ;
+    } ;
 
 my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
-my @result = $gopher -> render( $renderer) ;
-ok ( 1 == scalar @result ) ;
-ok ('2') ;
+ok ('got a renderer', 'got a renderer' ) ;
+
+my @result = $gopher -> render( $renderer ) ;
+ok ( 1 == scalar @result, "exactly one result" ) ;
+
+note ( $result[0] ) ;
 
 exit 0 ;
 

@@ -72,6 +72,21 @@ class_has '_corrupted' => (
     default         => sub { 0 },
     ) ;
 
+class_has '_zombie' => (
+    documentation   => 'Intention serials below this value are ignored',
+    is              => 'rw',
+    isa             => 'Int',
+    default         => sub { -1 },
+    ) ;
+
+class_has '_latest' => (
+    documentation   => 'highest intention serial so far',
+    is              => 'rw',
+    isa             => 'Int',
+    default         => sub { -1 },
+    ) ;
+
+
 # -----------------------------------------------------------------------------
 # freeze - queue intention removes, dont perform them
 #
@@ -138,6 +153,7 @@ sub reset
     $self -> clear_queue ;
     $self -> _corrupted (0) ;
     $self -> _frozen (0) ;
+    $self -> _zombie ( $self -> _latest ) ;
     }
 
 # -----------------------------------------------------------------------------
@@ -151,6 +167,11 @@ sub add
 
     my $id = $intention -> serial ;
     my $text = $intention -> what ;
+    if ( $self -> _latest >= $id )
+        {
+        InfoGopher::Logger -> log ( "Tried to add zombie $id:$text" ) ;
+        }
+    $self -> _latest ( $id ) ;
 
     if ( $self -> _frozen )
         {
@@ -199,6 +220,9 @@ sub remove
 
     my $id = $intention -> serial ;
     my $text = $intention -> what ;
+
+    return 
+        if ( $self -> _zombie >= $id ) ; # ignore zombies
 
     if ( $self -> _frozen )
         {

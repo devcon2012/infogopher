@@ -16,17 +16,14 @@ class_has 'handle' => (
 ) ;
 sub _build_log_destination
     {
-    open ( my $fh , '>', '/tmp/InfoLogger.txt' )
-        or die "cannont open infologger: $!" ;
-    return $fh ;
+    return *STDERR ;
     }
 
 sub log
     {
     my ($self, $msg) = @_  ;
-    my $fh = $self -> handle ;
 
-    print STDERR "$msg\n" ;
+    my $fh = $self -> handle ;
     print $fh "$msg\n" ;
     }
 

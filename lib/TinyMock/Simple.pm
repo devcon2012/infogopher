@@ -198,7 +198,7 @@ sub build_socket
 
     my $port = $self -> port ;
 
-    my $socket = new IO::Socket::INET (
+    my $socket =  IO::Socket::INET -> new (
             LocalHost => '127.0.0.1',
             LocalPort => $port,
             Proto => 'tcp',

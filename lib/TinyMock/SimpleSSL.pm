@@ -60,7 +60,7 @@ sub build_socket
         die "At least one of $crt/$key not readable" ;
         }
 
-    my $socket = IO::Socket::SSL->new(
+    my $socket = IO::Socket::SSL -> new(
             LocalAddr       => '127.0.0.1',
             LocalPort       => $port,
             Listen          => 10,
