@@ -17,6 +17,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   Moose
+  HTTP::Daemon ( for test; mock only )
 
 COPYRIGHT AND LICENCE
 

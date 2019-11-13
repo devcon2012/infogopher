@@ -24,6 +24,7 @@ BEGIN
 
     } ;
 
+# make test TEST_VERBOSE=1
 # make testdb TEST_FILE=t/InfoGopher.t
 #########################
 

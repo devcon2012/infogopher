@@ -26,7 +26,8 @@ sub fetch
     {
     my ($self) = @_ ;
 
-    my $i = InfoGopher::NewIntention ( 'Fetch RSS ' . $self -> uri ) ;
+    my $name = $self -> name ;
+    my $i = InfoGopher::NewIntention ( "Fetch RSS $name:" . $self -> uri ) ;
 
     $self -> get_http ;
     $self -> info_bites -> clear() ;

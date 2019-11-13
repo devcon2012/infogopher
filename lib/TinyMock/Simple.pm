@@ -37,6 +37,14 @@ class_has 'root' => (
 ) ;
 
 # 
+class_has '_verbose' => (
+    documentation   => 'set to 1 otherwise there is no output at all.',
+    is              => 'rw',
+    isa             => 'Str',
+    default         => sub { 0 },
+) ;
+
+# 
 has 'port' => (
     documentation   => 'mock listen port',
     is              => 'rw',
@@ -157,10 +165,12 @@ sub setup
     $port       //= $self -> port ;
     
     $self -> port ( $port ) ;
+    $self -> response ( $response ) ;
+    $self -> _verbose ( $ENV{MOCK_VERBOSE} || 0 ) ;
 
     if ( my $pid = fork() )
         {
-        print STDERR "Forked $pid\n" ;
+        print STDERR "Forked $pid\n" if ($self -> _verbose ) ;
         $self -> mock_pid ( $pid ) ;
         sleep 1 ;
         } 
@@ -227,7 +237,7 @@ sub run
 
     while ( 1 )
         {
-        print STDERR $listen_message ;
+        print STDERR $listen_message if ($self -> _verbose ) ;
         my $server_socket = $s_socket->accept() 
             or die $self -> accept_fail_msg ;
     
@@ -240,7 +250,8 @@ sub run
 
         my $client_address  = $server_socket->peerhost();
         my $client_port     = $server_socket->peerport();
-        print STDERR "connection from $client_address:$client_port\n";
+        print STDERR "connection from $client_address:$client_port\n"
+            if ($self -> _verbose ) ;
 
         my $data ;
         my $stat = sysread($server_socket, $data, 1024) ;

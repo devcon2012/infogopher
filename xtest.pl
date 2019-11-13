@@ -1,17 +1,15 @@
 #!/usr/bin/perl
+#
+# demonstrate basic infogopher usage and concepts
+# 
 
 use strict ;
 use warnings ;
 
-use lib '/home/klaus/src/owngit/perl_magick/InfoGopher/lib' ;
+use FindBin;
+use lib "$FindBin::Bin/blib/lib";
 
 use Try::Tiny ;
-
-
-#
-# make testdb TEST_FILE=t/mytest.t
-# make test TEST_VERBOSE=1
-# make test TEST_FILES='t/InfoGopherException.t'
 
 use InfoGopher ;
 use InfoGopher::InfoSource::RSS ;
@@ -20,49 +18,89 @@ use InfoGopher::IntentionStack ;
 
 use TinyMock::HTTP ;
 
-our $mock ;
+our ($mock, $mock2) ;
 
 BEGIN 
     { 
-    $ENV{'MOCK_HOME'} = '/home/klaus/src/owngit/perl_magick/InfoGopher/TinyMock'; 
     $mock = TinyMock::HTTP -> new ();
-    $mock -> setup('four_o_four', 7080) ; 
+    $mock -> setup('RSS', 7080) ; # fork mock serving mock 'RSS' on 127.0.0.1:7080 
+    $mock2 = TinyMock::HTTP -> new ();
+    $mock2 -> setup('RSS2', 7081, 'response2') ;
     } ;
 
-my $rss = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7080") ;
+BEGIN 
+    {
+    # this would redirect log from sterr to a file
+    # open( my $loghandle, ">", "demoGopher.log" ) 
+    #    or die "cannot open log: $!" ;
+    # InfoGopher::Logger -> handle ( $loghandle ) ;
+    } ;
 
-my $i = InfoGopher::NewIntention ( 'test' ) ;
+my $i = InfoGopher::NewIntention ( 'Demonstrate InfoGopher use' ) ;
+
+my ( $gopher, $rss, $rss2 ) ;
 
 try
     {
-    my $i = InfoGopher::NewIntention( 'update1' ) ;
+    my $i = InfoGopher::NewIntention ( 'Construct an InfoGopher' ) ;
+
+    $gopher = InfoGopher -> new ;
+    $rss = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7080") ;
+    $rss -> name ('Politik') ;
+    $gopher -> add_info_source($rss) ;
+
+    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7081") ;
+    $rss2 -> name ('Wirtschaft') ;
+    $gopher -> add_info_source($rss2) ;
+
+    InfoGopherException::ThrowInfoGopherException("DEMO- no such file 'bla.txt' $!") ;
+    }
+catch
+    {
+    my $e = $_ ;
+    InfoGopher::IntentionStack -> unwind($e -> what) ;
+    exit 1 
+        if ( $e -> what !~ /DEMO/ ) ;
+    };
+
+try
+    {
         {
-        my $i = InfoGopher::NewIntention( 'fetch rss' ) ;
-        $rss -> fetch ;
+        my $i = InfoGopher::NewIntention( 'collect info bits' ) ;
+        $gopher -> collect() ;
         }
+
+    $gopher -> dump() ;
+
+        {
+        my $i = InfoGopher::NewIntention( 'collect info bits again' ) ;
+        $gopher -> collect() ;
+        }
+
+    $gopher -> dump() ;
+
+    $mock2 -> set_responsefile_content('four_o_four') ; 
+
+        {
+        my $i = InfoGopher::NewIntention( 'collect info bits yet again' ) ;
+        $gopher -> collect() ;
+        }
+
+    $gopher -> dump() ;
+
     }
 catch
     {
     my $e = $_ ;
     InfoGopher::IntentionStack -> unwind($e -> what) ;
+
+    exit 1 ;
     };
 
-$mock -> set_responsefile_content('RSS') ;     
+undef $i ;
 
-try
-    {
-    my $i = InfoGopher::Intention -> new (what => 'update2' ) ;
-    $rss -> fetch ;
-    }
-catch
-    {
-    my $e = $_ ;
-    InfoGopher::IntentionStack -> unwind($e -> what) ;
-    };
+InfoGopher::Logger -> log ( "Thats it!" ) ;
 
-InfoGopher::IntentionStack -> unwind("Final unwind") ;
-
-$rss -> dump_info_bites ;
 
 END 
     { 

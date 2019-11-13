@@ -180,7 +180,7 @@ sub add
     else 
         {
         my $summary =  $self -> summary ($intention) ;
-        my $msg = $self -> format_summary ( "Start ", $summary ) ;
+        my $msg = $self -> format_summary ( "Start", $summary ) ;
         InfoGopher::Logger -> log ( $msg ) ;        
         $self -> add_intention ($id) ;
         $self -> set_summary ( $id, $summary ) ;
@@ -199,13 +199,13 @@ sub format_summary
     {
     my ($self, $prefix, $summary) = @_ ; 
 
-    my $id = $summary -> serial ;
+    my $id = sprintf("%04d", $summary -> serial) ;
     my $text = $summary -> what ;
     my $t = $summary -> timestamp ;
 
     my $depth = $self -> count_intentions + 1 ;
 
-    my $line = ('>' x $depth) . "$prefix (" . localtime($t) . ") $id- $text" ;
+    my $line = ('>' x $depth) . (' ' x (6-$depth) ). "$prefix (" . localtime($t) . ") $id- $text   ($prefix)" ;
     return $line ;
     }
 
@@ -231,12 +231,12 @@ sub remove
     else 
         {
         my $summary =  $self -> summary ($intention) ;
-        my $msg = $self -> format_summary ( "End ", $summary ) ;
-        InfoGopher::Logger -> log ( $msg ) ;        
         if ( ! $self -> remove_id($id) )
             {
             InfoGopher::Logger -> log( "Intention stack remove: $id ($text) was not on top" );
             }
+        my $msg = $self -> format_summary ( "End  ", $summary ) ;
+        InfoGopher::Logger -> log ( $msg ) ;        
         }
     }
 
@@ -269,9 +269,10 @@ sub unwind
     InfoGopher::Logger -> log( "Exception: $msg" ) ;
 
     my @stack ;
-    foreach ( $self -> all_intentions )
+    for( my $i = $self -> count_intentions-1; $i>=0; $i-- )
         {
-        my $line =  "$_: " . $self -> get_summary ( $_ ) -> what . ".";
+        my $summary =  $self -> get_summary ( $self -> get_intention($i) ) ;
+        my $line =  "$i: " . $summary -> what ." (". localtime($summary -> timestamp) .")." ;
         InfoGopher::Logger -> log( $line ) ;
         push @stack, $line ;
         }

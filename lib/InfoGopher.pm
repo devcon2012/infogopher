@@ -5,8 +5,9 @@ use strict;
 use warnings;
 use Moose ;
 
-# ABSTRACT: a high-level bot framework for collectiong information bits
-our $VERSION = '0.01'; # VERSION
+# ABSTRACT: a high-level bot framework for collecting information bits
+
+our $VERSION = '0.05';
 
 use InfoGopherException ;
 use InfoGopher::Intention ;
@@ -48,7 +49,9 @@ sub collect
     {
     my ($self) = @_ ;
 
-    my $i = NewIntention ( 'Collecting bits from datasources' ) ;
+    my $n = $self->count_info_sources ;
+    my $i = NewIntention ( "Collecting bits from $n datasources" ) ;
+
     for ( my $i=0; $i < $self->count_info_sources; $i++)
         {
         my $source = $self -> get_info_source($i) ;
@@ -84,6 +87,33 @@ sub render
                 {
                 my $r = $renderer -> process ( $j ) ;
                 push @result, $r ;
+                }
+            }
+        }
+    return \@result ;
+    }
+
+# -----------------------------------------------------------------------------
+# dump
+#
+#
+#
+sub dump
+    {
+    my ($self) = @_ ;
+
+    my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
+
+    my @result ;
+    for ( my $i=0; $i < $self->count_info_sources; $i++)
+        {
+        my $source = $self -> get_info_source($i) ;
+        foreach my $i ( $source -> info_bites )
+            {
+            foreach my $j ( $i -> all )
+                {
+                my $r = $renderer -> process ( $j ) ;
+                InfoGopher::Logger -> log ( $r ) ;
                 }
             }
         }

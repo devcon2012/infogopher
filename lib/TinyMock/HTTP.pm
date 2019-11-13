@@ -52,9 +52,10 @@ sub run
     my ( $connection, $sockaddr) ;
     while ( 1 )
         {
-        print STDERR "$$: $listen_message" ;
+        print STDERR "$$: $listen_message" 
+            if ($self -> _verbose ) ;
 
-         ( $connection, $sockaddr ) = $server->accept ;
+        ( $connection, $sockaddr ) = $server->accept ;
 
         last if ( $shutdown ) ;
 
@@ -62,7 +63,8 @@ sub run
             if ( ! $connection ) ;
 
         my ($client_port, $client_address) = sockaddr_in $sockaddr ;
-        print STDERR "connection from $client_address:$client_port\n";
+        print STDERR "connection from $client_address:$client_port\n"
+            if ($self -> _verbose ) ;;
 
         last if ( ! $self -> handle_connect( $connection ) ) ;
         undef $connection ;
@@ -72,7 +74,9 @@ sub run
     undef $connection ;
     undef $server ;
     
-    print STDERR "End HTTP Server\n" ;
+    print STDERR "End HTTP Server\n" 
+        if ($self -> _verbose ) ;
+        
     exit 0 ;
     }
 

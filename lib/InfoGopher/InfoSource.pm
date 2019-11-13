@@ -30,6 +30,14 @@ has 'uri' => (
     default         => ''
 ) ;
 
+# 
+has 'name' => (
+    documentation   => 'Information source name (for display only)',
+    is              => 'rw',
+    isa             => 'Maybe[Str]',
+    default         => ''
+) ;
+
 has 'raw' => (
     documentation   => 'Raw data obtained',
     is              => 'rw',
