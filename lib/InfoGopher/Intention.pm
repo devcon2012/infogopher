@@ -3,12 +3,12 @@ package InfoGopher::Intention ;
 # Intentions help make logs readable:
 #
 # At the beginning of a sub/block/... , create one like so:
-#   my $i = InfoGopher::NewIntention ( 'Demonstrate InfoGopher use' ) ;
+#   my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 #
 # Catch Exceptions where appropriate like so:
 #   catch
 #       {
-#       my $e = $_ ;  InfoGopher::IntentionStack -> unwind($e -> what) ;
+#       my $e = $_ ;  UnwindIntentionStack($e -> what) ;
 #       }
 #
 # Do not die! This would remove intentions from the stack that we need

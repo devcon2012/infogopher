@@ -6,6 +6,8 @@ use warnings ;
 use Moose ;
 use MooseX::ClassAttribute ;
 
+#use Carp qw( croak longmess ) ;
+
 # 
 class_has 'handle' => (
     documentation   => 'logger file handle',
@@ -23,6 +25,7 @@ sub log
     {
     my ($self, $msg) = @_  ;
 
+    # print STDERR longmess if ( ! $msg ) ;
     my $fh = $self -> handle ;
     print $fh "$msg\n" ;
     }

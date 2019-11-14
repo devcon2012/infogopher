@@ -7,7 +7,7 @@ use strict ;
 use warnings ;
 
 use FindBin;
-use lib "$FindBin::Bin/blib/lib";
+use lib "$FindBin::Bin/../blib/lib";
 
 use Try::Tiny ;
 
@@ -16,17 +16,18 @@ use InfoGopher::Essentials ;
 use InfoGopher::InfoSource::RSS ;
 use InfoGopher::Intention ;
 use InfoGopher::IntentionStack ;
-use InfoGopher::InfoRenderer::TextRenderer ;
 
 use TinyMock::HTTP ;
 
-our ($mock) ;
+our ($mock, $mock2) ;
 
 BEGIN 
     { 
-    $ENV{MOCK_HOME} = "$FindBin::Bin/TinyMock" ;
+    $ENV{MOCK_HOME} = "$FindBin::Bin/../TinyMock";
     $mock = TinyMock::HTTP -> new ();
-    $mock -> setup('INVALID_RSS', 7080) ; # fork mock serving mock 'RSS' on 127.0.0.1:7080 
+    $mock -> setup('RSS', 7080) ; # fork mock serving mock 'RSS' on 127.0.0.1:7080 
+    $mock2 = TinyMock::HTTP -> new ();
+    $mock2 -> setup('RSS2', 7081, 'response2') ;
     } ;
 
 BEGIN 
@@ -39,7 +40,7 @@ BEGIN
 
 my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
-my ( $gopher, $rss ) ;
+my ( $gopher, $rss, $rss2 ) ;
 
 try
     {
@@ -50,18 +51,40 @@ try
     $rss -> name ('Politik') ;
     $gopher -> add_info_source($rss) ;
 
+    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7081") ;
+    $rss2 -> name ('Wirtschaft') ;
+    $gopher -> add_info_source($rss2) ;
+
+    ThrowException("DEMO- no such file 'bla.txt' $!") ;
     }
 catch
     {
     my $e = $_ ;
     UnwindIntentionStack($e -> what) ;
-    exit 1 ;
+    exit 1 
+        if ( $e -> what !~ /DEMO/ ) ;
     };
 
 try
     {
         {
         my $i = NewIntention( 'collect info bits' ) ;
+        $gopher -> collect() ;
+        }
+
+    $gopher -> dump() ;
+
+        {
+        my $i = NewIntention( 'collect info bits again' ) ;
+        $gopher -> collect() ;
+        }
+
+    $gopher -> dump() ;
+
+    $mock2 -> set_responsefile_content('four_o_four') ; 
+
+        {
+        my $i = NewIntention( 'collect info bits yet again' ) ;
         $gopher -> collect() ;
         }
 

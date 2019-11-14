@@ -5,20 +5,15 @@ use warnings ;
 use utf8 ;
 use namespace::autoclean;
 
+use Devel::StealthDebug ENABLE => $ENV{dbg_infosource} ;
 
-# use Devel::StealthDebug;
-# !! xassert($foo != 0)!
-# !! xwatch(%myhash)!
-# !! xdump(%myhash)!
-# !! xemit(Entering func1)!
-
-use Data::Dumper;
 use Moose;
 use Try::Tiny;
+
 use LWP::UserAgent ;
 use HTTP::Request ;
 
-use InfoGopherException qw (ThrowInfoGopherException) ;
+use InfoGopher::Essentials ;
 
 extends 'InfoGopher::InfoSource' ;
 
@@ -78,7 +73,7 @@ sub get_http
     else
         {
         my $what = "http error: " . $res -> status_line . " msg:" . $res -> code ;
-        InfoGopherException::ThrowInfoGopherException($what) ;
+        ThrowException($what) ;
         }
 
     return $res ;

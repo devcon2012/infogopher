@@ -8,6 +8,7 @@ use namespace::autoclean;
 use Moose ;
 use MooseX::ClassAttribute ;
 
+# use InfoGopher::Essentials ; # dont - creates recursion ..
 use InfoGopher::IntentionSummary ;
 
 # 
@@ -86,6 +87,11 @@ class_has '_latest' => (
     default         => sub { -1 },
     ) ;
 
+# shortcut because we cannot use Essentials here ..
+sub Logger
+    {
+    InfoGopher::Logger -> log ( @_ ) ;
+    }
 
 # -----------------------------------------------------------------------------
 # freeze - queue intention removes, dont perform them
@@ -111,7 +117,7 @@ sub thaw
         my $text    = $summary -> what ;
         if ( ! $self -> remove_id($id) )
             {
-            InfoGopher::Logger -> log ("Intention stack thaw: $id did not match $head ($text) on top" );
+            Logger ("Intention stack thaw: $id did not match $head ($text) on top" );
             }
         }
     $self -> clear_queue ;
@@ -169,19 +175,19 @@ sub add
     my $text = $intention -> what ;
     if ( $self -> _latest >= $id )
         {
-        InfoGopher::Logger -> log ( "Tried to add zombie $id:$text" ) ;
+        Logger ( "Tried to add zombie $id:$text" ) ;
         }
     $self -> _latest ( $id ) ;
 
     if ( $self -> _frozen )
         {
-        InfoGopher::Logger -> log ( "Tried to add $id:$text in frozen state" ) ;
+        Logger ( "Tried to add $id:$text in frozen state" ) ;
         }
     else 
         {
         my $summary =  $self -> summary ($intention) ;
         my $msg = $self -> format_summary ( "Start", $summary ) ;
-        InfoGopher::Logger -> log ( $msg ) ;        
+        Logger ( $msg ) ;        
         $self -> add_intention ($id) ;
         $self -> set_summary ( $id, $summary ) ;
         }
@@ -233,10 +239,10 @@ sub remove
         my $summary =  $self -> summary ($intention) ;
         if ( ! $self -> remove_id($id) )
             {
-            InfoGopher::Logger -> log( "Intention stack remove: $id ($text) was not on top" );
+            Logger( "Intention stack remove: $id ($text) was not on top" );
             }
         my $msg = $self -> format_summary ( "End  ", $summary ) ;
-        InfoGopher::Logger -> log ( $msg ) ;        
+        Logger ( $msg ) ;        
         }
     }
 
@@ -261,19 +267,20 @@ sub remove_id
 # unwind - dump intention stack. will thaw afterwards
 #
 # in    $msg - msg printed before dump
+#       $i - intention in the unwinding context (not yet used)
 #
 sub unwind
     {
-    my ($self, $msg) = @_ ;
+    my ($self, $msg, $i) = @_ ;
 
-    InfoGopher::Logger -> log( "Exception: $msg" ) ;
+    Logger( "Exception: $msg" ) ;
 
     my @stack ;
     for( my $i = $self -> count_intentions-1; $i>=0; $i-- )
         {
         my $summary =  $self -> get_summary ( $self -> get_intention($i) ) ;
         my $line =  "$i: " . $summary -> what ." (". localtime($summary -> timestamp) .")." ;
-        InfoGopher::Logger -> log( $line ) ;
+        Logger( $line ) ;
         push @stack, $line ;
         }
 

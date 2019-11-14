@@ -1,5 +1,42 @@
 200 HTTP/1.0 200 OK
-Content-Type: text/html; charset=utf-8
+Content-Type: application/rss+xml; charset=utf-8
 Content-Language: de
 
-RSS2: Fette Gewinne im Schmalzgeschäft
+<?xml version="1.0" encoding="utf-8"?>
+
+<rss version="2.0">
+
+  <channel>
+    <title>Aktuelles aus der Wirtschaft</title>
+    <link>http://127.0.0.1/economy</link>
+    <description>Nachrichten aus der Welt der Wirtschaft</description>
+    <language>de-de</language>
+    <copyright>A. Neumann neumann@mad.de</copyright>
+    <pubDate>Mon, 1 Apr 2019 11:11:11</pubDate>
+    <image>
+      <url>http://127.0.0.1/economy/insane.png</url>
+      <title>Der Nackte Wahnsinn</title>
+      <link>http://127.0.0.1/economy/</link>
+    </image>
+
+    <item>
+      <title>Fette Gewinne im Schmalzgeschäft</title>
+      <description>Lorem ipsum ..</description>
+      <link>http://127.0.0.1/economy/lard</link>
+      <author>Donald Duck donald@entenhausen.de</author>
+      <guid>lard</guid>
+      <pubDate>Son, 31 Mrz 2019 10:11:11</pubDate>
+    </item>
+
+    <item>
+      <title>Limonadenfabrik übergesrudelt</title>
+      <description>Lorem ipsum ..</description>
+      <link>http://127.0.0.1/economy/lard</link>
+      <author>Donald Duck donald@entenhausen.de</author>
+      <guid>lemonade</guid>
+      <pubDate>Son, 31 Mrz 2019 09:11:11</pubDate>
+    </item>
+
+  </channel>
+
+</rss>

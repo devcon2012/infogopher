@@ -8,19 +8,18 @@ use warnings;
 use Test::More tests => 3;
 
 use Try::Tiny ;
-use InfoGopher::Logger;
 
-BEGIN { use_ok('InfoGopherException') };
+BEGIN { use_ok('InfoGopher::Essentials') };
 
 BEGIN {
-    open( my $loghandle, ">", "testInfoGopherException.log" ) 
+    open( my $loghandle, ">", "testEssentials.log" ) 
         or die "cannot open log: $!" ;
     InfoGopher::Logger -> handle ( $loghandle ) ;
     }
 
 try 
     {
-    InfoGopherException::ThrowInfoGopherException("XX") ;
+    ThrowException("XX") ;
     }
 catch
     {
@@ -29,8 +28,6 @@ catch
     ok ( 'InfoGopher::Exception' eq ref $e ) ;
     ok ( 'XX' eq $e -> what ) ;
     };
-
-#########################
 
 
 

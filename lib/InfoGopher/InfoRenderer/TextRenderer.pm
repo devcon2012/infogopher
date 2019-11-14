@@ -33,11 +33,12 @@ sub process
     my $line ;
     if ( $bite -> mime_type =~ /text/ )
         {
-        $line = $data . " ($type fetched \@ $time )" ;
+        $line = substr($data, 0, 40) . "... ($type fetched \@ $time )" ;
         }
     else
         {
-        $line = "(binary) ($type fetched \@ $time )" ;
+        my $sz = length $data ; # this is chars, not utf8 bytes ...
+        $line = "(~ $sz bytes) ($type fetched \@ $time )" ;
         }
     return $line ;    
     }

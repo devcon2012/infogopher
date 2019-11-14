@@ -7,6 +7,8 @@ use namespace::autoclean ;
 
 use Moose;
 
+use InfoGopher::IntentionStack ;
+
 has 'what' => (
     documentation   => 'exception error message',
     is              => 'rw',
@@ -14,6 +16,11 @@ has 'what' => (
     lazy            => 1,
     default         => '???',
 ) ;
+
+sub BUILD
+    {
+    InfoGopher::IntentionStack -> freeze ( 1 ) ;
+    }
 
 __PACKAGE__ -> meta -> make_immutable ;
 

@@ -1,5 +1,7 @@
 package InfoGopher ;
 
+# see below for docu and copyright information
+
 use 5.026001;
 use strict;
 use warnings;
@@ -9,10 +11,7 @@ use Moose ;
 
 our $VERSION = '0.05';
 
-use InfoGopherException ;
-use InfoGopher::Intention ;
-use InfoGopher::Logger ;
-use InfoGopher::InfoSource::RSS ;
+use InfoGopher::Essentials ;
 
 use Try::Tiny ;
 use Data::Dumper ;
@@ -38,8 +37,16 @@ has 'info_sources' => (
         clear_info_sources  => 'clear',
         },
     ) ;
+our $id_serial = 0 ;
+around 'add_info_source' => sub 
+    {
+    my ($orig, $self, $source) = @_ ;
+    shift; shift ;
 
+    $source -> id ( $id_serial++ ) ;
 
+    return $self->$orig(@_);
+    };
 # -----------------------------------------------------------------------------
 # collect - trigger fetch for all info sources
 #
@@ -50,7 +57,7 @@ sub collect
     my ($self) = @_ ;
 
     my $n = $self->count_info_sources ;
-    my $i = NewIntention ( "Collecting bits from $n datasources" ) ;
+    my $i = NewIntention ( "Collecting bits from $n sources" ) ;
 
     for ( my $i=0; $i < $self->count_info_sources; $i++)
         {
@@ -58,39 +65,35 @@ sub collect
 
         try
             {
-            $source -> fetch () ;
+            $source -> fetch ($i) ;
             }
         catch
             {
             my $e = $_ ;
-            InfoGopher::IntentionStack -> unwind ( $e -> what ) ;
+            UnwindIntentionStack ( $e -> what, $i ) ;
             }
         }
     }
 
 # -----------------------------------------------------------------------------
-# render
+# get_all - assemble list of all InfoBites
 #
 #
 #
-sub render
+sub get_all
     {
-    my ($self, $renderer) = @_ ;
+    my ($self) = @_ ;
 
-    my @result ;
-    for ( my $i=0; $i < $self->count_info_sources; $i++)
+    my $n = $self->count_info_sources ;
+    my $i = NewIntention ( "Assembling results from $n sources" ) ;
+
+    my @results ;
+    foreach ( $self->all_info_sources)
         {
-        my $source = $self -> get_info_source($i) ;
-        foreach my $i ( $source -> info_bites )
-            {
-            foreach my $j ( $i -> all )
-                {
-                my $r = $renderer -> process ( $j ) ;
-                push @result, $r ;
-                }
-            }
+        push @results, $_ -> info_bites ;
         }
-    return \@result ;
+
+    return \@results ;
     }
 
 # -----------------------------------------------------------------------------
@@ -110,27 +113,17 @@ sub dump
         my $source = $self -> get_info_source($i) ;
         foreach my $i ( $source -> info_bites )
             {
+            my $intro = "InfoBites from " . $i -> source_name . " (" . $i -> source_id . ")" ;
+            Logger ( $intro ) ;
             foreach my $j ( $i -> all )
                 {
                 my $r = $renderer -> process ( $j ) ;
-                InfoGopher::Logger -> log ( $r ) ;
+                Logger ( $r ) ;
                 }
             }
         }
     return \@result ;
     }
-
-sub NewIntention
-  {
-  my $what = shift ;
-  return InfoGopher::Intention -> new( what => $what ) ;
-  }
-
-sub ThrowException
-  {
-  my $what = shift ;
-  InfoGopherException::ThrowInfoGopherException($what) ;
-  }
 
 __PACKAGE__ -> meta -> make_immutable ;
 
@@ -152,36 +145,43 @@ InfoGopher - Perl Moose Class to collect info bits from a variety of sources.
 
   $gopher -> add_info_source($rss) ;
   $gopher -> collect() ;
-  my $bites = $gopher -> info_bites($rss) ;
+  $gopher -> dump() ;
 
 =head1 DESCRIPTION
 
-Stub documentation for InfoGopher, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+An InfoGopher uses InfoSources (RSS Feeds, ...). It can update these over the net,
+extract relevant pieces of information (an InfoBite) and provide these to other modules. 
 
-Blah blah blah.
+=head2 METHODS
 
-=head2 EXPORT
+sub collect()
+    Refresh all registered InfoSources
 
-None by default.
+sub dump()
+    print out what we got (intended for debugging)
 
+sub all_info_sources
+sub add_info_source
+sub get_info_source
+sub count_info_sources
+sub has_info_sources
+sub clear_info_sources
+    Manage the internal list of InfoSources
 
+=head2 EXPORTS
+
+sub NewIntention ( $what )
+    declare a new Intention for this context.
+
+sub ThrowException ( $what )
+    Throw an exception
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-Klaus Ramstöck, E<lt>klaus@(none)E<gt>
+Klaus Ramstöck, E<lt>klaus@ramstoeck.nameE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

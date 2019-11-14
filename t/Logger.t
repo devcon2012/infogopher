@@ -5,8 +5,8 @@ use Test::More tests => 6;
 
 use Try::Tiny ;
 
-BEGIN { use_ok('InfoGopher') };
 BEGIN { use_ok('InfoGopher::Logger') };
+BEGIN { use_ok('InfoGopher::Essentials') };
 
 # make testdb TEST_FILE=t/Logger.t
 #########################
@@ -20,7 +20,7 @@ my $line = "test log entry" ;
     InfoGopher::Logger -> handle ( $loghandle ) ;
     ok ( "log set", "log set" ) ;
 
-    InfoGopher::Logger -> log ( "test log entry " ) ;
+    Logger ( "test log entry " ) ;
     ok ( "logentry written", "logentry written" ) ;
 
     InfoGopher::Logger -> handle ( undef ) ;

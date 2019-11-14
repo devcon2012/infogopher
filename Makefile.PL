@@ -1,3 +1,11 @@
+#
+# InfoGopher - A framework for collection information
+#
+#   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
+#
+# You can use and distribute this software under the same conditions as perl
+#
+
 use 5.026001;
 use ExtUtils::MakeMaker;
 use File::Find ;
@@ -23,14 +31,14 @@ sub CritiqueModules
     
     }
 
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
 WriteMakefile(
     NAME              => 'InfoGopher',
-    VERSION_FROM      => 'lib/InfoGopher.pm', # finds $VERSION, requires EU::MM from perl >= 5.5
+    VERSION_FROM      => 'lib/InfoGopher.pm', 
     PREREQ_PM         => {
                             'Moose' => 1, 
                             'HTTP::Daemon' => 1, 
+                            'XML::Parser' => 1,
+                            'JSON' => 1
                          }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/InfoGopher.pm', # retrieve abstract from module
     AUTHOR            => 'Klaus Ramstöck <klaus@ramstoeck.name>',

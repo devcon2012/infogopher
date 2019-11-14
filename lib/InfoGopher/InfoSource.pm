@@ -38,6 +38,23 @@ has 'name' => (
     default         => ''
 ) ;
 
+# 
+has 'id' => (
+    documentation   => 'id from InfoGopher',
+    is              => 'rw',
+    isa             => 'Maybe[Str]',
+    default         => ''
+) ;
+around 'id' => sub 
+    {
+    my ($orig, $self, $newid) = @_ ;
+    shift; shift ;
+
+    $self -> info_bites -> source_id ( $newid ) ;
+
+    return $self->$orig(@_);
+    };
+
 has 'raw' => (
     documentation   => 'Raw data obtained',
     is              => 'rw',
@@ -63,9 +80,6 @@ sub _build_info_bites
     {
     return InfoGopher::InfoBites -> new () ;
     }
-
-#
-#
 
 # -----------------------------------------------------------------------------
 # add_info_bite - factory method to add a new info bite to the list
@@ -100,6 +114,18 @@ sub dump_info_bites
         {
         print STDERR $renderer -> process ($_) . "\n" ;
         } 
+    }
+
+# -----------------------------------------------------------------------------
+# fetch - virtual method 
+#
+#
+sub fetch
+    {
+    my ( $self, $id ) = @_ ;
+
+    die "VIRTUAL fetch in " . __PACKAGE__ . " NOT OVERLOADED" ;
+    
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

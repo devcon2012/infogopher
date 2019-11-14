@@ -20,11 +20,11 @@ BEGIN
 
     open( my $loghandle, ">", "testInfoGopher.log" ) 
         or die "cannot open log: $!" ;
-    InfoGopher::Logger -> handle ( $loghandle ) ;
+    InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
 
     } ;
 
-# make test TEST_VERBOSE=1
+# make test TEST_VERBOSE=1 TEST_FILES='t/InfoGopher.t'
 # make testdb TEST_FILE=t/InfoGopher.t
 #########################
 
@@ -59,7 +59,7 @@ catch
 my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
 ok ('got a renderer', 'got a renderer' ) ;
 
-my @result = $gopher -> render( $renderer ) ;
+my @result = $gopher -> get_all( $renderer ) ;
 ok ( 1 == scalar @result, "exactly one result" ) ;
 
 note ( $result[0] ) ;
