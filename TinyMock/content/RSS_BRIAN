@@ -1,0 +1,468 @@
+200 HTTP/1.0 200 OK
+Content-Type: application/rss+xml; charset=utf-8
+Content-Language: de
+
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Krebs on Security</title>
+	<atom:link href="https://krebsonsecurity.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://krebsonsecurity.com</link>
+	<description>In-depth security news and investigation</description>
+	<lastBuildDate>Wed, 13 Nov 2019 17:14:17 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=5.0.4</generator>
+	<item>
+		<title>Orcus RAT Author Charged in Malware Scheme</title>
+		<link>https://krebsonsecurity.com/2019/11/orcus-rat-author-charged-in-malware-scheme/</link>
+		<comments>https://krebsonsecurity.com/2019/11/orcus-rat-author-charged-in-malware-scheme/#comments</comments>
+		<pubDate>Wed, 13 Nov 2019 15:41:17 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[Ne'er-Do-Well News]]></category>
+		<category><![CDATA[Australian Federal Police]]></category>
+		<category><![CDATA[Blackshades RAT]]></category>
+		<category><![CDATA[John Revesz]]></category>
+		<category><![CDATA[LuminosityLink]]></category>
+		<category><![CDATA[NanoCore RAT]]></category>
+		<category><![CDATA[Orcus RAT]]></category>
+		<category><![CDATA[Orcus Technologies]]></category>
+		<category><![CDATA[RCMP]]></category>
+		<category><![CDATA[Royal Canadian Mounted Police]]></category>
+		<category><![CDATA[Taylor Huddleston]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49491</guid>
+		<description><![CDATA[In July 2016, KrebsOnSecurity published a story identifying a Toronto man as the author of the Orcus RAT, a software product that’s been marketed on underground forums and used in countless malware attacks since its creation in 2015. This week, Canadian authorities criminally charged him with orchestrating an international malware scheme.]]></description>
+				<content:encoded><![CDATA[<p>In July 2016, KrebsOnSecurity <a href="https://krebsonsecurity.com/2016/07/canadian-man-is-author-of-popular-orcus-rat/" target="_blank" rel="noopener">published a story</a> identifying a Toronto man as the author of the <strong>Orcus RAT</strong>, a software product that’s been marketed on underground forums and used in countless malware attacks since its creation in 2015. This week, Canadian authorities criminally charged him with orchestrating an international malware scheme.</p>
+<div id="attachment_47154" style="width: 607px" class="wp-caption aligncenter"><img class="wp-image-47154" src="https://krebsonsecurity.com/wp-content/uploads/2019/04/orcusad.jpg" alt="" width="597" height="244" /><p class="wp-caption-text">An advertisement for Orcus RAT.</p></div>
+<p>The accused, 36-year-old <strong>John &#8220;Armada&#8221; Revesz</strong>, has maintained that Orcus is a legitimate &#8220;<strong>R</strong>emote <strong>A</strong>dministration <strong>T</strong>ool&#8221; aimed at helping system administrators remotely manage their computers, and that he&#8217;s not responsible for how licensed customers use his product.</p>
+<p>In my 2016 piece, however, several sources noted that Armada and his team were marketing it more like a <strong>R</strong>emote <strong>A</strong>ccess <strong>T</strong>rojan, providing ongoing technical support and help to customers who&#8217;d purchased Orcus but were having trouble figuring out how to infect new machines or hide their activities online.</p>
+<p>Follow-up reporting revealed that the list of features and plugins advertised for Orcus includes functionality that goes significantly beyond what one might see in a traditional remote administration tool, such as DDoS-for-hire capabilities, and the ability to disable the light indicator on webcams so as not to alert the target that the RAT is active.</p>
+<p>Canadian investigators don&#8217;t appear to be buying Revesz&#8217; claims. On Monday the <strong>Royal Canadian Mounted Police</strong> (RCMP) announced it had charged Revesz with operating an international malware distribution scheme under the company name &#8220;Orcus Technologies.&#8221;</p>
+<p>&#8220;An RCMP criminal investigation began in July 2016 after reports of a significant amount of computers were being infected with a &#8216;Remote Access Trojan&#8217; type of virus,&#8221; the agency said in <a href="http://www.rcmp-grc.gc.ca/en/news/2019/charges-laid-rcmp-relation-international-malware-virus" target="_blank" rel="noopener">a statement</a>.</p>
+<p>The RCMP filed the charges eight months after executing a search warrant at Revesz&#8217; home, where they seized several hard drives containing Orcus RAT customer names, financial transactions, and other information.</p>
+<p>&#8220;The evidence obtained shows that this virus has infected computers from around the world, making thousands of victims in multiple countries,&#8221; the RCMP said.</p>
+<p>Revesz did not respond to requests for comment.<span id="more-49491"></span></p>
+<p>If Revesz&#8217;s customers are feeling the heat right now, they probably should be. Several former customers of his took to Hackforums[.]net to complain about being raided by investigators who are trying to track down individuals suspected of using Orcus to infect computers with malware.</p>
+<p>&#8220;I got raided [and] within the first 5 minutes they mention Orcus to me,&#8221; complained one customer on Hackforums[.]net, the forum where Revesz principally advertised his software. That user pointed to <a href="https://www.afp.gov.au/news-media/media-releases/afp-executes-warrant-malware-investigation" target="_blank" rel="noopener">a March 2019 media advisory</a> released by the <strong>Australian Federal Police</strong>, who said they&#8217;d executed search warrants there as part of an investigation into RAT technology conducted in tandem with the RCMP.</p>
+<p>According to Revesz himself, the arrests and searches related to Orcus have since expanded to individuals in the United States and Germany.</p>
+<p>The sale and marketing of remote administration tools is not illegal in the United States, and indeed there are plenty such tools sold by legitimate companies to help computer experts remotely administer computers.</p>
+<p>However, these tools tend to be viewed by prosecutors as malware and spyware when their proprietors advertise them as hacking devices and provide customer support aimed at helping buyers deploy the RATs stealthily and evade detection by anti-malware programs.</p>
+<p>Last year, a 21-year-old Kentucky man <a href="https://krebsonsecurity.com/2018/07/luminositylink-rat-author-pleads-guilty/" target="_blank" rel="noopener">pleaded guilty</a> to authoring and distributing a popular hacking tool called “LuminosityLink,” which experts say was used by thousands of customers to gain access to tens of thousands of computers across 78 countries worldwide.</p>
+<p>Also in 2018, 27-year-old Arkansas resident <strong>Taylor Huddleston</strong> was <a href="https://krebsonsecurity.com/2018/02/bot-roundup-avalanche-kronos-nanocore/" target="_blank" rel="noopener">sentenced to three years in jail</a> for making and selling the “NanoCore RAT,” which was being used to spy on webcams and steal passwords from systems running the software.</p>
+<p>In many previous law enforcement investigations targeting RAT developers and sellers, investigators also have targeted customers of these products. In 2014, the U.S. Justice Department announced a series of actions against <a href="https://krebsonsecurity.com/2014/05/blackshades-trojan-users-had-it-coming/" target="_blank" rel="noopener">more than 100 people accused of purchasing and using “Blackshades,”</a> a cheap and powerful RAT that the U.S. government said was used to infect more than a half million computers worldwide.</p>
+<p>It&#8217;s remarkable how many denizens of various hacking forums persist in believing that an end-user licensing agreement (EULA) or &#8220;terms of service&#8221; (TOS) disavowing any responsibility for what customers do with the product somehow absolves sellers of RAT programs of any liability when they then turn around and actively assist customers in using the tools to infect systems with malware.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/11/orcus-rat-author-charged-in-malware-scheme/feed/</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>Patch Tuesday, November 2019 Edition</title>
+		<link>https://krebsonsecurity.com/2019/11/patch-tuesday-november-2019-edition/</link>
+		<comments>https://krebsonsecurity.com/2019/11/patch-tuesday-november-2019-edition/#comments</comments>
+		<pubDate>Tue, 12 Nov 2019 22:04:32 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[Time to Patch]]></category>
+		<category><![CDATA[adobe]]></category>
+		<category><![CDATA[CVE-2019-1429]]></category>
+		<category><![CDATA[CVE-2019-1457]]></category>
+		<category><![CDATA[Internet Explorer zero-day]]></category>
+		<category><![CDATA[macros]]></category>
+		<category><![CDATA[microsoft]]></category>
+		<category><![CDATA[Office for Mac]]></category>
+		<category><![CDATA[Windows 7 end-of-life]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49481</guid>
+		<description><![CDATA[Microsoft today released updates to plug security holes in its software, including patches to fix at least 74 weaknesses in various flavors of Windows and in software that runs on top of it. The November updates include patches for a zero-day flaw in Internet Explorer that is currently being exploited in the wild, as well as a sneaky bug in certain versions of Office for Mac that bypasses security protections and was detailed publicly prior to today's patches.]]></description>
+				<content:encoded><![CDATA[<p><strong>Microsoft</strong> today released updates to plug security holes in its software, including patches to fix at least 74 weaknesses in various flavors of <strong>Windows</strong> and programs that run on top of it. The November updates include patches for a zero-day flaw in <strong>Internet Explorer</strong> that is currently being exploited in the wild, as well as a sneaky bug in certain versions of <strong>Office for Mac</strong> that bypasses security protections and was detailed publicly prior to today&#8217;s patches.</p>
+<p><img class="alignright wp-image-26837" src="https://krebsonsecurity.com/wp-content/uploads/2014/07/brokenwindows.png" alt="" width="220" height="231" />More than a dozen of the flaws tackled in this month&#8217;s release are rated &#8220;critical,&#8221; meaning they involve weaknesses that could be exploited to install malware without any action on the part of the user, except for perhaps browsing to a hacked or malicious Web site or opening a booby-trapped file attachment.</p>
+<p>Perhaps the most concerning of those critical holes is a zero-day flaw in Internet <del>Exploder</del> Explorer (<a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1429" target="_blank" rel="noopener">CVE-2019-1429</a>) that has already seen active exploitation. Today&#8217;s updates also address two other critical vulnerabilities in the same Windows component that handles various <a href="https://encyclopedia2.thefreedictionary.com/Microsoft+Script+Engine" target="_blank" rel="noopener">scripting languages</a>.</p>
+<p>Microsoft also fixed a flaw in Microsoft Office for Mac (<a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1457" target="_blank" rel="noopener">CVE-2019-1457</a>) that could allow attackers to bypass security protections in some versions of the program.</p>
+<p>Macros are bits of computer code that can be embedded into Office files, and malicious macros are frequently used by malware purveyors to compromise Windows systems. Usually, this takes the form of a prompt urging the user to &#8220;enable macros&#8221; once they&#8217;ve opened a booby-trapped Office document delivered via email. Thus, Office has a feature called &#8220;disable all macros without notification.&#8221;</p>
+<p><img class="aligncenter wp-image-28673" src="https://krebsonsecurity.com/wp-content/uploads/2014/11/macrosms.png" alt="" width="596" height="348" srcset="https://krebsonsecurity.com/wp-content/uploads/2014/11/macrosms.png 630w, https://krebsonsecurity.com/wp-content/uploads/2014/11/macrosms-285x166.png 285w, https://krebsonsecurity.com/wp-content/uploads/2014/11/macrosms-600x350.png 600w" sizes="(max-width: 596px) 100vw, 596px" /></p>
+<p>But Microsoft says all versions of Office still support an older type of macros that do not respect this setting, and can be used as <a href="https://krebsonsecurity.com/2019/02/payroll-provider-gives-extortionists-a-payday/" target="_blank" rel="noopener">a vector for pushing malware</a>. <strong>Will Dormann</strong> of the <a href="https://kb.cert.org/vuls/id/125336/" target="_blank" rel="noopener">CERT/CC has reported</a> that Office 2016 and 2019 for Mac will fail to prompt the user before executing these older macro types if the &#8220;Disable all macros without notification&#8221; setting is used.<span id="more-49481"></span></p>
+<p>Other Windows applications or components receiving patches for critical flaws today include Microsoft Exchange and Windows Media Player. In addition, Microsoft also patched nine vulnerabilities &#8212; five of them critical &#8212; in the <strong>Windows Hyper-V</strong>, an add-on to the <strong>Windows Server OS</strong> (and <strong>Windows 10 Pro</strong>) that allows users to create and run <a href="https://azure.microsoft.com/en-us/overview/what-is-a-virtual-machine/" target="_blank" rel="noopener">virtual machines</a> (other &#8220;guest&#8221; operating systems) from within Windows.</p>
+<p>Although <strong>Adobe</strong> typically issues patches for its <strong>Flash Player</strong> browser component on Patch Tuesday, this is the second month in a row that Adobe has not released any security updates for Flash. However, Adobe today did push security fixes for a variety of its creative software suites, including <a href="https://helpx.adobe.com/security/products/animate/apsb19-34.html" target="_blank" rel="noopener">Animate</a>, <a href="https://helpx.adobe.com/security/products/illustrator/apsb19-36.html" target="_blank" rel="noopener">Illustrator</a>, <a href="https://helpx.adobe.com/security/products/media-encoder/apsb19-52.html" target="_blank" rel="noopener">Media Encoder</a> and <a href="https://helpx.adobe.com/security/products/bridge/apsb19-53.html" target="_blank" rel="noopener">Bridge</a>. Also, I neglected to note last month that Adobe released a critical update for <strong>Acrobat/Reader</strong> that <a href="https://helpx.adobe.com/security/products/acrobat/apsb19-49.html" target="_blank" rel="noopener">addressed at least 67 bugs</a>, so if you&#8217;ve got either of these products installed, please be sure they&#8217;re patched and up to date.</p>
+<p>Finally, <strong>Google</strong> recently fixed a zero-day flaw in its <strong>Chrome</strong> Web browser (<a href="https://securelist.com/chrome-0-day-exploit-cve-2019-13720-used-in-operation-wizardopium/94866/" target="_blank" rel="noopener">CVE-2019-13720</a>). If you use Chrome and see an upward-facing arrow to the right of the address bar, you have an update pending; fully closing and restarting the browser should install any available updates.</p>
+<p>Now seems like a good time to remind all you <strong>Windows 7</strong> end users that Microsoft will cease shipping security updates after January 2020 (this end-of-life also affects Windows Server 2008 and 2008 R2). While businesses and other volume-license purchasers will <a href="https://techcommunity.microsoft.com/t5/Windows-IT-Pro-Blog/How-to-get-Extended-Security-Updates-for-eligible-Windows/ba-p/917807" target="_blank" rel="noopener">have the option to pay for further fixes</a> after that point, all other Windows 7 users who want to stick with Windows will need to consider migrating to <strong>Windows 10</strong> soon.</p>
+<p>Standard heads-up: Windows 10 likes to install patches all in one go and reboot your computer on its own schedule. Microsoft doesn’t make it easy for Windows 10 users to change this setting, <a href="https://www.howtogeek.com/224471/how-to-prevent-windows-10-from-automatically-downloading-updates/" target="_blank" rel="noopener">but it is possible</a>. For all other Windows OS users, if you’d rather be alerted to new updates when they’re available so you can choose when to install them, there’s a setting for that in Windows Update. To get there, click the Windows key on your keyboard and type “windows update” into the box that pops up.</p>
+<p>Keep in mind that while staying up-to-date on Windows patches is a good idea, it&#8217;s important to make sure you&#8217;re updating only after you’ve backed up your important data and files. A reliable backup means you’re probably not freaking out when the odd buggy patch causes problems booting the system. So do yourself a favor and backup your files before installing any patches.</p>
+<p>As ever, if you experience glitches or problems installing any of these patches this month, please feel free to leave a comment about it below; there’s a decent chance other readers have experienced the same and may even chime in here with some helpful tips.</p>
+<p><strong>Update, Nov. 13, 11:34 a.m.:</strong> An earlier version of this story misstated some of the findings from CERT/CC, and misspelled the name of the researcher. The above post has been corrected.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/11/patch-tuesday-november-2019-edition/feed/</wfw:commentRss>
+		<slash:comments>32</slash:comments>
+		</item>
+		<item>
+		<title>Retailer Orvis.com Leaked Hundreds of Internal Passwords on Pastebin</title>
+		<link>https://krebsonsecurity.com/2019/11/retailer-orvis-com-leaked-hundreds-of-internal-passwords-on-pastebin/</link>
+		<comments>https://krebsonsecurity.com/2019/11/retailer-orvis-com-leaked-hundreds-of-internal-passwords-on-pastebin/#comments</comments>
+		<pubDate>Mon, 11 Nov 2019 17:33:27 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[A Little Sunshine]]></category>
+		<category><![CDATA[alex holden]]></category>
+		<category><![CDATA[GitHub]]></category>
+		<category><![CDATA[Hold Security]]></category>
+		<category><![CDATA[Orvis password exposure]]></category>
+		<category><![CDATA[Orvis.com]]></category>
+		<category><![CDATA[Pastebin]]></category>
+		<category><![CDATA[Tucker Kimball]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49405</guid>
+		<description><![CDATA[Orvis, a Vermont-based retailer that specializes in high-end fly fishing equipment and other sporting goods, leaked hundreds of internal passwords on Pastebin.com for several weeks last month, exposing credentials the company used to manage everything from firewalls and routers to administrator accounts and database servers, KrebsOnSecurity has learned. Orvis says the exposure was inadvertent, and that many of the credentials were already expired.]]></description>
+				<content:encoded><![CDATA[<p><strong><a href="https://www.orvis.com" target="_blank" rel="noopener">Orvis</a></strong>, a Vermont-based retailer that specializes in high-end fly fishing equipment and other sporting goods, leaked hundreds of internal passwords on <strong>Pastebin.com</strong> for several weeks last month, exposing credentials the company used to manage everything from firewalls and routers to administrator accounts and database servers, KrebsOnSecurity has learned. Orvis says the exposure was inadvertent, and that many of the credentials were already expired.</p>
+<p><img class="aligncenter wp-image-49459" src="https://krebsonsecurity.com/wp-content/uploads/2019/11/orvis.png" alt="" width="594" height="445" /></p>
+<p>Based in Sunderland, VT. and founded in 1856, privately-held Orvis is the oldest mail-order retailer in the United States. The company has approximately 1,700 employees, 69 retail stores and 10 outlets in the US, and 18 retail stores in the UK.</p>
+<p>In late October, this author received a tip from Wisconsin-based security firm <a href="https://www.holdsecurity.com" target="_blank" rel="noopener">Hold Security</a> that a file containing a staggering number of internal usernames and passwords for Orvis had been posted to Pastebin. </p>
+<p>Reached for comment about the source of the document, Orvis spokesperson <strong>Tucker Kimball</strong> said it was only available for a day before the company had it removed from Pastebin.</p>
+<p>&#8220;The file contains old credentials, so many of the devices associated with the credentials are decommissioned and we took steps to address the remaining ones,&#8221; Kimball said. &#8220;We are leveraging our existing security tools to conduct an investigation to determine how this occurred.&#8221;</p>
+<p>However, according to Hold Security founder <strong>Alex Holden</strong>, this enormous passwords file was actually posted to Pastebin <em>on two separate occasions last month</em>, the first being on Oct. 4, and the second Oct. 22. That finding was corroborated by <a href="https://www.4iq.com" target="_blank" rel="noopener">4iq.com</a>, a company that aggregates information from leaked databases online.</p>
+<p>Orvis did not respond to follow-up requests for comment via phone and email; the last two email messages sent by KrebsOnSecurity to Orvis were returned simply as &#8220;blocked.&#8221;</p>
+<p>It&#8217;s not unusual for employees or contractors to post bits of sensitive data to public sites like Pastebin and <a href="https://www.github.com" target="_blank" rel="noopener">Github</a>, but the credentials file apparently published by someone working at or for Orvis is by far the most extreme example I&#8217;ve ever witnessed.</p>
+<p>For instance, included in the Pastebin files from Orvis were plaintext usernames and passwords for just about every kind of online service or security product the company has used, including:</p>
+<p>-Antivirus engines<br />
+-Data backup services<br />
+-Multiple firewall products<br />
+-Linux servers<br />
+-Cisco routers<br />
+-Netflow data<br />
+-Call recording services<br />
+-DNS controls<br />
+-Orvis wireless networks (public and private)<br />
+-Employee wireless phone services<br />
+-Oracle database servers<br />
+-Microsoft 365 services<br />
+-Microsoft Active Directory accounts and passwords<br />
+-Battery backup systems<br />
+-Security cameras<br />
+-Encryption certificates<br />
+-Mobile payment services<br />
+-Door and Alarm Codes<br />
+-FTP credentials<br />
+-Apple ID credentials<br />
+-Door controllers</p>
+<p>By all accounts, this was a comprehensive goof: <em>The Orvis credentials file even contained the combination to a locked safe in the company&#8217; server room.</em><span id="more-49405"></span></p>
+<p>The only clue about the source of the Orvis password file is a notation at the top of the document that reads &#8220;VT Technical Services.&#8221;</p>
+<p>Holden said this particular exposure also highlights the issue with third parties, as the issue most likely originated not from Orvis staff itself.</p>
+<p>&#8220;This is a continuously growing trend of exposures created not by the victims but by those that they consider to be trusted partners,&#8221; Holden said.</p>
+<p>It&#8217;s fairly remarkable that a company can spend millions on all the security technology under the sun and have all of it potentially undermined by one ill-advised post to Pastebin, but that is certainly the reality we live in today.</p>
+<p>Long gone are the days when one could post something for a few hours to a public document hosting service and expect nobody to notice. Today there are a number of third-party services that regularly index and preserve such postings, regardless of how ephemeral those posts may be.</p>
+<p>&#8220;Pastebin and other similar repositories are constantly being monitored and any data put out there will be preserved no matter how brief the posting is,&#8221; Holden said. &#8220;In the current threat landscape, we see data exposures nearly as often as we see data breaches. These exposures vary in scope and impact, and this particular one is as bad as they come without specific data exposures.&#8221;</p>
+<p>If you&#8217;re responsible for securing your organization&#8217;s environment, it would be an excellent idea to create some tools for monitoring for your domains and brands at Pastebin, Github and other sites where employees sometimes publish sensitive corporate data, inadvertently or otherwise. There are many ways to do this; <a href="http://www.automatingosint.com/blog/2017/04/building-a-keyword-monitoring-pipeline-with-python-pastebin-and-searx/" target="_blank" rel="noopener">here&#8217;s one example</a>.</p>
+<p>Have you built such monitoring tools for your organization or employer? If so, please feel free to sound off about your approach in the comments below.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/11/retailer-orvis-com-leaked-hundreds-of-internal-passwords-on-pastebin/feed/</wfw:commentRss>
+		<slash:comments>21</slash:comments>
+		</item>
+		<item>
+		<title>Study: Ransomware, Data Breaches at Hospitals tied to Uptick in Fatal Heart Attacks</title>
+		<link>https://krebsonsecurity.com/2019/11/study-ransomware-data-breaches-at-hospitals-tied-to-uptick-in-fatal-heart-attacks/</link>
+		<comments>https://krebsonsecurity.com/2019/11/study-ransomware-data-breaches-at-hospitals-tied-to-uptick-in-fatal-heart-attacks/#comments</comments>
+		<pubDate>Thu, 07 Nov 2019 19:48:03 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[A Little Sunshine]]></category>
+		<category><![CDATA[The Coming Storm]]></category>
+		<category><![CDATA[Department of Health and Human Services]]></category>
+		<category><![CDATA[HHS]]></category>
+		<category><![CDATA[Leo Scanlon]]></category>
+		<category><![CDATA[Owen Graduate School of Management]]></category>
+		<category><![CDATA[PBS]]></category>
+		<category><![CDATA[The New England Journal of Medicine]]></category>
+		<category><![CDATA[Vanderbilt University]]></category>
+		<category><![CDATA[WannaCry]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49338</guid>
+		<description><![CDATA[Hospitals that have been hit by a data breach or ransomware attack can expect to see an increase in the death rate among heart patients in the following months or years because of cybersecurity remediation efforts, a new study posits. Health industry experts say the findings should prompt a larger review of how security -- or the lack thereof -- may be impacting patient outcomes.]]></description>
+				<content:encoded><![CDATA[<p>Hospitals that have been hit by a data breach or ransomware attack can expect to see an increase in the death rate among heart patients in the following months or years because of cybersecurity remediation efforts, a new study posits. Health industry experts say the findings should prompt a larger review of how security &#8212; or the lack thereof &#8212; may be impacting patient outcomes.</p>
+<p><img class="aligncenter size-full wp-image-49443" src="https://krebsonsecurity.com/wp-content/uploads/2019/11/ekg-fl.jpg" alt="" width="500" height="375" /></p>
+<p>Researchers at <strong>Vanderbilt University</strong>&#8216;s Owen Graduate School of Management took the <strong>Department of Health and Human Services</strong> (HHS) list of healthcare data breaches and used it to drill down on data about patient mortality rates at more than 3,000 Medicare-certified hospitals, about 10 percent of which had experienced a data breach.</p>
+<p>As <strong>PBS</strong> <a href="https://www.pbs.org/newshour/science/ransomware-and-other-data-breaches-linked-to-uptick-in-fatal-heart-attacks" target="_blank" rel="noopener">noted in its coverage</a> of the Vanderbilt study, after data breaches as many as 36 additional deaths per 10,000 heart attacks occurred annually at the hundreds of hospitals examined.</p>
+<p>The researchers found that for care centers that experienced a breach, it took an additional 2.7 minutes for suspected heart attack patients to receive an electrocardiogram.</p>
+<p>&#8220;Breach remediation efforts were associated with deterioration in timeliness of care and patient outcomes,&#8221; the authors found. &#8220;Remediation activity may introduce changes that delay, complicate or disrupt health IT and patient care processes.&#8221;</p>
+<p><strong>Leo Scanlon</strong>, former deputy chief information security officer at the HHS, said the findings in this report practically beg for a similar study to be done in the United Kingdom, whose healthcare system was particularly disrupted by the Wannacry virus, a global contagion in May 2017 that spread through a Microsoft Windows vulnerability prevalent in older healthcare systems.</p>
+<p>&#8220;The exploitation of cybersecurity vulnerabilities is killing people,&#8221; Scanlon told KrebsOnSecurity. &#8220;There is a lot of possible research that might be unleashed by this study. I believe that nothing less than a congressional investigation will give the subject the attention it deserves.&#8221;</p>
+<p>A <a href="https://www.nao.org.uk/wp-content/uploads/2017/10/Investigation-WannaCry-cyber-attack-and-the-NHS.pdf" target="_blank" rel="noopener">post-mortem on the impact of WannaCry</a> found the outbreak cost U.K. hospitals almost $100 million pounds and caused significant disruption to patient care, such as the cancellation of some 19,000 appointments &#8212; including operations &#8212; and the disruption of IT systems for at least a third of all <strong>U.K. National Health Service</strong> (NHS) hospitals and eight percent of general practitioners. In several cases, hospitals in the U.K. were forced to divert emergency room visitors to other hospitals.</p>
+<p>But what isn’t yet known is how Wannacry affected mortality rates among heart attack and stroke patients whose ambulances were diverted to other hospitals because of IT system outages related to the malware. Or how many hospitals and practices experienced delays in getting test results back needed to make critical healthcare decisions.</p>
+<p>Scanlon said although he&#8217;s asked around quite a bit over the years to see if any researchers have taken up the challenge of finding out, and that so far he hasn&#8217;t found anyone doing that analysis.</p>
+<p>&#8220;A colleague who is familiar with large scale healthcare data sets told me that unless you are associated with a research institution, it would be almost impossible to pry that kind of data out of the institutions that have it,&#8221; Scanlon said. &#8220;The problem is this data is hard to come by &#8212; nobody likes to admit that death can be attributable to a non-natural cause like this &#8212; and is otherwise considered sensitive at a very high and proprietary level by the institutions that have the facts.&#8221;</p>
+<p>A study published <a href="https://www.nejm.org/doi/full/10.1056/NEJMsa1614073" target="_blank" rel="noopener">in the April 2017 edition</a> of <em>The New England Journal of Medicine</em> would seem to suggest applying the approach used by the Vanderbilt researchers to measuring patient outcomes at U.K. hospitals in the wake of Wannacry might be worth carrying out.</p>
+<p>In the NEJM study, morbidity and mortality data was used to show that there is a measurable impact when ambulances and emergency response teams are removed from normal service and redirected to standby during public events like marathons and other potential targets of terrorism.</p>
+<p>The study found that &#8220;medicare beneficiaries who were admitted to marathon-affected hospitals with acute myocardial infarction or cardiac arrest on marathon dates had longer ambulance transport times before noon (4.4 minutes longer) and higher 30-day mortality than beneficiaries who were hospitalized on nonmarathon dates.&#8221;<span id="more-49338"></span></p>
+<p>&#8220;Several colleagues and I are convinced that the same can be shown about WannaCry, on the large scale, and also at the small scale when ransomware attacks impact a regional hospital,&#8221; Scanlon said.</p>
+<p>In November 2018, I was honored to give the keynote at a conference held by the <a href="https://h-isac.org/" target="_blank" rel="noopener">Health Information Sharing and Analysis Center (H-ISAC)</a>, a non-profit that promotes the sharing of cyber threat information and best practices in the healthcare sector.</p>
+<p>In the weeks leading up to that speech, I interviewed more than a dozen experts in healthcare security to find out what was top of mind for these folks. Incredibly, one response I heard from multiple healthcare industry experts was that there is currently no data available to support the finding of a negative patient outcome as a result of a cybersecurity vulnerability or attack.</p>
+<p><span style="font-weight: 400;">As I kept talking to experts, it occurred to me that if smart people in this industry could say something like that with a straight face, it was probably because not a lot of people were looking too hard for evidence to the contrary. </span></p>
+<p>With this Vanderbilt study, that&#8217;s demonstrably no longer true.</p>
+<p>A copy of the new study is available <a href="https://onlinelibrary.wiley.com/doi/pdf/10.1111/1475-6773.13203" target="_blank" rel="noopener">here</a> (PDF).</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/11/study-ransomware-data-breaches-at-hospitals-tied-to-uptick-in-fatal-heart-attacks/feed/</wfw:commentRss>
+		<slash:comments>49</slash:comments>
+		</item>
+		<item>
+		<title>NCR Barred Mint, QuickBooks from Banking Platform During Account Takeover Storm</title>
+		<link>https://krebsonsecurity.com/2019/11/ncr-barred-mint-quickbooks-from-banking-platform-during-account-takeover-storm/</link>
+		<comments>https://krebsonsecurity.com/2019/11/ncr-barred-mint-quickbooks-from-banking-platform-during-account-takeover-storm/#comments</comments>
+		<pubDate>Sun, 03 Nov 2019 21:41:48 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[A Little Sunshine]]></category>
+		<category><![CDATA[The Coming Storm]]></category>
+		<category><![CDATA[Web Fraud 2.0]]></category>
+		<category><![CDATA[credential replay attacks]]></category>
+		<category><![CDATA[Digital Insight]]></category>
+		<category><![CDATA[Intuit]]></category>
+		<category><![CDATA[Mint]]></category>
+		<category><![CDATA[NCR Corp]]></category>
+		<category><![CDATA[Quickbooks Online]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49409</guid>
+		<description><![CDATA[Banking industry giant NCR Corp. [NYSE: NCR] late last month took the unusual step of temporarily blocking third-party financial data aggregators Mint and QuicBooks Online from accessing Digital Insight, an online banking platform used by hundreds of financial institutions. That ban, which came in response to a series of bank account takeovers in which cybercriminals used aggregation sites to surveil and drain consumer accounts, has since been rescinded. But the incident raises fresh questions about the proper role of digital banking platforms in fighting password abuse.]]></description>
+				<content:encoded><![CDATA[<p>Banking industry giant <strong>NCR Corp.</strong> [<a href="https://www.google.com/search?rlz=1C1SQJL_enUS858US858&amp;sxsrf=ACYBGNTT8RakelvmicXkMqpkUldtImdgMg:1572815817512&amp;q=NYSE:+NCR&amp;stick=H4sIAAAAAAAAAONgecRowS3w8sc9YSn9SWtOXmPU5OIKzsgvd80rySypFJLmYoOyBKX4uXj10_UNDZPNCouKTcpyeRaxcvpFBrtaKfg5BwEA0iv3ekkAAAA&amp;sa=X&amp;ved=2ahUKEwik_-XA-87lAhVkvFkKHfwDCXQQsRUwHnoECAgQAw&amp;biw=1920&amp;bih=937" target="_blank" rel="noopener">NYSE: NCR</a>] late last month took the unusual step of temporarily blocking third-party financial data aggregators <strong>Mint</strong> and <strong>QuickBooks Online</strong> from accessing <strong>Digital Insight</strong>, an online banking platform used by hundreds of financial institutions. That ban, which came in response to a series of bank account takeovers in which cybercriminals used aggregation sites to surveil and drain consumer accounts, has since been rescinded. But the incident raises fresh questions about the proper role of digital banking platforms in fighting password abuse.</p>
+<div id="attachment_49418" style="width: 606px" class="wp-caption aligncenter"><a class="lightbox" href="https://krebsonsecurity.com/wp-content/uploads/2019/11/ncr3rd.png"><img class="wp-image-49418" src="https://krebsonsecurity.com/wp-content/uploads/2019/11/ncr3rd.png" alt="" width="596" height="406" /></a><p class="wp-caption-text">Part of a communication NCR sent Oct. 25 to banks on its Digital Insight online banking platform.</p></div>
+<p>On Oct. 29, KrebsOnSecurity heard from a chief security officer at a U.S.-based credit union and Digital Insight customer who said his institution just had several dozen customer accounts hacked over the previous week.</p>
+<p>My banking source said the attackers appeared to automate the unauthorized logins, which took place over a week in several distinct 12-hour periods in which a new account was accessed every five to ten minutes.</p>
+<p>Most concerning, the source said, was that in many cases the aggregator service did not pass through prompts sent by the credit union&#8217;s site for multi-factor authentication, meaning the attackers could access customer accounts with nothing more than a username and password.</p>
+<p>&#8220;The weird part is sometimes the attackers are getting the multi-factor challenge, and sometimes they aren&#8217;t,&#8221; said the source, who added that he suspected a breach at Mint and/QuickBooks because NCR had just blocked the two companies from accessing bank Web sites on its platform.</p>
+<p>In a statement provided to KrebsOnSecurity, NCR said that on Friday, Oct. 25, the company notified Digital Insight customers &#8220;that the aggregation capabilities of certain third-party product were being temporarily suspended.&#8221;</p>
+<p>&#8220;The notification was sent while we investigated a report involving a single user and a third-party product that aggregates bank data,&#8221; reads their statement, which was sent to customers on Oct. 29. After confirming that the incident was contained, NCR restored connectivity that is used for account aggregation. &#8220;As we noted, the criminals are getting aggressive and creative in accessing tools to access online information, NCR continues to evaluate and proactively defend against these activities.&#8221;&#8221;</p>
+<p>What were these sophisticated methods? NCR wouldn&#8217;t say, but it seems clear the hacked accounts are tied to customers re-using their online banking passwords at other sites that got hacked.</p>
+<p>As I noted earlier this year in <a href="https://krebsonsecurity.com/2019/08/the-risk-of-weak-online-banking-passwords/" target="_blank" rel="noopener">The Risk of Weak Online Banking Passwords</a>, if you bank online and choose weak or re-used passwords, there’s a decent chance your account could be pilfered by cyberthieves — even if your bank offers multi-factor authentication as part of its login process.<span id="more-49409"></span></p>
+<p>Crooks are constantly probing bank Web sites for customer accounts protected by weak or recycled passwords. Most often, the attacker will use lists of email addresses and passwords stolen en masse from hacked sites and then try those same credentials to see if they permit online access to accounts at a range of banks.</p>
+<div id="attachment_48470" style="width: 510px" class="wp-caption aligncenter"><img class="size-full wp-image-48470" src="https://krebsonsecurity.com/wp-content/uploads/2019/08/chasebrute-ed2.png" alt="" width="500" height="294" /><p class="wp-caption-text">A screenshot of a password-checking tool that can be used to target Chase Bank customers who re-use passwords. There are tools like this one for just about every other major U.S. bank.</p></div>
+<p>From there, thieves can take the list of successful logins and feed them into apps that rely on application programming interfaces (API)s from one of several personal financial data aggregators, including <a href="https://www.mint.com/" target="_blank" rel="noopener">Mint</a>, <a href="https://www.plaid.com" target="_blank" rel="noopener">Plaid</a>, QuickBooks, <a href="https://www.yodlee.com/" target="_blank" rel="noopener">Yodlee</a>, and<strong> </strong><a href="https://www.youneedabudget.com/" target="_blank" rel="noopener">YNAB</a>.</p>
+<p>A number of banks that do offer customers multi-factor authentication — such as a one-time code sent via text message or an app — have chosen to allow these aggregators the ability to view balances and recent transactions without requiring that the aggregator service supply that second factor.</p>
+<p>If the thieves are able to access a bank account via an aggregator service or API, they can view the customer’s balance(s) and decide which customers are worthy of further targeting.</p>
+<p>But beyond targeting customers for outright account takeovers, the data available via financial aggregators enables a far more insidious type of fraud: <em>The ability to link the target’s bank account(s) to other accounts that the attackers control.</em></p>
+<p>That’s because <strong>PayPal</strong>, <strong>Zelle</strong>, and a number of other pure-play online financial institutions allow customers to link accounts by verifying the value of microdeposits. For example, if you wish to be able to transfer funds between PayPal and a bank account, the company will first send a couple of tiny deposits  — a few cents, usually — to the account you wish to link. Only after verifying those exact amounts will the account-linking request be granted.</p>
+<p>The temporary blocking of data aggregators by NCR brings up a point worthy of discussion by regulators: Namely, in the absence of additional security measures put in place by the aggregators, do the digital banking platform providers like NCR, <a href="https://krebsonsecurity.com/?s=fiserv&amp;x=0&amp;y=0" target="_blank" rel="noopener">Fiserv</a>, <strong>Jack Henry</strong>, and <strong>FIS</strong> have an obligation to help block or mitigate these large-scale credential exploitation attacks?</p>
+<p>KrebsOnSecurity would argue they do, and that the crooks who attacked the customers of my source&#8217;s credit union have probably already moved on <a href="https://ofx-prod-filist.intuit.com/qb1800/data/fidir.txt" target="_blank" rel="noopener">to using the same attack against one of several thousand other dinky banks across the country</a>.</p>
+<p><strong>Intuit Inc.</strong>, which owns both Mint and QuickBooks, said there is no indication of a breach of Intuit systems.</p>
+<p style="font-weight: 400;">&#8220;As you heard from NCR, we continue to work closely with NCR Digital Banking to enable a secure, reliable customer experience as well as continued ongoing analysis,&#8221; Intuit spokesperson <strong>Kali Fry</strong> said.</p>
+<p>NCR declined to discuss specifics about how it plans to respond to similar attacks going forward.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/11/ncr-barred-mint-quickbooks-from-banking-platform-during-account-takeover-storm/feed/</wfw:commentRss>
+		<slash:comments>38</slash:comments>
+		</item>
+		<item>
+		<title>Breaches at NetworkSolutions, Register.com, and Web.com</title>
+		<link>https://krebsonsecurity.com/2019/10/breaches-at-networksolutions-register-com-and-web-com/</link>
+		<comments>https://krebsonsecurity.com/2019/10/breaches-at-networksolutions-register-com-and-web-com/#comments</comments>
+		<pubDate>Wed, 30 Oct 2019 20:47:34 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[Data Breaches]]></category>
+		<category><![CDATA[domainstate.com]]></category>
+		<category><![CDATA[NetworkSolutions breach]]></category>
+		<category><![CDATA[Register.com breach]]></category>
+		<category><![CDATA[Web.com breach]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49386</guid>
+		<description><![CDATA[Top domain name registrars NetworkSolutions.com, Register.com and Web.com are asking customers to reset their passwords after discovering an intrusion in August 2019 in which customer account information was accessed.]]></description>
+				<content:encoded><![CDATA[<p>Top domain name registrars <strong>NetworkSolutions.com</strong>, <strong>Register.com</strong> and <strong>Web.com</strong> are asking customers to reset their passwords after discovering an intrusion in August 2019 in which customer account information was accessed.</p>
+<div id="attachment_49389" style="width: 603px" class="wp-caption aligncenter"><a class="lightbox" href="https://krebsonsecurity.com/wp-content/uploads/2019/10/webcom.png"><img class="wp-image-49389" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/webcom.png" alt="" width="593" height="348" /></a><p class="wp-caption-text">A notice to customers at notice.web.com.</p></div>
+<p>&#8220;On October 16, 2019, Web.com determined that a third-party gained unauthorized access to a limited number of its computer systems in late August 2019, and as a result, account information may have been accessed,&#8221; Web.com said in a written statement. &#8220;No credit card data was compromised as a result of this incident.&#8221;</p>
+<p>Jacksonville, Fla.-based Web.com said the information exposed includes &#8220;contact details such as name, address, phone numbers, email address and information about the services that we offer to a given account holder.&#8221;</p>
+<p>The &#8220;such as&#8221; wording made me ask whether the company has any reason to believe passwords &#8212; scrambled or otherwise &#8212; were accessed.</p>
+<p>A spokesperson for Web.com later clarified that the company does not believe customer passwords were accessed.</p>
+<blockquote><p>&#8220;We encrypt account passwords and do not believe this information is vulnerable as a specific result of this incident. As an added precautionary measure, customers will be required to reset passwords the next time they log in to their accounts. As with any online service or platform, it is also good security practice to change passwords often and use a unique password for each service.&#8221;</p></blockquote>
+<p>Both Network Solutions and Register.com are owned by Web.com. Network Solutions is now the world&#8217;s fifth-largest domain name registrar, with almost seven million domains in its stable, according to <a href="https://www.domainstate.com/registrar-stats.html" target="_blank" rel="noopener">domainstate.com</a>; Register.com listed at #17 with 1.7 million domains.<span id="more-49386"></span></p>
+<div id="attachment_49391" style="width: 604px" class="wp-caption aligncenter"><img class=" wp-image-49391" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/webcomsite.png" alt="" width="594" height="347" /><p class="wp-caption-text">Web.com&#8217;s homepage currently makes no mention of the breach notification.</p></div>
+<p>NetworkSolutions.com does not appear to currently link to any information about the incident on its homepage, nor does Web.com. To get to the advisory, one needs to visit <a href="https://notice.web.com" target="_blank" rel="noopener">notice.web.com</a>.</p>
+<p>Web.com said it has reported the incident to law enforcement and hired an outside security firm to investigate further, and is in the process of notifying affected customers through email and <a href="https://notice.web.com/" target="_blank" rel="noopener">via its website</a>.</p>
+<p>The company says it plans to circle back with customers when it learns the results of its investigation, but I wonder whether we&#8217;ll ever hear more about this breach.</p>
+<p>Web.com wasn&#8217;t clear how long the intrusion lasted, but if the breach wasn&#8217;t detected until mid-October that means the intruders potentially had about six weeks inside unnoticed. That&#8217;s a long time for an adversary to wander about one&#8217;s network, and plenty of time to steal a great deal more information than just names, addresses and phone numbers.</p>
+<p>H/T to <a href="https://domaininvesting.com/web-com-reports-security-incident-at-registrars/" target="_blank" rel="noopener">domaininvesting.com</a>&#8216;s <strong>Elliot Silver </strong>for the heads up on this notification.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/10/breaches-at-networksolutions-register-com-and-web-com/feed/</wfw:commentRss>
+		<slash:comments>46</slash:comments>
+		</item>
+		<item>
+		<title>Takeaways from the $566M BriansClub breach</title>
+		<link>https://krebsonsecurity.com/2019/10/takeaways-from-the-566m-briansclub-breach/</link>
+		<comments>https://krebsonsecurity.com/2019/10/takeaways-from-the-566m-briansclub-breach/#comments</comments>
+		<pubDate>Tue, 29 Oct 2019 21:47:58 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[A Little Sunshine]]></category>
+		<category><![CDATA[Data Breaches]]></category>
+		<category><![CDATA[Ne'er-Do-Well News]]></category>
+		<category><![CDATA[Andrei Barysevich]]></category>
+		<category><![CDATA[BriansClub breach]]></category>
+		<category><![CDATA[Gemini Advisory]]></category>
+		<category><![CDATA[mastercard]]></category>
+		<category><![CDATA[Visa]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49342</guid>
+		<description><![CDATA[Reporting on the exposure of some 26 million stolen credit cards leaked from a top underground cybercrime store highlighted some persistent and hard truths. Most notably, that the world's largest financial institutions tend to have a much better idea of which merchants and which bank cards have been breached than do the thousands of smaller banks and credit unions across the United States. Also, a great deal of cybercrime seems to be perpetrated by a relatively small number of people.]]></description>
+				<content:encoded><![CDATA[<p>Reporting on the exposure of some <a href="https://krebsonsecurity.com/2019/10/briansclub-hack-rescues-26m-stolen-cards/" target="_blank" rel="noopener">26 million stolen credit cards leaked from a top underground cybercrime store</a> highlighted some persistent and hard truths. Most notably, that the world&#8217;s largest financial institutions tend to have a much better idea of which merchants and bank cards have been breached than do the thousands of smaller banks and credit unions across the United States. Also, a great deal of cybercrime seems to be perpetrated by a relatively small number of people.</p>
+<p><img class="aligncenter wp-image-49240" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/briansdump.gif" alt="" width="592" height="38" /></p>
+<p>In September, an anonymous source sent KrebsOnSecurity a link to a nearly 10 gb set of files that included data for approximately 26 million credit and debit cards stolen from hundreds &#8212; if not thousands &#8212; of hacked online and brick-and-mortar businesses over the past four years.</p>
+<p>The data was taken from BriansClub, an underground &#8220;carding&#8221; store that has (ab)used this author&#8217;s name, likeness and reputation in its advertising since 2015. The card accounts were stolen by hackers or &#8220;resellers&#8221; who make a living breaking into payment card systems online and in the real world. Those resellers then share the revenue from any cards sold through BriansClub.</p>
+<p>KrebsOnSecurity shared a copy of the BriansClub card database with <a href="https://geminiadvisory.io/" target="_blank" rel="noopener">Gemini Advisory</a>, a New York-based company that monitors BriansClub and dozens of other carding shops to learn when new cards are added.</p>
+<p>Gemini estimates that the 26 million cards &#8212; 46 percent credit cards and 54 percent debit cards &#8212; <em>represent almost one-third of the existing 87 million credit and debit card accounts currently for sale in the underground.</em></p>
+<p>&#8220;While many of these cards were added in previous years, more than 21.6 million will not expire until after October 2019, offering cybercriminal buyers ample opportunity to cash out these records,&#8221; Gemini wrote in an analysis of the BriansClub data shared with this author.</p>
+<p>Cards stolen from U.S. residents made up the bulk of the data set (~24 million of the 26+ million cards), and as a result these far more plentiful cards were priced much lower than cards from banks outside the U.S. Between 2016 and 2019, cards stolen from U.S.-based bank customers fetched between $12.76 and $16.80 apiece, while non-U.S. cards were priced between $17.04 and $35.70 during the same period.</p>
+<div id="attachment_49359" style="width: 606px" class="wp-caption aligncenter"><img class=" wp-image-49359" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/bc-cardpricedata15-19.png" alt="" width="596" height="421" /><p class="wp-caption-text">Image: Gemini Advisory.</p></div>
+<p>Unfortunately for cybercrime investigators, the person who hacked BriansClub has not released (at least not to this author) any information about the BriansClub users, payments, vendors or resellers. [Side note: This hasn&#8217;t stopped an unscrupulous huckster from approaching several of my financial industry sources with unlikely offers of said data in exchange for bitcoin].</p>
+<p>But the database does have records of which cards were sold and which resellers (identified only by a unique number) supplied those cards, Gemini found.</p>
+<p>&#8220;While neither the vendor nor the buyer usernames appeared in this database, they were each assigned ID numbers,&#8221; Gemini wrote. &#8220;This allowed analysts to determine how prolific certain threat actors were on BriansClub and derive relevant metrics from this data.&#8221;</p>
+<p>According to Gemini, there were 142 resellers and more than 50,000 buyers of the card data sold through BriansClub. These buyers purchased at least 9 million of the 27.2 million cards available.<span id="more-49342"></span></p>
+<div id="attachment_49360" style="width: 606px" class="wp-caption aligncenter"><a class="lightbox" href="https://krebsonsecurity.com/wp-content/uploads/2019/10/bc-top20buyers.png"><img class="wp-image-49360" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/bc-top20buyers.png" alt="" width="596" height="352" /></a><p class="wp-caption-text">Image: Gemini Advisory</p></div>
+<p>One reseller in particular (ID: 174,829) offered just shy of 6 million records, posted for $106 million. Of those, almost 940,000 were sold, grossing over $16 million in profits shared between BriansClub and the reseller. In the quote below, a &#8220;base&#8221; refers to a distinct batch of freshly-stolen card data uploaded to BriansClub.</p>
+<p>&#8220;For context, the collective price for the entirety of exposed BriansClub records was $566 million, while the total dollar amount of all sold records exceeded $162 million,&#8221; Gemini noted. &#8220;The top 20 buyers bought 5% of the entire set of records in this shop, while the top 100 buyers accounted for 11%. The shop had a total of 11,000 bases, with most vendors uploading multiple bases.&#8221;</p>
+<div id="attachment_49361" style="width: 605px" class="wp-caption aligncenter"><a class="lightbox" href="https://krebsonsecurity.com/wp-content/uploads/2019/10/bc-top20sellers.png"><img class="wp-image-49361" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/bc-top20sellers.png" alt="" width="595" height="199" /></a><p class="wp-caption-text">Image: Gemini Advisory</p></div>
+<p>All of the 26 million+ card records leaked from BriansClub were shared with multiple trusted sources that work directly with financial institutions to inform them when their customers&#8217; cards go up for sale in the cybercrime underground.</p>
+<p>Banks at this point basically have three options. Ignore the report and hope for the best. Cancel the card and reissue. Or monitor the card more closely and place tighter fraud controls on that account.</p>
+<p>But here&#8217;s the thing: Not all banks got the data at the same time. The larger banks got it first and largely shrugged. At least according to anti-fraud sources at two large U.S.-based financial institutions: Their anti-fraud teams had already identified 90-95 percent of the cards as potentially compromised in one of hundreds of breaches since 2015, mostly those involving malware inside point-of-sale retail checkout systems.</p>
+<p>The sources I spoke with at smaller financial institutions found out about the cards they&#8217;d issued to customers that wound up in the BriansClub data by receiving alerts last week from <strong>Visa</strong> and <strong>MasterCard</strong>. Most of those sources seemed genuinely surprised at the number of cards exposed, and two sources at different credit unions each estimated they were previously unaware of about 80 percent of the cards listed in the alerts from the credit card companies.</p>
+<p>Also, smaller financial institutions are far more likely to eat the cost of re-issuing cards at risk of fraudulent use than are larger institutions, which typically have much a higher tolerance for financial losses from counterfeit card fraud. So far, however, there is no evidence this flood of card data intelligence is causing much of a stampede for re-issuing cards.</p>
+<p>Visa maintains that smaller financial institutions receive the same alerts sent to larger banks about cards thought to be exposed in specific breaches. The alerts include cards specific to each bank, but smaller banks are often limited in the resources they have available to do much with the reported card data, aside from re-issuing the card.</p>
+<p>Gemini CEO and co-founder <strong>Andrei Barysevich</strong> said so far the feedback from the banks has been all over the place.</p>
+<p>&#8220;While the larger US banks told us that most of the cards have been previously flagged as compromised, the mid and small size financial institutions were caught completely off-guard,&#8221; he said. &#8220;As to the European and Asian banks, to them the data was mostly new, in some cases upwards of 60% of cards were still open and active.&#8221;</p>
+<p>I thought perhaps the card associations could provide some meta-statistics on the BriansClub dump, but also those hopes were dashed. MasterCard did not respond to requests for comment. Visa declined to share any information related to the BriansClub database (even though they got it indirectly care of Yours Truly), but issued the following statement:</p>
+<p>“As part of our core mission to ensure security across the payment system, we are very aware of carder forums and other criminal enterprises. Visa continuously invests in intelligence and technology to detect cyber threats and works with law enforcement, clients and other partners, to mitigate and disrupt such threats.</p>
+<p>“Whenever we discover compromised account information, Visa uses its payment intelligence and investigative capabilities to determine the source. We also work with our financial institution clients to provide card issuers with the compromised account numbers so they can take steps to protect consumers through independent fraud monitoring and, if needed, by reissuing cards. Incidents such as these reinforce the need for secure technologies such as chip and tokenization to devalue account information so that even if stolen, data cannot be leveraged for fraud.”&#8221;</p>
+<p>Gemini found that exactly two-thirds of the stolen cards (66.6 percent) siphoned from BriansClub were Visa-branded, and 23 percent MasterCard. A full 85% of the total records were EMV (chip) enabled, with the remaining 15% using only a magnetic stripe.</p>
+<p>One final note: The Gemini report also challenges <a href="https://krebsonsecurity.com/2019/10/when-card-shops-play-dirty-consumers-win/" target="_blank" rel="noopener">claims made by the administrator of BriansClub</a>, namely that he removed the breached cards from his online store and that the data leak stemmed from a breach in February as his site&#8217;s data center.</p>
+<div id="attachment_49278" style="width: 606px" class="wp-caption aligncenter"><a class="lightbox" href="https://krebsonsecurity.com/wp-content/uploads/2019/10/om-bcsmaller.png"><img class="wp-image-49278" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/om-bcsmaller.png" alt="" width="596" height="282" /></a><p class="wp-caption-text">The BriansClub admin, defending the honor of his stolen cards shop after a major breach.</p></div>
+<p>&#8220;While the administrator of BriansClub, operating under the moniker &#8216;Brian Krebs,&#8217; claimed that the breach took place in February 2019, this appears to be false,&#8221; Gemini observed in its report. &#8220;The number of records from South Korea corresponds to a previous spike in South Korean records that occurred from March 2019 through July 2019. If BriansClub were breached in February, the South Korean-issued cards would number under 10,000 rather than over 1 million.&#8221;</p>
+<p>The report continues:</p>
+<p>&#8220;This threat actor also claimed to have removed the compromised records from the shop. Gemini has found this claim to be false as well. Since BriansClub offers a &#8216;checker service&#8217; for all purchased records to determine whether compromised payment cards are still open, it may be unnecessary to remove the cards. The shop likely assumes that even if the banks received the compromised card data from this breach, they are unlikely to close down and reissue every single card.&#8221;</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/10/takeaways-from-the-566m-briansclub-breach/feed/</wfw:commentRss>
+		<slash:comments>24</slash:comments>
+		</item>
+		<item>
+		<title>Cachet Financial Reeling from MyPayrollHR Fraud</title>
+		<link>https://krebsonsecurity.com/2019/10/cachet-financial-reeling-from-mypayrollhr-fraud/</link>
+		<comments>https://krebsonsecurity.com/2019/10/cachet-financial-reeling-from-mypayrollhr-fraud/#comments</comments>
+		<pubDate>Fri, 25 Oct 2019 00:50:44 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[The Coming Storm]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49322</guid>
+		<description><![CDATA[When NY based cloud payroll provider MyPayrollHR unexpectedly shuttered its doors last month and disappeared with $26 million worth of customer payroll deposits, its payments processor Cachet Financial Services ended up funding the bank accounts of MyPayrollHR client company employees anyway, graciously eating a $26 million loss which it is now suing to recover.]]></description>
+				<content:encoded><![CDATA[<p>When New York-based cloud payroll provider <strong>MyPayrollHR</strong> unexpectedly shuttered its doors last month and <a href="https://krebsonsecurity.com/2019/09/mypayrollhr-ceo-arrested-admits-to-70m-fraud/" target="_blank" rel="noopener">disappeared with $26 million worth of customer payroll deposits</a>, its payment processor <strong>Cachet Financial Services</strong> ended up funding the bank accounts of MyPayrollHR client company employees anyway, graciously eating a $26 million loss which it is now suing to recover.</p>
+<p>But on Oct. 23 &#8212; less than 24 hours before another weekly payroll rush &#8212; Pasadena, Calif.-based Cachet threw much of its customer base into disarray when it said its bank was no longer willing to risk another MyPayrollHR debacle, and that customers would need to wire payroll deposits instead of relying on the usual method of automated clearinghouse (ACH) payments (essentially bank-to-bank checks).</p>
+<p><img class="aligncenter size-full wp-image-49331" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/payroll.jpg" alt="" width="500" height="334" /></p>
+<p>Cachet processes some $150 billion in payroll payments annually for more than 110,000 employers. But payroll experts say this week&#8217;s actions by Cachet&#8217;s bank may well soon put the 22-year-old company out of business.</p>
+<p>&#8220;We apologize for the inconvenience of this message,&#8221; reads the communication from Cachet that went out to customers just after 6:30 PM ET on Oct. 23. It continued:</p>
+<blockquote><p>&#8220;Due to ongoing fraud protocol with our bank, they are requiring pre-funding via Direct Wire for all batches that were uploaded this week, unless employees were already paid or tax payments were already transmitted. This includes all batch files moving forward.&#8221;</p>
+<p>All files that were uploaded today for collection and disbursement will not be processed. In order to process disbursement, we will need to receive a wire first thing tomorrow in order to release the disbursements.</p>
+<p>All collections that were processed prior to today will be reviewed by the bank and disbursements will be released once the funds are cleared. Credit trans</p>
+<p>Deadline for wires is 1 P.M. PST.</p>
+<p>This will be the process until further notice. If you need a backup processor, please contact us.</p>
+<p>If you require wire instructions, please respond to this email and they will be sent to you.</p>
+<p>We welcome and anticipate your phone calls and inquiries. We remain committed to our clients and are determined to see this through. We appreciate and thank you for your patience and understanding.&#8221;</p></blockquote>
+<p>In a follow-up communication sent Thursday evening, Cachet said all debit transactions with a settlement date of Oct. 23 had been processed, but that any transactions uploaded after Oct. 23 were not being processed at all, and that wires are no longer being accepted.</p>
+<p>&#8220;If they aren&#8217;t taking money, they&#8217;re out of business,&#8221; Friedl said of Cachet.</p>
+<p>Cachet&#8217;s financial institution, Wilmington, Del. based <strong>The Bancorp Bank</strong> (<a href="https://www.nasdaq.com/market-activity/stocks/tbbk" target="_blank" rel="noopener">NASDAQ: TBBK</a>), did not respond to requests for comment.</p>
+<p>Cachet also did not respond to requests for comment. But in an email Thursday evening, the company sought to offer customers a range of alternatives &#8212; including other providers &#8212; to help process payrolls this week.</p>
+<p><img class="aligncenter wp-image-49326" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/cachet.png" alt="" width="596" height="456" /></p>
+<p><strong>Steve Friedl</strong>, an IT consultant in the payroll service bureau industry, said the Cachet announcement has sent payroll providers scrambling to cut and mail or courier paper checks to client employees.  But he said many payroll providers also use Cachet to process tax withholdings for client employees, and that this, too, could be disrupted by the funding changes.</p>
+<p>&#8220;There&#8217;s a lot of same day stuff that goes on in the payroll industry that depends on people being honest and having money available at certain times,&#8221; Friedl said. &#8220;When that&#8217;s not possible because a bank in that process says it doesn&#8217;t want to be stuck in the middle that can create problems for a lot of people who are then stuck in the middle.&#8221;</p>
+<p>Another payroll expert at a company that uses Cachet but who asked not to be named said, &#8220;everyone I know at payroll providers is scrambling to get it done another way this week&#8221; as a result of the decision by Cachet&#8217;s bank.</p>
+<p>&#8220;Those bureaus will do whatever they can to keep their clients happy because something like this can quickly put them out of business,&#8221; the source said. &#8220;Unlike what happened with MyPayrollHR &#8212; which harmed consumers directly &#8212; the payment service bureaus are the ones potentially getting hurt here.&#8221;<span id="more-49322"></span></p>
+<p>Most corporate payroll is handled through ACH transactions, a system that allows financial institutions to push and pull funds to and from checking accounts between banks. ACH is essentially the same thing as writing a check for a good or service, and it typically involves an element of trust because there is a time delay (24-48h) between which the promised funds are released to the receiving bank and the funds are made available to the recipient.</p>
+<p>In contrast, a wire transfer takes minutes and the funds are made available to the recipient almost immediately. Wires are also far more expensive for customers, and they earn banks hugely profitable processing fees, whereas ACH transaction fees are minuscule by comparison.</p>
+<p>Ultimately, banks may decide that for certain clients they no longer wish to assume the risk of fraudsters exploiting the float period for ACH transactions to steal tens of millions of dollars, as was the case in the MyPayrollHR fiasco.</p>
+<p>It&#8217;s worth noting that the MyPayrollHR fraud wasn&#8217;t the first time Cachet has been tripped up by the demise of a payroll company: In 2016, the collapse of Monterey, Calif. based payroll processor <strong>Pinnacle Workforce Solutions</strong> left Cachet <a href="https://www.montereycountyweekly.com/news/local_news/a-federal-lawsuit-outlines-how-pinnacle-workforce-solutions-lost-millions/article_02b069be-dddc-11e6-a364-b3cf222f5d72.html" target="_blank" rel="noopener">holding the bag for more than $1 million</a>. Cachet sued to recover the money stuck in Pinnacle&#8217;s frozen accounts. From <em>The Monetery County Weekly</em>:</p>
+<blockquote><p>&#8220;Cachet’s lawyers also outline possible nefarious action by Pinnacle. ACH companies act as middlemen for processing payroll and other large transactions. Every pay period, Pinnacle would send Cachet a coded file to tell the ACH how to distribute funds. But, on Sept. 21 [2016] Pinnacle had manipulated the code sent to Cachet so the money collected from its clients went directly to Pinnacle instead of being held in the ACH account before being distributed to its clients’ employees, the suit alleges.&#8221;</p></blockquote>
+<p>It will be interesting to see how long the fallout from the MyPayrollHR episode will last and how many other firms may get wiped because of it. Shortly after MyPayrollHR closed its doors last month and disappeared with $35 million in payroll and tax payments, the company&#8217;s 49-year-old CEO Michael Mann was <a href="https://krebsonsecurity.com/2019/09/mypayrollhr-ceo-arrested-admits-to-70m-fraud/" target="_blank" rel="noopener">arrested and charged with bank fraud</a>.</p>
+<p>The government alleges Mann was kiting millions of dollars in checks between his accounts at Bank of America and Pioneer from Aug. 1, 2019 to Aug. 30, 2019. <em>The Times Union</em> <a href="https://www.timesunion.com/business/article/MyPayrollHR-debacle-Insurance-company-sues-14549935.php" target="_blank" rel="noopener">reports</a> that Mann and his company are now being sued by Pioneer Bank and a large insurance company over a $42 million loan it gave to Mann and his companies just a month before his payroll business closed up shop.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/10/cachet-financial-reeling-from-mypayrollhr-fraud/feed/</wfw:commentRss>
+		<slash:comments>67</slash:comments>
+		</item>
+		<item>
+		<title>Ransomware Hits B2B Payments Firm Billtrust</title>
+		<link>https://krebsonsecurity.com/2019/10/ransomware-hits-b2b-payments-firm-billtrust/</link>
+		<comments>https://krebsonsecurity.com/2019/10/ransomware-hits-b2b-payments-firm-billtrust/#comments</comments>
+		<pubDate>Tue, 22 Oct 2019 19:04:21 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[Data Breaches]]></category>
+		<category><![CDATA[Billtrust ransomware attack]]></category>
+		<category><![CDATA[Steven Pinado]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49311</guid>
+		<description><![CDATA[Business-to-business payments provider Billtrust is still recovering from a ransomware attack that began last week.  The company said it is in the final stages of bringing all of its systems back online from backups.]]></description>
+				<content:encoded><![CDATA[<p>Business-to-business payments provider <strong>Billtrust</strong> is still recovering from a ransomware attack that began last week.  The company said it is in the final stages of bringing all of its systems back online from backups.</p>
+<p><img class="alignright wp-image-49314" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/billtrust.png" alt="" width="251" height="67" />With more than 550 employees, Lawrence Township, N.J.-based Billtrust is a cloud-based service that lets customers view invoices, pay, or request bills via email or fax. In an email sent to customers today, Billtrust said it was consulting with law enforcement officials and with an outside security firm to determine the extent of the breach.</p>
+<p>&#8220;Our standard security and back-up procedures have been and remain instrumental in our ability to execute the ongoing restoration of services,&#8221; the email reads. &#8220;Out of an abundance of caution, we cannot disclose the precise ransomware strains but will do so as soon as prudently possible.</p>
+<p>In an interview with KrebsOnSecurity on Monday evening, <strong>Billtrust CEO Steven Pinado</strong> said the company became aware of a malware intrusion on Thursday, Oct. 17.</p>
+<p>&#8220;We&#8217;re aware of the malware and have been able to stop the activity within our systems,&#8221; Pinado said. &#8220;We immediately started focusing on control, remediation and protection. The impact of that was several systems were no longer available to our customers. We&#8217;ve been fighting the fight, working on restoring services and also digging into the root cause.&#8221;</p>
+<p>A <a href="https://www.bleepingcomputer.com/news/security/billing-provider-billtrust-suffers-outage-after-malware-attack/" target="_blank" rel="noopener">report</a> from <em>BleepingComputer</em> cites an unnamed source saying the ransomware strain that hit Billtrust was the <a href="https://blog.trendmicro.com/trendlabs-security-intelligence/account-with-admin-privileges-abused-to-install-bitpaymer-ransomware-via-psexec/" target="_blank" rel="noopener">BitPaymer ransomware</a>, but that information could not be confirmed.</p>
+<p>One of Billtrust&#8217;s customers has published a <a href="http://wittichen-supply.com/billtrust-service-interruption/" target="_blank" rel="noopener">day-by-day chronology of the attack</a> and communications from the company here (h/t <a href="https://twitter.com/GossiTheDog/status/1186590229328781318" target="_blank" rel="noopener">@gossithedog</a>).<span id="more-49311"></span></p>
+<p>Pinado said Billtrust had restored most of its systems, and that it was in the process now of putting additional security measures in place. He declined to discuss anything related to the ransomware attack, such as whether the company paid a ransom demand in exchange for a key to unlock files scrambled by the malware, although he allowed Billtrust does have cybersecurity insurance for just such occasions.</p>
+<p>Billtrust recently teamed up with Visa to launch the Billtrust Business Payments Network, an effort to digitize payments between businesses.</p>
+<p>Cloud service providers are a favorite target of attackers who deal in ransomware. In August, Wisconsin-based <a href="https://krebsonsecurity.com/2019/08/ransomware-bites-dental-data-backup-firm/" target="_blank" rel="noopener">PerCSoft paid a hefty ransom</a> to get out from beneath an attack that separated hundreds of dental offices from their patient records.</p>
+<p>In July, attackers <a href="https://krebsonsecurity.com/?s=insynq&amp;x=0&amp;y=0" target="_blank" rel="noopener">hit QuickBooks cloud hosting firm iNSYNQ</a>, holding data hostage for many of the company’s clients. In February, cloud payroll data provider <strong>Apex Human Capital Management</strong> was <a href="https://krebsonsecurity.com/2019/02/payroll-provider-gives-extortionists-a-payday/" target="_blank" rel="noopener">knocked offline for three days</a> following a ransomware infestation.</p>
+<p>On Christmas Eve 2018, cloud hosting provider <strong>Dataresolution.net</strong> <a href="https://krebsonsecurity.com/2019/01/cloud-hosting-provider-dataresolution-net-battling-christmas-eve-ransomware-attack/" target="_blank" rel="noopener">took its systems offline</a> in response to a ransomware outbreak on its internal networks. The company was adamant that it would not pay the ransom demand, but it ended up taking several weeks for customers to fully regain access to their data.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/10/ransomware-hits-b2b-payments-firm-billtrust/feed/</wfw:commentRss>
+		<slash:comments>39</slash:comments>
+		</item>
+		<item>
+		<title>Avast, NordVPN Breaches Tied to Phantom User Accounts</title>
+		<link>https://krebsonsecurity.com/2019/10/avast-nordvpn-breaches-tied-to-phantom-user-accounts/</link>
+		<comments>https://krebsonsecurity.com/2019/10/avast-nordvpn-breaches-tied-to-phantom-user-accounts/#comments</comments>
+		<pubDate>Tue, 22 Oct 2019 00:32:57 +0000</pubDate>
+		<dc:creator><![CDATA[BrianKrebs]]></dc:creator>
+				<category><![CDATA[Data Breaches]]></category>
+		<category><![CDATA[Avast breach]]></category>
+		<category><![CDATA[FileHippo]]></category>
+		<category><![CDATA[Jaya Baloo]]></category>
+		<category><![CDATA[Kenneth White]]></category>
+		<category><![CDATA[NordVPN breach]]></category>
+		<category><![CDATA[Open Crypto Audit Project]]></category>
+		<category><![CDATA[Secunia Personal Software Inspector]]></category>
+		<category><![CDATA[supply chain attack]]></category>
+		<category><![CDATA[Techcrunch]]></category>
+		<category><![CDATA[Zack Whittaker]]></category>
+
+		<guid isPermaLink="false">https://krebsonsecurity.com/?p=49296</guid>
+		<description><![CDATA[Antivirus and security giant Avast and virtual private networking (VPN) software provider NordVPN each today disclosed months-long network intrusions that -- while otherwise unrelated -- shared a common cause: Forgotten or unknown user accounts that granted remote access to internal systems with little more than a password.]]></description>
+				<content:encoded><![CDATA[<p>Antivirus and security giant <strong>Avast</strong> and virtual private networking (VPN) software provider <strong>NordVPN</strong> each today disclosed months-long network intrusions that &#8212; while otherwise unrelated &#8212; shared a common cause: Forgotten or unknown user accounts that granted remote access to internal systems with little more than a password.</p>
+<p><img class="alignright size-full wp-image-49302" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/avast.png" alt="" width="188" height="229" />Based in the Czech Republic, Avast bills itself as the most popular antivirus vendor on the market, with over 435 million users. In <a href="https://blog.avast.com/ccleaner-fights-off-cyberespionage-attempt-abiss" target="_blank" rel="noopener">a blog post</a> today, Avast said it detected and addressed a breach lasting between May and October 2019 that appeared to target users of its <a href="https://en.wikipedia.org/wiki/CCleaner" target="_blank" rel="noopener">CCleaner</a> application, a popular Microsoft Windows cleanup and repair utility.</p>
+<p>Avast said it took CCleaner downloads offline in September to check the integrity of the code and ensure it hadn&#8217;t been injected with malware. The company also said it invalidated the certificates used to sign previous versions of the software and pushed out a re-signed clean update of the product via automatic update on October 15. It then disabled and reset all internal user credentials.</p>
+<p>&#8220;Having taken all these precautions, we are confident to say that our CCleaner users are protected and unaffected,&#8221; Avast&#8217;s <strong>Jaya Baloo</strong> wrote.</p>
+<p>This is not the first so-called &#8220;supply chain&#8221; attack on Avast: In September 2018, researchers at <strong>Cisco Talos</strong> and <strong>Morphisec</strong> <a href="https://www.wired.com/story/ccleaner-malware-supply-chain-software-security/" target="_blank" rel="noopener">disclosed</a> that hackers had compromised the computer cleanup tool for more than a month, <a href="https://www.wired.com/story/inside-the-unnerving-supply-chain-attack-that-corrupted-ccleaner/" target="_blank" rel="noopener">leading to some 2.27 million downloads</a> of the corrupt CCleaner version.</p>
+<p>Avast said the intrusion began when attackers used stolen credentials for a VPN service that was configured to connect to its internal network, and that the attackers were not challenged with any sort of multi-factor authentication &#8212; such as a one-time code generated by a mobile app.</p>
+<p>&#8220;We found that the internal network was successfully accessed with compromised credentials through a temporary VPN profile that had erroneously been kept enabled and did not require 2FA,&#8221; Baloo wrote.<span id="more-49296"></span></p>
+<h4>THE NORDVPN BREACH</h4>
+<p>Separately, NordVPN, a virtual private networking services that promises to &#8220;protect your privacy online,&#8221; confirmed <a href="https://twitter.com/hexdefined/status/1186106695073726466?s=21" target="_blank" rel="noopener">reports that it had been hacked</a>. Today&#8217;s acknowledgment and blog post mortem from Nord comes just hours after it emerged that NordVPN had an expired internal private key exposed, potentially allowing anyone to spin out their own servers imitating NordVPN,&#8221; <a href="https://techcrunch.com/2019/10/21/nordvpn-confirms-it-was-hacked/" target="_blank" rel="noopener">writes</a> <a href="https://twitter.com/zackwhittaker" target="_blank" rel="noopener">Zack Whittaker</a> at <em>TechCrunch</em>.</p>
+<p><img class="aligncenter size-full wp-image-49303" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/nordvpn.png" alt="" width="460" height="152" /></p>
+<p>VPN software creates an encrypted tunnel between your computer and the VPN provider, effectively blocking your ISP or anyone else on the network (aside from you and the VPN provider) from being able to tell which sites you are visiting or viewing the contents of your communications. This can offer a measure of anonymity, but the user also is placing a great deal of trust in that VPN service not to get hacked and expose this sensitive browsing data.</p>
+<p>NordVPN&#8217;s account seems to downplay the intrusion, saying while the attackers could have used the private keys to intercept and view traffic for some of its customers&#8217; traffic, the attackers would have been limited to eavesdropping on communications routing through just one of the company&#8217;s more than 3,000 servers.</p>
+<p>&#8220;The server itself did not contain any user activity logs; none of our applications send user-created credentials for authentication, so usernames and passwords couldn’t have been intercepted either,&#8221; reads the NordVPN blog post. &#8220;On the same note, the only possible way to abuse the website traffic was by performing a personalized and complicated man-in-the-middle attack to intercept a single connection that tried to access NordVPN.&#8221;</p>
+<p>NordVPN said the intrusion happened in March 2018 at one of its datacenters in Finland, noting that &#8220;the attacker gained access to the server by exploiting an insecure remote management system left by the datacenter provider while we were unaware that such a system existed.&#8221; NordVPN declined to name the datacenter provider, but said the provider removed the remote management account without notifying them on March 20, 2018.</p>
+<p>&#8220;When we learned about the vulnerability the datacenter had a few months back, we immediately terminated the contract with the server provider and shredded all the servers we had been renting from them,&#8221; the company said. &#8220;We did not disclose the exploit immediately because we had to make sure that none of our infrastructure could be prone to similar issues. This couldn’t be done quickly due to the huge amount of servers and the complexity of our infrastructure.&#8221;</p>
+<div id="attachment_49301" style="width: 606px" class="wp-caption aligncenter"><img class="wp-image-49301" src="https://krebsonsecurity.com/wp-content/uploads/2019/10/nordwarrant.png" alt="" width="596" height="221" /><p class="wp-caption-text">This page might need to be updated.</p></div>
+<p>TechCrunch took NordVPN to task on the somewhat dismissive tone of its breach disclosure, noting that the company suffered a significant breach that went undetected for more than a year.</p>
+<p><strong>Kenneth White</strong>, director of the <a href="https://opencryptoaudit.org/" target="_blank" rel="noopener">Open Crypto Audit Project</a>, <a href="https://twitter.com/kennwhite/status/1186369692694405120" target="_blank" rel="noopener">said on Twitter</a> that based on <a href="https://www.documentcloud.org/documents/6506133-NordVPN-output.html" target="_blank" rel="noopener">the dumped Pastebin logs</a> detailing the extent of the intrusion, &#8220;the attacker had full remote admin on their Finland node containers.&#8221;</p>
+<p>&#8220;That&#8217;s God Mode folks,&#8221; White wrote. &#8220;And they didn&#8217;t log and didn&#8217;t detect it. I&#8217;d treat all their claims with great skepticism.&#8221;</p>
+<h4>ANALYSIS</h4>
+<p>Many readers are curious about whether they should enshroud all of their online communications by using a VPN. However, it’s important to understand the limitations of this technology, and to take the time to research providers before entrusting them with virtually all your browsing data — and possibly even compounding your privacy woes in the process. For a breakdown on what you should keep in mind when considering a VPN service, <a href="https://krebsonsecurity.com/2017/03/post-fcc-privacy-rules-should-you-vpn/" target="_blank" rel="noopener">see this post</a>.</p>
+<p>Forgotten user accounts that provide remote access to internal systems &#8212; such as VPN and <a href="https://krebsonsecurity.com/?s=rdp&amp;x=0&amp;y=0" target="_blank" rel="noopener">Remote Desktop services (RDP)</a> &#8212; have been a persistent source of data breaches for years. Thousands of small to mid-sized brick-and-mortar businesses have been relieved of millions of customer payment card records over the years when their hacked IT contractors used the same remote access credentials at each client location.</p>
+<p>Almost all of these breaches could have been stopped by requiring a second form of authentication in addition to a password, which can easily be stolen or phished.</p>
+<p>The persistent supply chain attack against Avast brings to mind something I was considering the other day about the wisdom of allowing certain software to auto-update itself whenever it pleases. I&#8217;d heard from a reader who was lamenting the demise of programs like <a href="https://krebsonsecurity.com/2012/06/secunias-auto-patching-tool-gets-makeover/" target="_blank" rel="noopener">Secunia&#8217;s Personal Software Inspector</a> and <a href="https://community.norton.com/en/forums/has-filehippocom-become-zombie-website" target="_blank" rel="noopener">FileHippo</a>, which allowed users to automatically download and install available updates for a broad range of third-party Windows programs.</p>
+<p>These days, I find myself seeking out and turning off any auto-update functions in software that I install. I&#8217;d rather be alerted to new updates when I launch the program and have the ability to review what&#8217;s changing and whether anyone has experienced issues with the new version. I guess you could say years of dealing with unexpected surprises on Microsoft Patch Tuesdays has cured me of any sort of affinity I may have once had for auto-update features.</p>
+]]></content:encoded>
+			<wfw:commentRss>https://krebsonsecurity.com/2019/10/avast-nordvpn-breaches-tied-to-phantom-user-accounts/feed/</wfw:commentRss>
+		<slash:comments>62</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+Object Caching 1239/1258 objects using memcache
+Page Caching using memcache
+Database Caching 1/4 queries in 0.001 seconds using memcache
+
+ Served from: krebsonsecurity.com @ 2019-11-13 12:19:59 by W3 Total Cache -->

@@ -46,6 +46,17 @@ has 'time_stamp' => (
 
 #
 
+sub clone 
+    {
+    my ($self) = @_ ;
+
+    my $clone = InfoGopher::InfoBite -> new ;
+    $clone -> time_stamp ( $self -> time_stamp ) ;
+    $clone -> mime_type ( $self -> mime_type ) ;
+
+    return $clone ;
+    }
+
 
 __PACKAGE__ -> meta -> make_immutable ;
 

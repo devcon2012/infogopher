@@ -3,7 +3,7 @@ package InfoGopher::InfoTransform::XML_RSS_Style ;
 # Helper-Style for the RSS XML Parser
 # transforms the XML to a perl data structure which can be json'ed
 #
-# InfoGopher - A framework for collection information
+# InfoGopher - A framework for collecting information
 #
 #   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
 #
@@ -16,54 +16,136 @@ use warnings ;
 use utf8 ;
 use namespace::autoclean;
 
-use Devel::StealthDebug ENABLE => $ENV{dbg_xmlrss};
+use Devel::StealthDebug ENABLE => $ENV{dbg_transformx} || $ENV{dbg_source} ;
 
 use Data::Dumper;
 use Try::Tiny;
 
-use InfoGopher ;
+use InfoGopher::Essentials ; ;
 
-sub Init {
+sub Init 
+    {
     my $expat = shift;
 
-    $expat->{Lists} = [];
-    $expat->{Curlist} = $expat->{Tree} = [];
-}
+    $expat->{Lists} = [] ;
+    $expat->{TagStack} = [] ;
+    $expat->{Curlist} = $expat->{Tree} = {} ; 
+    }
  
-sub Start {
+sub Start 
+    {
     my $expat   = shift;
     my $tag     = shift;
-    my $newlist = [ {@_} ];
-    push @{ $expat->{Lists} }, $expat->{Curlist};
-    push @{ $expat->{Curlist} }, $tag => $newlist;
-    $expat->{Curlist} = $newlist;
-}
+
+    #!dump("Open $tag")!
+
+    my $tagx = $expat->{TagStack} ;
+    my $super = $tagx->[-1] ;
+    my ($super_tag, $super_list) ;
+    if (ref $super)
+        {
+        ($super_tag, $super_list) = ($super->[0], $super->[1]); 
+        }
+
+    my ($newlist, $curlist, $target );
+
+    if ( $tag eq 'rss' )
+        {
+        $expat->{Tree} = $newlist = { channels => [] } ;
+        push @$tagx, [ $tag, $newlist ] ;
+        $expat->{Curlist} = $newlist -> {channels} ;
+        push @{$expat->{Lists}}, $expat->{Curlist} ;
+        return ;
+        }
+    elsif ( $tag eq 'channel' )
+        {
+        $newlist = { items => [] } ;
+        push @$tagx, [ $tag, $newlist ] ;
+        push @{$super_list->{channels}}, $newlist ; 
+        #!dump($super_list->{channels})!
+        $expat -> {Curlist} = $newlist ;
+        push @{$expat->{Lists}}, $expat->{Curlist} ;
+        return ;
+        }
+    elsif ( $tag eq 'item' )
+        {
+        $newlist = { images => {} } ;
+        push @$tagx, [ $tag, $newlist ] ;
+        push @{$super_list->{items}}, $newlist ; 
+        $expat ->{Curlist} = $newlist ;
+        push @{$expat->{Lists}}, $expat->{Curlist} ;
+        return ;
+        }
+    elsif ( $tag eq 'image' )
+        {
+        $newlist = { } ;
+        push @$tagx, [ $tag, $newlist ] ;
+        push @{$super_list->{images}}, $newlist ; 
+        $expat ->{Curlist} = $newlist ;
+        push @{$expat->{Lists}}, $expat->{Curlist} ;
+        return ;
+        }
+
+    push @$tagx, [ $tag, undef ] ;
+    push @{$expat->{Lists}}, undef ;
+    }
  
 sub End {
     my $expat = shift;
     my $tag   = shift;
+
+    #!dump("Close $tag")!
+
+    my $tagx = $expat->{TagStack} ;
+    pop @$tagx ;
+
+
     $expat->{Curlist} = pop @{ $expat->{Lists} };
+    #!dump($expat->{Curlist})!
 }
  
 sub Char {
     my $expat = shift;
     my $text  = shift;
-    my $clist = $expat->{Curlist};
-    my $pos   = $#$clist;
- 
-    if ( $pos > 0 and $clist->[ $pos - 1 ] eq '0' ) {
-        $clist->[$pos] .= $text;
-    }
-    else {
-        push @$clist, 0 => $text;
-    }
+
+    my $tagx = $expat->{TagStack} ;
+    my $super = $tagx->[-1] ;
+    my ($super_tag, $super_list) ;
+    if (ref $super)
+        {
+        ($super_tag, $super_list) = ($super->[0], $super->[1]); 
+        }
+
+    return     
+        if ( $super_tag eq 'rss' ) ;
+    return     
+        if ( $super_tag eq 'channel' ) ;
+    return     
+        if ( $super_tag eq 'item' ) ;
+    return     
+        if ( $super_tag eq 'image' ) ;
+
+    my $tag = $super_tag ;
+
+    #!dump("Add $text to $tag")!
+
+    $super = $tagx->[-2] ;
+    if (ref $super)
+        {
+        ($super_tag, $super_list) = ($super->[0], $super->[1]); 
+        }
+    $super_list->{$tag} //= '' ;
+    $super_list->{$tag} .= $text ;
 }
  
 sub Final {
     my $expat = shift;
+
+    delete $expat->{TagStack} ;
     delete $expat->{Curlist};
     delete $expat->{Lists};
-    $expat->{Tree};
+    #!dump($expat->{Tree})!
+    return $expat->{Tree};
 }
  
 1;

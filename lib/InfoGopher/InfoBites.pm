@@ -5,6 +5,8 @@ use warnings ;
 use utf8 ;
 use namespace::autoclean;
 
+use Devel::StealthDebug ENABLE => $ENV{dbg_bites} || $ENV{dbg_source} ;
+
 use Data::Dumper;
 use Moose;
 use Try::Tiny;
@@ -42,6 +44,74 @@ has 'source_id' => (
     default         => sub { -1 },
 ) ;
 
+# -----------------------------------------------------------------------------
+# add_info_bite - factory method to add a new info bite to the list
+#
+# in    $data
+#       $mime_type
+#       $time_stamp
+#
+sub add_info_bite
+    {
+    my ( $self, $data, $mime_type, $time_stamp, $meta) = @_ ;
+
+    $meta //= {} ;
+
+    my $bite = InfoGopher::InfoBite -> new ( 
+            data        => $data,
+            mime_type   => $mime_type,
+            time_stamp  => $time_stamp,
+            meta_infos  => $meta
+            ) ;
+
+    $self -> add ( $bite ) ;
+    return $bite ;
+    }
+
+
+# create similar infobites, but without the data
+sub clone
+    {
+    my ( $self ) = @_ ;
+
+    my $new_bites = InfoGopher::InfoBites -> new
+            (
+            source_name => $self -> source_name ,
+            source_id => $self -> source_id ,
+            );
+
+    return $new_bites ;
+
+    }
+
+# transform each infobite in this collection  
+sub transform
+    {
+    my ( $self, $transformer ) = @_ ;
+
+    my $transformed_bites  = $self -> clone () ;
+
+    foreach my $ibite ( $self -> all )
+        {
+        my $new_bites = $transformer -> transform ($ibite) ;
+        $transformed_bites -> merge ( $new_bites ) ;
+        }
+
+    $self -> bites ( $transformed_bites->bites ) ;
+
+    }
+
+# merge other infobites to this one  
+sub merge
+    {
+    my ( $self, $infobites ) = @_ ;
+
+    my $mine = $self      -> bites ;
+    my $new  = $infobites -> bites ;
+
+    push @$mine, @$new ;
+    }
+
 __PACKAGE__ -> meta -> make_immutable ;
 
 1;
@@ -55,8 +125,10 @@ InfoGopher::InfoBites - a collection of information fetched by an InfoSource
 =head1 USAGE
 
 InfoBites hold all the info an InfoSource collects in one successful fetch.
+A transformer can then extract the bits we are interested in.
 
-For the RSS Example, this would be a list of all headlines.
+For the RSS example, the infosource gets one XML Document which a RSS2JSON
+transformer can split into a list of headlines.
 
 =head1 COPYRIGHT AND LICENSE
 

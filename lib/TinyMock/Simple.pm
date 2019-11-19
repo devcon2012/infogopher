@@ -10,7 +10,8 @@ use Moose ;
 use IO::Handle ;
 use IO::File ;
 use IO::Socket::INET;
-use IO::Socket::SSL ;
+
+use FindBin ;
 
 use Data::Dumper ;
 use constant timeout => 3 ;
@@ -33,9 +34,17 @@ class_has 'root' => (
     is              => 'ro',
     isa             => 'Str',
     lazy            => 1,
-    default         => sub { $ENV{MOCK_HOME} || '/tmp'  },
+    builder         => '_build_root',
 ) ;
-
+sub _build_root
+    {
+    my $root = $ENV{MOCK_HOME};
+    my $fb = "$FindBin::Bin/../TinyMock" ;
+    $fb = "$FindBin::Bin/TinyMock" if ( ! -d $fb ) ;
+    $root //= $fb ;
+    $root //= "/tmp" ;
+    return $root ;
+    }
 # 
 class_has '_verbose' => (
     documentation   => 'set to 1 otherwise there is no output at all.',
@@ -69,21 +78,6 @@ has 'data_received' => (
 our $shutdown ;
 
 # BEGIN { $SIG{USR1} = sub { $shutdown = 1; }
-
-# -----------------------------------------------------------------------------
-# Usage - display options 
-#
-#
-
-sub Usage
-    {
-    print "Usage:\n" ;
-    print "    --response   =xxx            file containing response filename\n" ;
-    print "    --port       =xxx            local listening port (7773)\n" ;
-    print "    --crypto     =xxx            basename for certificate/key (if TLS)\n" ;
-    print "    --log        =yyy            protocol log file\n" ;
-    print "    --help\n" ;
-    }
 
 # -----------------------------------------------------------------------------
 # responsefile - filename where mock reads how to respond 
@@ -168,17 +162,25 @@ sub setup
     $self -> response ( $response ) ;
     $self -> _verbose ( $ENV{MOCK_VERBOSE} || 0 ) ;
 
+    my  ( $socket, $listen_message ) = $self -> build_server_socket() ;
+
     if ( my $pid = fork() )
         {
-        print STDERR "Forked $pid\n" if ($self -> _verbose ) ;
+        undef $socket ;
+
+        print STDERR "Forked $pid\n" 
+            if ($self -> _verbose ) ;
+
         $self -> mock_pid ( $pid ) ;
         sleep 1 ;
         } 
     else
         {
         $self -> set_responsefile_content($content_fn) ;
-        $self -> run() ;
+        $self -> run( $socket, $listen_message ) ;
         }
+
+    return $self -> port ;
     }
 
 # -----------------------------------------------------------------------------
@@ -202,22 +204,29 @@ sub shutdown
     return $pid ;
     }
 
-sub build_socket
+sub build_server_socket
     {
     my ( $self ) = @_;
 
     my $port = $self -> port ;
 
-    my $socket =  IO::Socket::INET -> new (
-            LocalHost => '127.0.0.1',
-            LocalPort => $port,
-            Proto => 'tcp',
-            Listen => 5,
-            Timeout => $self -> timeout ,
-            Reuse => 1
-        ) or die "failed to listen on 127.0.0.1:$port: $!" ;
+    while ( $port )
+        {
+        my $socket =  IO::Socket::INET -> new (
+                LocalHost => '127.0.0.1',
+                LocalPort => $port,
+                Proto => 'tcp',
+                Listen => 5,
+                Timeout => $self -> timeout ,
+                Reuse => 1
+            ) or print "failed to listen on 127.0.0.1:$port: $! - try next\n" ;
 
-    return ( $socket, "Listening 127.0.0.1:$port\n") ;
+        return ( $socket, "Listening 127.0.0.1:$port\n") 
+            if ( $socket );
+
+        $port ++ ;
+        $self -> port ($port) ;
+        }
     }
 
 sub accept_fail_msg 
@@ -229,12 +238,10 @@ sub accept_fail_msg
 
 sub run
     {
-    my $self = shift ;
+    my ($self, $s_socket, $listen_message ) = @_ ;
 
     $SIG{USR1} = sub { $shutdown = 1; } ;
     
-    my ( $s_socket, $listen_message ) = $self -> build_socket () ;
-
     while ( 1 )
         {
         print STDERR $listen_message if ($self -> _verbose ) ;

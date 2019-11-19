@@ -42,22 +42,30 @@ sub setup_server
     {
     my ( $self ) = @_ ;
 
-    my $port = $self -> port ;
+    my $port   = $self -> port ;
     my $crypto = $self -> crypto ;
-    my $crt  = $self -> crypto . ".crt" ;
-    my $key  = $self -> crypto . ".key" ;
+    my $crt    = $self -> crypto . ".crt" ;
+    my $key    = $self -> crypto . ".key" ;
 
-    my $server = HTTP::Daemon::SSL->new 
-            (
-            LocalAddr => '127.0.0.1',
-            LocalPort => $port,
-            #SSL_verify_mode => SSL_VERIFY_PEER,
-            SSL_hostname => 'localhost',
-            SSL_cert_file => $crt,
-            SSL_key_file  => $key,
-            ) ;
+    while ( $port )
+        {
+        my $server = HTTP::Daemon::SSL->new 
+                (
+                LocalAddr => '127.0.0.1',
+                LocalPort => $port,
+                #SSL_verify_mode => SSL_VERIFY_PEER,
+                SSL_hostname => 'localhost',
+                SSL_cert_file => $crt,
+                SSL_key_file  => $key,
+                ) or print "failed to HTTPS listen on $port: $! - try next\n" ;
 
-    return ($server, "HTTPS ($crypto) Listening on 127.0.0.1:$port\n") ;
+        return ($server, "HTTPS ($crypto) Listening on 127.0.0.1:$port\n") 
+            if ( $server );
+        
+        $port ++ ;
+        $self -> port ( $port ) ;
+
+        }
 
     }
 
@@ -65,7 +73,6 @@ sub accept_fail_msg
     {
     return "Failed to SSL accept on " . shift -> port . "($SSL_ERROR)" ;
     }
-
 
 
 1 ;

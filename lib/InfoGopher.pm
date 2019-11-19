@@ -108,19 +108,10 @@ sub dump
     my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
 
     my @result ;
-    for ( my $i=0; $i < $self->count_info_sources; $i++)
+    foreach my $source ( $self->all_info_sources )
         {
-        my $source = $self -> get_info_source($i) ;
-        foreach my $i ( $source -> info_bites )
-            {
-            my $intro = "InfoBites from " . $i -> source_name . " (" . $i -> source_id . ")" ;
-            Logger ( $intro ) ;
-            foreach my $j ( $i -> all )
-                {
-                my $r = $renderer -> process ( $j ) ;
-                Logger ( $r ) ;
-                }
-            }
+        my $intro = "InfoBites from " . $source -> name . " (" . $source -> uri . ")" ;
+        $source -> dump_info_bites( $intro ) ;
         }
     return \@result ;
     }

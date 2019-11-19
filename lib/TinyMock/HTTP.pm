@@ -15,19 +15,26 @@ use Data::Dumper ;
 
 sub _build_default_port { 7080 }
 
-sub setup_server
+sub build_server_socket
     {
     my ( $self ) = @_ ;
 
     my $port = $self -> port ;
 
-    my $server = HTTP::Daemon->new 
-            (
-            LocalAddr => '127.0.0.1',
-            LocalPort => $self -> port,
-            ) || die "failed to listen on $port: $!" ;
+    while ( $port )
+        { 
+        my $server = HTTP::Daemon->new 
+                (
+                LocalAddr => '127.0.0.1',
+                LocalPort => $self -> port,
+                ) or print "failed to HTTP listen on $port: $! - try next\n" ;
 
-    return ($server, "HTTP Listening 127.0.0.1:$port\n") ;
+        return ($server, "HTTP Listening 127.0.0.1:$port\n") 
+            if (ref $server) ;
+        $port ++ ;
+        $self -> port ($port) ;
+        #warn "port changed to $port" ;
+        } 
 
     }
 
@@ -41,13 +48,9 @@ our $shutdown ;
 
 sub run
     {
-    my ( $self ) = @_ ;
+    my ( $self, $server, $listen_message ) = @_ ;
     
     $SIG{USR1} = sub { $shutdown = 1; } ;
-
-    my $port = $self -> port ;
-
-    my ( $server, $listen_message) = $self -> setup_server ;
 
     my ( $connection, $sockaddr) ;
     while ( 1 )
@@ -55,7 +58,7 @@ sub run
         print STDERR "$$: $listen_message" 
             if ($self -> _verbose ) ;
 
-        ( $connection, $sockaddr ) = $server->accept ;
+        ( $connection, $sockaddr ) = $server -> accept ;
 
         last if ( $shutdown ) ;
 

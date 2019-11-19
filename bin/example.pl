@@ -17,27 +17,6 @@ use InfoGopher::InfoSource::RSS ;
 use InfoGopher::Intention ;
 use InfoGopher::IntentionStack ;
 
-use TinyMock::HTTP ;
-
-our ($mock, $mock2) ;
-
-BEGIN 
-    { 
-    $ENV{MOCK_HOME} = "$FindBin::Bin/../TinyMock";
-    $mock = TinyMock::HTTP -> new ();
-    $mock -> setup('RSS', 7080) ; # fork mock serving mock 'RSS' on 127.0.0.1:7080 
-    $mock2 = TinyMock::HTTP -> new ();
-    $mock2 -> setup('RSS2', 7081, 'response2') ;
-    } ;
-
-BEGIN 
-    {
-    # this would redirect log from sterr to a file
-    # open( my $loghandle, ">", "demoGopher.log" ) 
-    #    or die "cannot open log: $!" ;
-    # InfoGopher::Logger -> handle ( $loghandle ) ;
-    } ;
-
 my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
 my ( $gopher, $rss, $rss2 ) ;
@@ -47,12 +26,12 @@ try
     my $i = NewIntention ( 'Construct an InfoGopher' ) ;
 
     $gopher = InfoGopher -> new ;
-    $rss = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7080") ;
-    $rss -> name ('Politik') ;
+    $rss = InfoGopher::InfoSource::RSS -> new ( uri => "https://krebsonsecurity.com/feed/") ;
+    $rss -> name ('Brian') ;
     $gopher -> add_info_source($rss) ;
 
-    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7081") ;
-    $rss2 -> name ('Wirtschaft') ;
+    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://www.tagesschau.de/xml/rss2") ;
+    $rss2 -> name ('Nachrichten') ;
     $gopher -> add_info_source($rss2) ;
 
     ThrowException("DEMO- no such file 'bla.txt' $!") ;
@@ -74,22 +53,6 @@ try
 
     $gopher -> dump() ;
 
-        {
-        my $i = NewIntention( 'collect info bits again' ) ;
-        $gopher -> collect() ;
-        }
-
-    $gopher -> dump() ;
-
-    $mock2 -> set_responsefile_content('four_o_four') ; 
-
-        {
-        my $i = NewIntention( 'collect info bits yet again' ) ;
-        $gopher -> collect() ;
-        }
-
-    $gopher -> dump() ;
-
     }
 catch
     {
@@ -103,8 +66,3 @@ undef $i ;
 
 Logger ( "Thats it!" ) ;
 
-
-END 
-    { 
-    $mock -> shutdown() ; 
-    } ;

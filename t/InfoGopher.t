@@ -7,9 +7,9 @@ use Test::More tests => 6;
 use TinyMock::HTTP ;
 use Try::Tiny ;
 
-BEGIN { use_ok('InfoGopher') };
-BEGIN { use_ok('InfoGopher::InfoSource::RSS') };
-BEGIN { use_ok('InfoGopher::InfoRenderer::TextRenderer') };
+BEGIN { use_ok('InfoGopher') } ;
+BEGIN { use_ok('InfoGopher::InfoSource::RSS') } ;
+BEGIN { use_ok('InfoGopher::InfoRenderer::TextRenderer') } ;
 
 our $mock ;
 
@@ -39,7 +39,7 @@ try
 catch
     {
     note ( $_ -> what ) ;
-    ok ('Failed due to 404', 'Failed due to 404') ;
+    ok (1, 'Failed due to 404') ;
     };
 
 InfoGopher::IntentionStack -> reset ;
@@ -49,7 +49,7 @@ $mock -> set_responsefile_content('RSS') ;
 try
     {
     $gopher -> collect() ;
-    ok ( 'gopher collected', 'gopher collected' ) ;
+    ok ( 1, 'gopher collected' ) ;
     }
 catch
     {
@@ -57,7 +57,7 @@ catch
     } ;
 
 my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
-ok ('got a renderer', 'got a renderer' ) ;
+ok (1, 'got a renderer' ) ;
 
 my @result = $gopher -> get_all( $renderer ) ;
 ok ( 1 == scalar @result, "exactly one result" ) ;

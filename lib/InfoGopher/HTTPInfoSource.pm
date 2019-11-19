@@ -57,10 +57,10 @@ has 'response' => (
 
 sub get_http
     {
-    my ($self) = @_ ;
+    my ($self, $req, $ua) = @_ ;
 
-    my $ua = $self -> user_agent ;
-    my $req = $self -> request ;
+    $ua  //= $self -> user_agent ;
+    $req //= $self -> request ;
 
     my $res = $ua->request($req) ;
     $self -> response ( $res ) ;
@@ -68,7 +68,7 @@ sub get_http
     if ( $res -> is_success )
         {
         $self -> last_fetch(time) ;
-        $self -> raw ( $res -> content ) ;
+        $self -> raw ( $res -> decoded_content ) ;
         }
     else
         {

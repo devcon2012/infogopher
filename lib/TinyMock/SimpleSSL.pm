@@ -38,14 +38,14 @@ has 'crypto' => (
 #
 sub setup
     {
-    my ($self, $crypto, $content_fn, $response, $port) = @_ ;
+    my ($self, $crypto, $content_fn, $port, $response) = @_ ;
 
     $self -> crypto ( $crypto ) ;
 
-    return $self -> SUPER::setup( $content_fn, $response, $port ) ;
+    return $self -> SUPER::setup( $content_fn, $port, $response) ;
     }
 
-sub build_socket
+sub build_server_socket
     {
     my ( $self ) = @_;
 
@@ -60,16 +60,22 @@ sub build_socket
         die "At least one of $crt/$key not readable" ;
         }
 
-    my $socket = IO::Socket::SSL -> new(
-            LocalAddr       => '127.0.0.1',
-            LocalPort       => $port,
-            Listen          => 10,
-            SSL_cert_file   => $crt,
-            SSL_key_file    => $key,
-            Reuse => 1
-        ) or die "failed to create SSL socket on $port: $! ($SSL_ERROR) " ;
+    while ( $port )
+        {
+        my $socket = IO::Socket::SSL -> new(
+                LocalAddr       => '127.0.0.1',
+                LocalPort       => $port,
+                Listen          => 10,
+                SSL_cert_file   => $crt,
+                SSL_key_file    => $key,
+                Reuse => 1
+            ) or warn "failed to create SSL socket on $port: $! ($SSL_ERROR) " ;
 
-    return ( $socket, "Listening on 127.0.0.1:$port, cert/key basename $crypto\n" ) ;
+        return ( $socket, "Listening on 127.0.0.1:$port, cert/key basename $crypto\n" )
+            if ( $socket ) ;
+        $port ++ ;
+        $self -> port ( $port ) ;
+        }
 
     }
 

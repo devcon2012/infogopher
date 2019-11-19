@@ -7,7 +7,7 @@ Content-Language: de
 <rss version="2.0">
 
   <channel>
-    <title>Politik heute</title>
+    <title>If you change this tests might fail ...</title>
     <link>http://127.0.0.1/politico</link>
     <description>Nachrichten aus der Welt der Politik</description>
     <language>de-de</language>
@@ -21,6 +21,38 @@ Content-Language: de
 
     <item>
       <title>Merkel fährt Merz an den Karrenbauer</title>
+      <description>Lorem ipsum ..</description>
+      <link>http://127.0.0.1/politico/merkel_merz_karren</link>
+      <author>Donald Duck donald@entenhausen.de</author>
+      <guid>MerkelMerzKarren</guid>
+      <pubDate>Son, 31 Mrz 2019 10:11:11</pubDate>
+    </item>
+
+  </channel>
+
+  <channel>
+    <title>Nonsense heute</title>
+    <link>http://127.0.0.1/nonsense</link>
+    <description>Nachrichten aus der Welt der Politik</description>
+    <language>de-de</language>
+    <copyright>Autor des Feeds</copyright>
+    <pubDate>Mon, 1 Apr 2019 11:11:11</pubDate>
+    <image>
+      <url>http://127.0.0.1/politico/insane.png</url>
+      <title>Der Wahnsinn in Tüten</title>
+      <link>http://127.0.0.1/politico/</link>
+    </image>
+
+    <item>
+      <title>Blablabla</title>
+      <description>Lorem ipsum ..</description>
+      <link>http://127.0.0.1/politico/merkel_merz_karren</link>
+      <author>Donald Duck donald@entenhausen.de</author>
+      <guid>MerkelMerzKarren</guid>
+      <pubDate>Son, 31 Mrz 2019 10:11:11</pubDate>
+    </item>
+    <item>
+      <title>Rhabarber Rhabarberbarbara</title>
       <description>Lorem ipsum ..</description>
       <link>http://127.0.0.1/politico/merkel_merz_karren</link>
       <author>Donald Duck donald@entenhausen.de</author>

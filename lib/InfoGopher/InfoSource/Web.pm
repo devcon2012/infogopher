@@ -1,9 +1,7 @@
-package InfoGopher::InfoSource::RSS ;
-
-# same as Web, but forges a 
+package InfoGopher::InfoSource::Web ;
 
 #
-# InfoGopher - A framework for collection information
+# InfoGopher - A framework for collecting information
 #
 #   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
 #
@@ -14,22 +12,21 @@ use strict ;
 use warnings ;
 use utf8 ;
 use namespace::autoclean ;
-use Devel::StealthDebug ENABLE => $ENV{dbg_rss} || $ENV{dbg_source} ;
-use Data::Dumper ;
+use Devel::StealthDebug ENABLE => $ENV{dbg_html} ;
+
 
 use Moose ;
-use MooseX::ClassAttribute ;
+use HTML::TreeBuilder ;
 use Try::Tiny ;
 
 use InfoGopher::Essentials ;
 
-use InfoGopher::InfoTransform::RSS2JSON ;
-
-extends 'InfoGopher::HTTPSInfoSource' ;
+extends qw( InfoGopher::HTTPSInfoSource ) ;
 with 'InfoGopher::InfoSource::_InfoSource' ;
 
+
 # -----------------------------------------------------------------------------
-# fetch - get fresh copy from RSS InfoSource
+# fetch - get fresh copy from the web
 #
 #
 sub fetch
@@ -37,9 +34,9 @@ sub fetch
     my ($self) = @_ ;
 
     my $name = $self -> name ;
-    my $i = NewIntention ( "Fetch RSS $name:" . $self -> uri ) ;
+    my $i = NewIntention ( "Fetch html $name:" . $self -> uri ) ;
 
-    $self -> get_https ;
+    my $response = $self -> get_https ;
 
     $self -> info_bites -> clear() ;
 
@@ -49,14 +46,16 @@ sub fetch
 
     my $newbite = $self -> add_info_bite ( 
             $self -> raw, 
-            'application/rss+xml',
+            $response -> header ('Content-Type') ,
             time ) ;
 
-    #!dump( $self -> info_bites -> count )!
+    my @headers = $response -> header_field_names ;
+    my $meta = $newbite -> meta_infos ;
+    foreach (@headers)
+        {
+        $meta -> {$_} = $response -> header ($_) ;
+        }
 
-    my $t = InfoGopher::InfoTransform::RSS2JSON -> new ;
-    $self -> info_bites -> transform ( $t ) ;
-    #!dump( $self -> info_bites -> count )!
     }
 
 __PACKAGE__ -> meta -> make_immutable ;
