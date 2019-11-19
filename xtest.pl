@@ -28,7 +28,7 @@ our ($mock, $port) ;
 BEGIN 
     { 
     $mock = TinyMock::HTTP -> new ();
-    $mock -> setup('RSS', 7080) ; # fork mock serving mock 'RSS' on 127.0.0.1:7080 
+    $mock -> setup('HTML', 7080) ;
     } ;
 
 BEGIN 
@@ -47,12 +47,19 @@ $port = $mock -> port ;
 
 #$web = InfoGopher::InfoSource::Web -> new( uri => 'https://www.ecos.de' ) ;
 
-$web = InfoGopher::InfoSource::RSS -> new( uri => "http://127.0.0.1:$port" ) ;
+$web = InfoGopher::InfoSource::Web -> new( uri => "http://127.0.0.1:$port" ) ;
 $web -> fetch ;
 $web -> dump_info_bites("initial") ;
 
-exit (0) ;
 my $t = InfoGopher::InfoTransform::HTMLExtractor -> new ;
+
+# filter tags/classes
+$t -> wanted_tags  ( {'div' => 1} ) ;
+$t -> wanted_ids ( {'ticker-content' => 1} ) ;
+
+# what to do?
+$t -> tag2ibite->style('text') ;
+#$t -> tag2ibite->style('href,resolve') ;
 
 try
     {

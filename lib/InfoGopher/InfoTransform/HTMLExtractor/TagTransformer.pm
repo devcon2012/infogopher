@@ -4,7 +4,7 @@ use strict ;
 use warnings ;
 use utf8 ;
 use namespace::autoclean;
-use Devel::StealthDebug ENABLE => $ENV{dbg_transform2} || $ENV{dbg_source} ;
+use Devel::StealthDebug ENABLE => $ENV{dbg_transform} || $ENV{dbg_source} ;
 
 use Data::Dumper;
 use Moose;
@@ -27,6 +27,18 @@ sub _build_style
     return 'href,resolve' ;
     }
 
+ sub _text_content
+    {
+    my ($c) = @_ ;
+    my $text = '' ;
+    my @content = $c->content_list ;
+
+    foreach ( @content )
+        {
+        $text .= $_ if ( ! ref $_ ) ;
+        }
+    return $text ;
+    }
 # -----------------------------------------------------------------------------
 # process - process one prefiltered tag
 #
@@ -37,13 +49,13 @@ sub _build_style
 #
 sub process
     {
-    my ( $self, $c, $bite)  = @_ ;
+    my ( $self, $c, $bite) = @_ ;
 
     my $bites ; 
 
     my $style = $self -> style ;
-    my %styles = map { ucfirst $_ , 1} split (',', $style) ;
-
+    my %styles = map { lc $_ , 1} split (',', $style) ;
+ 
     if ( $styles{href} )
         {
         my $href = $c -> attr('href') || $c -> attr('src') ;
@@ -66,7 +78,7 @@ sub process
         $bites = InfoGopher::InfoBites -> new ;
         $bites -> add_info_bite 
             (
-            $c -> dump ,
+            _text_content($c)  ,
             'text/ascii',
             $bite -> time_stamp,
             $bite -> meta_infos

@@ -36,7 +36,31 @@ has 'wanted_tags' => (
 ) ;
 sub _build_wanted_tags
     {
-    return { a => 1, img => 1} ;
+    return { a => 1, img => 1, h1 => 1, h2 => 1} ;
+    }
+
+has 'wanted_class' => (
+    documentation   => 'hashref of wanted classes in lower caps',
+    is              => 'rw',
+    isa             => 'HashRef[Str]',
+    lazy            => 1,
+    builder         => '_build_wanted_classes',
+) ;
+sub _build_wanted_classes
+    {
+    return { 'title' => 1} ;
+    }
+
+has 'wanted_ids' => (
+    documentation   => 'hashref of wanted items',
+    is              => 'rw',
+    isa             => 'HashRef[Str]',
+    lazy            => 1,
+    builder         => '_build_wanted_ids',
+) ;
+sub _build_wanted_ids
+    {
+    return { } ;
     }
 
 has 'tag2ibite' => (
@@ -93,8 +117,14 @@ sub _add_infobite_maybe
     foreach my $c ( $n -> content_list )
         {
         next if ! ref $c ; 
-        #!dump($c->tag)!
-        if ( defined $self -> wanted_tags -> {$c -> tag} )
+        my $tag = $c -> tag ;
+        my $class = $c -> attr('class') || '';
+        my $id = $c -> attr('id') || '';
+        if  ( 
+                defined $self -> wanted_tags -> {$tag} 
+             && defined $self -> wanted_class -> {$class} 
+             || defined $self -> wanted_ids -> {$id} 
+            )
             {
             my $add = $self -> tag2ibite -> process($c, $bite) ;
             $ibites -> merge ($add) if ($add) ;

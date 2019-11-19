@@ -16,7 +16,7 @@ use warnings ;
 use utf8 ;
 use namespace::autoclean;
 
-use Devel::StealthDebug ENABLE => $ENV{dbg_transformx} || $ENV{dbg_source} ;
+use Devel::StealthDebug ENABLE => $ENV{dbg_transform} || $ENV{dbg_source} ;
 
 use Data::Dumper;
 use Try::Tiny;

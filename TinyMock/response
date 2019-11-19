@@ -2074,7 +2074,7 @@ height: 3em;
 <div id='ticker'>
 <h2 class='title'>Newsticker</h2>
 <div class='section' id='ticker-gadget'>
-<div id='ticker-content'></div>
+<div id='ticker-content'>Aasfresser: Geier mcht sich n Newsticker zu schffen</div>
 </div>
 </div>
 <script>
