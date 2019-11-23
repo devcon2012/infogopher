@@ -66,7 +66,7 @@ WriteMakefile(
                             'Mail::IMAPClient' => 1,
                             'Moose' => 2, 
                             'Moose::Role' => 1,
-                            'MooseX::ClassAttribute' => 1,
+                            'MooseX::ClassAttribute' => 0.2,
                             'Try::Tiny' => 0.3,
                             'URI' => 0.3,
                             'XML::Parser' => 2,
