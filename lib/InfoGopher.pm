@@ -76,9 +76,10 @@ sub collect
     }
 
 # -----------------------------------------------------------------------------
+#
 # get_all - assemble list of all InfoBites
 #
-#
+# ret @bites
 #
 sub get_all
     {
@@ -88,16 +89,16 @@ sub get_all
     my $i = NewIntention ( "Assembling results from $n sources" ) ;
 
     my @results ;
-    foreach ( $self->all_info_sources)
+    foreach my $source ( $self->all_info_sources )
         {
-        push @results, $_ -> info_bites ;
+        push @results, $source -> info_bites ;
         }
 
     return \@results ;
     }
 
 # -----------------------------------------------------------------------------
-# dump
+# dump - show what we got ( intended for debugging)
 #
 #
 #

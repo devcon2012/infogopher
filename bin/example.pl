@@ -10,6 +10,7 @@ use FindBin;
 use lib "$FindBin::Bin/../blib/lib";
 
 use Try::Tiny ;
+use JSON ;
 
 use InfoGopher ;
 use InfoGopher::Essentials ;
@@ -60,6 +61,34 @@ catch
     UnwindIntentionStack($e -> what) ;
 
     exit 1 ;
+    };
+
+try
+    {
+    my $i = NewIntention ( 'Show results' ) ;
+
+    my $bites_list = $gopher -> get_all ;
+    foreach my $infobites ( @$bites_list )
+        {
+        print STDERR "Results from " . $infobites -> source_name . "\n";
+        foreach my $infobite ( $infobites -> all )
+            {
+            print "  Infobite type " . $infobite -> mime_type . "\n" ;
+            print "  Infobite from " . localtime ($infobite -> time_stamp ) . "\n" ;
+            print "  Infobite size " . (length $infobite -> data ) . " chars\n" ;
+#            my $data = JSON -> new -> utf8 -> decode ($infobite -> data) ; Houston, we have a problem
+            my $data = JSON -> new -> decode ($infobite -> data) ;
+            print "  RSS Title: " . $data -> {title} . "\n\n" ;
+            } 
+        }
+    }
+catch
+    {
+    my $e = $_ ;
+    UnwindIntentionStack($e -> what) ;
+
+    exit 1 ;
+
     };
 
 undef $i ;
