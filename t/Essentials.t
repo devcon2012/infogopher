@@ -25,8 +25,8 @@ catch
     {
     my $e = $_ ;
     note( ref $e ) ;
-    ok ( 'InfoGopher::Exception' eq ref $e ) ;
-    ok ( 'XX' eq $e -> what ) ;
+    ok ( 'InfoGopher::Exception' eq ref $e , 'Exception has proper type') ;
+    ok ( 'XX' eq $e -> what , 'Exception has proper what' ) ;
     };
 
 

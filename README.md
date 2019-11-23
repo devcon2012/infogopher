@@ -1,7 +1,11 @@
-InfoGopher version 0.01
+InfoGopher version 0.02
 =======================
 
-The InfoGopher Class collects info-bites from a variety of sources.
+The InfoGopher Class collects info-bites from a variety of sources:
+
+* Web pages
+* RSS Feeds
+* IMAP accounts
 
 INSTALLATION
 

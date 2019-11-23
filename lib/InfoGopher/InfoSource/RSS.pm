@@ -18,7 +18,6 @@ use Devel::StealthDebug ENABLE => $ENV{dbg_rss} || $ENV{dbg_source} ;
 use Data::Dumper ;
 
 use Moose ;
-use MooseX::ClassAttribute ;
 use Try::Tiny ;
 
 use InfoGopher::Essentials ;

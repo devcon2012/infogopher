@@ -30,7 +30,7 @@ BEGIN
 my $intention = NewIntention ( 'test1' ) ;
     {
     my $i = NewIntention ( 'test2' ) ;
-    ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+    ok ( ! InfoGopher::IntentionStack -> is_corrupted , 'Intention stack ok') ;
     undef $i ;
     ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'undef top did not corrupt' ) ;
     }
@@ -40,19 +40,19 @@ ok ( ! InfoGopher::IntentionStack -> is_corrupted , 'undef all did not corrupt')
 $intention = NewIntention ( 'test1b' ) ;
     {
     my $i = NewIntention ( 'test2b' ) ;
-    ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+    ok ( ! InfoGopher::IntentionStack -> is_corrupted , 'Intention stack ok lvl2' ) ;
         {
         my $i = NewIntention ( 'test3b' ) ;
-        ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+        ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok lvl3' ) ;
         }
     }
-ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok lvl0' ) ;
     {
     my $i1 = NewIntention ( 'test3b' ) ;
-    ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+    ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok lvl2b') ;
 
     my $i2 = NewIntention ( 'test4b' ) ;
-    ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+    ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok lvl3b' ) ;
     undef ( $i1 ) ;
 
     ok ( InfoGopher::IntentionStack -> is_corrupted, 'force undef against stack order corrupts' ) ;
@@ -60,18 +60,18 @@ ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
 
 undef $intention ;
 InfoGopher::IntentionStack -> reset ;
-ok ( ! InfoGopher::IntentionStack -> is_corrupted ) ;
+ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok after reset' ) ;
 
 $intention = NewIntention ( 'test1c' ) ;
 
 my $stack = UnwindIntentionStack ("bla") ;
 #print STDERR Dumper($stack) ;
 
-ok ( 1 == scalar @$stack ) ;
+ok ( 1 == scalar @$stack, 'Intention stack count ok' ) ;
 
 my $intention2 = NewIntention ( 'test1d' ) ;
 $stack = UnwindIntentionStack ("bla") ;
-ok ( 2 == scalar @$stack ) ;
+ok ( 2 == scalar @$stack, 'Intention stack count ok 2' ) ;
 
 SKIP:
     {

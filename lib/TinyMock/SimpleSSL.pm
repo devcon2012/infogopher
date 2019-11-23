@@ -50,10 +50,11 @@ sub build_server_socket
     my ( $self ) = @_;
 
     my $crypto = $self -> crypto ;
-    my $port = $self -> port ;
+    my $port   = $self -> port ;
+    my $root   = $self -> root ;
 
-    my $crt = $crypto . ".crt" ;
-    my $key = $crypto . ".key" ;
+    my $crt = $root . "/crts/" . $crypto . ".crt" ;
+    my $key = $root . "/keys/" . $crypto . ".pem" ;
 
     if ( ! -r $crt || ! -r $key )
         {

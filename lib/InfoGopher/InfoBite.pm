@@ -15,9 +15,9 @@ use Try::Tiny;
 
 # 
 has 'data' => (
-    documentation   => 'Information data',
+    documentation   => 'Raw information data',
     is              => 'rw',
-    isa             => 'Maybe[Str]',
+    isa             => 'Any',
     default         => ''
 ) ;
 

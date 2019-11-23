@@ -22,7 +22,7 @@ BEGIN
 
 my $bites = InfoGopher::InfoBites -> new ( ) ;
 
-ok ( 'InfoBites created' ) ;
+ok ( 1, 'InfoBites created' ) ;
 
 exit 0 ;
 

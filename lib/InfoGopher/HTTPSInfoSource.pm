@@ -53,15 +53,10 @@ has 'allow_untrusted' => (
     default         => 0
 ) ;
 
-has 'user' => (
-    documentation   => 'user name',
-    is              => 'rw',
-    isa             => 'Maybe[Str]',
-    default         => ''
-) ;
-
+# we introduce pw here because pws can thus only be used over 
+# encrypted connections ...
 has 'pw' => (
-    documentation   => 'password',
+    documentation   => 'password for authentication',
     is              => 'rw',
     isa             => 'Maybe[Str]',
     default         => ''

@@ -2,7 +2,7 @@ package InfoGopher ;
 
 # see below for docu and copyright information
 
-use 5.026001;
+use 5.018001;
 use strict;
 use warnings;
 use Moose ;

@@ -6,7 +6,7 @@
 # You can use and distribute this software under the same conditions as perl
 #
 
-use 5.026001;
+use 5.018001;
 use ExtUtils::MakeMaker;
 use File::Find ;
 use Cwd ;
@@ -21,6 +21,9 @@ sub wanted
         if ( /\.t$/ ) ;
     }
 
+# tar cf /tmp/bla.tar *
+# tar tf /tmp/bla.tar | grep -v /\$ | sort -f > MANIFEST 
+
 sub CritiqueModules
     {
     find(\&wanted, 'lib', 'bin', 'TinyMock' );
@@ -29,8 +32,8 @@ sub CritiqueModules
     
     foreach my $m (@modules)
         {
-        #perprint STDERR "$m\n" ;
-        system("perlcritic $m") ;
+        system("perlcritic $m") 
+            and print STDERR "ERROR in $m\n" ;
         }
 
     @modules = () ;
@@ -40,9 +43,9 @@ sub CritiqueModules
     
     foreach my $m (@modules)
         {
-        #perprint STDERR "$m\n" ;
-        system("perlcritic --theme tests $m") ;
-        }
+        system("perlcritic --theme tests $m")
+            and print STDERR "ERROR in $m\n" ;
+         }
     
     }
 
@@ -51,9 +54,11 @@ WriteMakefile(
     VERSION_FROM      => 'lib/InfoGopher.pm', 
     PREREQ_PM         => {
                             'Moose' => 2, 
+                            'MooseX::ClassAttribute' => 1, 
                             'HTTP::Daemon' => 6, 
                             'XML::Parser' => 2,
                             'HTML::Tree' => 5,
+                            'Mail::IMAPClient' => 1,
                             'JSON' => 2.9
                          }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/InfoGopher.pm', # retrieve abstract from module
@@ -63,5 +68,3 @@ WriteMakefile(
 
 CritiqueModules() ;
 
-
-print "!! Please use MOCK_HOME=" . getcwd . "/TinyMock make test !!\n" ;
