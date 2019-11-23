@@ -9,6 +9,7 @@ use warnings ;
 use utf8 ;
 use namespace::autoclean;
 
+use HTTP::CookieJar::LWP;
 use Data::Dumper;
 use Moose;
 use Try::Tiny;
