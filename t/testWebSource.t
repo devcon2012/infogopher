@@ -30,7 +30,7 @@ BEGIN
 use constant SourceName => 'WebSourceTest' ;
 use constant SourceId => 7 ;
 
-my $port = $mock -> port ;
+$port = $mock -> port ;
 note ("Mock port " . $port ) ;
 
 my $gopher = InfoGopher -> new ;

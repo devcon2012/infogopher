@@ -31,7 +31,7 @@ BEGIN
 use constant RSSName => 'RSSTest' ;
 use constant RSSId => 7 ;
 
-my $port = $mock -> port ;
+$port = $mock -> port ;
 
 note ("Mock port " . $port ) ;
 
