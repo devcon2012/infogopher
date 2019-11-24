@@ -70,7 +70,7 @@ WriteMakefile(
                             'Try::Tiny' => 0.28,
                             'URI' => 0.3,
                             'XML::Parser' => 2,
-                            'HTTP::CookieJar::LWP' => 1
+                            'HTTP::CookieJar::LWP' => 0.008
                          }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/InfoGopher.pm', # retrieve abstract from module
     AUTHOR            => 'Klaus Ramstöck <klaus@ramstoeck.name>',

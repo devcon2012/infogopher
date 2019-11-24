@@ -63,7 +63,6 @@ around 'uri' => sub
     if ( @_ )
         {
         my $newuri = shift ;
-        print STDERR ">>>$newuri\n" ;
         # imap://user@host:port/
         # user:pw@host syntax not supported for good reason!
         if ( $newuri =~ /([^:]+):\/\/(([^\@]+)\@){0,1}([^:\/]+):{0,1}([^\/]*)\//  )
