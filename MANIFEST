@@ -31,10 +31,9 @@ lib/TinyMock/HTTPS.pm
 lib/TinyMock/IMAP.pm
 lib/TinyMock/Simple.pm
 lib/TinyMock/SimpleSSL.pm
-Makefile.old
 Makefile.PL
 MANIFEST
-README
+README.md
 t/Essentials.t
 t/InfoGopher.t
 t/Logger.t
@@ -58,7 +57,5 @@ TinyMock/cryptomock.xdb
 TinyMock/keys/mock_ca.pem
 TinyMock/keys/mock_client.pem
 TinyMock/keys/mock_server.pem
-TinyMock/response
-TinyMock/response2
 TinyMock/TinyMock.pl
 xtest.pl
