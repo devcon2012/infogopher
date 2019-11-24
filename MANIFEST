@@ -41,8 +41,6 @@ t/testBites.t
 t/testIntention.t
 t/testRSSSource.t
 t/testWebSource.t
-testEssentials.log
-testInfoBites.log
 TinyMock/.gitignore
 TinyMock/content/four_o_four
 TinyMock/content/HTML
