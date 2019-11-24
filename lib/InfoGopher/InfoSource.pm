@@ -78,7 +78,6 @@ around 'uri' => sub
         }
     else
         {
-        print STDERR ">>> nonewuri\n" ;
         return $self -> $orig();
         }
     } ;

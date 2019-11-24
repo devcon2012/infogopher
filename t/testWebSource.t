@@ -30,17 +30,18 @@ BEGIN
 use constant SourceName => 'WebSourceTest' ;
 use constant SourceId => 7 ;
 
-note ("Mock port " . $mock -> port ) ;
+my $port = $mock -> port ;
+note ("Mock port " . $port ) ;
 
 my $gopher = InfoGopher -> new ;
 my $web = InfoGopher::InfoSource::Web -> new ( 
-        uri      => "http://127.0.0.1:" . $mock -> port,
+        uri      => "http://127.0.0.1:$port",
         name     => SourceName,
         id       => SourceId) ;
 
 ok ( SourceName eq $web -> name , 'Name ok' ) ;
 ok ( SourceId   eq $web -> id , 'ID ok' ) ;
-ok ( "http://127.0.0.1:" . $mock -> port eq $web -> uri , 'URI ok' ) ;
+ok ( "http://127.0.0.1:$port/" eq $web -> uri , 'URI ok' . $web -> uri ) ;
 
 try
     {

@@ -31,17 +31,19 @@ BEGIN
 use constant RSSName => 'RSSTest' ;
 use constant RSSId => 7 ;
 
-note ("Mock port " . $mock -> port ) ;
+my $port = $mock -> port ;
+
+note ("Mock port " . $port ) ;
 
 my $gopher = InfoGopher -> new ;
 my $rss = InfoGopher::InfoSource::RSS -> new ( 
-        uri      => "http://127.0.0.1:" . $mock -> port,
+        uri      => "http://127.0.0.1:" . $port,
         name     => RSSName,
         id       => RSSId) ;
 
 ok ( RSSName eq $rss -> name , 'Name ok' ) ;
 ok ( RSSId   eq $rss -> id , 'ID ok' ) ;
-ok ( "http://127.0.0.1:" . $mock -> port eq $rss -> uri , 'URI ok' ) ;
+ok ( "http://127.0.0.1:$port/" eq $rss -> uri , 'URI ok' ) ;
 
 try
     {
