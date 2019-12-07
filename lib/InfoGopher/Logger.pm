@@ -21,13 +21,14 @@ sub _build_log_destination
     return *STDERR ;
     }
 
-sub log
+sub Log
     {
     my ($self, $msg) = @_  ;
 
     # print STDERR longmess if ( ! $msg ) ;
     my $fh = $self -> handle ;
     print $fh "$msg\n" ;
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

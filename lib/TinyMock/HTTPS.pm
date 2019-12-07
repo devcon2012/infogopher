@@ -13,7 +13,7 @@ extends 'TinyMock::HTTP' ;
 
 use Data::Dumper ;
 
-sub _build_default_port { 7443 }
+sub _build_default_port { return 7443; }
 
 has 'crypto' => (
     documentation   => 'crypto file name base',

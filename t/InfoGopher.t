@@ -42,7 +42,7 @@ catch
     ok (1, 'Failed due to 404') ;
     };
 
-InfoGopher::IntentionStack -> reset ;
+InfoGopher::IntentionStack -> reset_intention_stack ;
 
 $mock -> set_responsefile_content('RSS') ;     
 
@@ -68,6 +68,6 @@ exit 0 ;
 
 END 
     { 
-    $mock -> shutdown() ; 
+    $mock -> shutdown_mock() ; 
     } ;
 

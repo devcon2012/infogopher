@@ -55,7 +55,8 @@ sub fetch
         {
         $meta -> {$_} = $response -> header ($_) ;
         }
-
+        
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

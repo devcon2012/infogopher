@@ -51,11 +51,7 @@ sub fetch
             'application/rss+xml',
             time ) ;
 
-    #!dump( $self -> info_bites -> count )!
-
-    my $t = InfoGopher::InfoTransform::RSS2JSON -> new ;
-    $self -> info_bites -> transform ( $t ) ;
-    #!dump( $self -> info_bites -> count )!
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

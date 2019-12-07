@@ -61,14 +61,16 @@ has 'what' => (
 
 sub BUILD
     {
-    my $self = shift ;
+    my ($self) = @_ ;
     InfoGopher::IntentionStack -> add ( $self ) ;
+    return ;
     }
 
 sub DEMOLISH
     {
-    my $self = shift ;
+    my ($self) = @_ ;
     InfoGopher::IntentionStack -> remove ( $self ) ;
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

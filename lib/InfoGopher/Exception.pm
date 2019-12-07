@@ -20,6 +20,7 @@ has 'what' => (
 sub BUILD
     {
     InfoGopher::IntentionStack -> freeze ( 1 ) ;
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

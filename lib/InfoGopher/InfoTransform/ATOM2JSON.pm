@@ -1,4 +1,4 @@
-package InfoGopher::InfoTransform::RSS2JSON ;
+package InfoGopher::InfoTransform::ATOM2JSON ;
 
 use strict ;
 use warnings ;
@@ -16,22 +16,21 @@ use JSON ;
 
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
-use InfoGopher::InfoTransform::XML_RSS_Style ;
+use InfoGopher::InfoTransform::XML_ATOM_Style ;
 
-# RSS XML Example: https://de.wikipedia.org/wiki/RSS_(Web-Feed)
+# ATOM XML Example: https://en.wikipedia.org/wiki/Atom_(Web_standard)
 # application/rss+xml
 has 'xml_parser' => (
-    documentation   => 'xml parser for reading RSS',
+    documentation   => 'xml parser for reading ATOM',
     is              => 'rw',
     isa             => 'Maybe[XML::Parser]',
     lazy            => 1,
-    builder         => '_build_xml_parser',
+    builder         => '_build_xml_parser' ,
 ) ;
 
 sub _build_xml_parser
     {
-    return XML::Parser -> new( Style => 'InfoGopher::InfoTransform::XML_RSS_Style' ) ;
-    #return XML::Parser -> new( Style => 'Tree' ) ;
+    return XML::Parser -> new( Style => 'InfoGopher::InfoTransform::XML_ATOM_Style' ) ;
     }
 
 # -----------------------------------------------------------------------------
@@ -46,17 +45,16 @@ sub transform
     my ( $self, $info_bite) = @_ ;
 
     my $mime = $info_bite -> mime_type ;
-    #!dump($mime)!
 
     ThrowException("wrong mime type") 
-        if ( $mime ne 'application/rss+xml' ) ;
+        if ( $mime ne 'application/atom+xml' ) ;
 
-    my $rss_tree ;
+    my $atom_tree ;
 
     try
         {
         # Might die ...
-        $rss_tree = $self -> xml_parser -> parse ( $info_bite -> data ) ;
+        $atom_tree = $self -> xml_parser -> parse ( $info_bite -> data ) ;
         }
     catch
         {
@@ -64,30 +62,38 @@ sub transform
         ThrowException("Invalid XML received: " . $_) ;
         } ;
 
-    my $tree = $rss_tree  ;
-    #!dump( $tree )!
-
     my $ibites = InfoGopher::InfoBites -> new () ;
 
-    #!dump("Channels: ". @{$tree -> {channels}} )!
-    foreach my $channel ( @{$tree -> {channels}} )
+    if ( $self -> get_option('split') )
         {
-        #!dump("Items: ". @{$channel ->{items}} )!
-        foreach my $item ( @{$channel ->{items}} )
+        #!dump("Channels: ". @{$atom_tree -> {channels}} )!
+        foreach my $channel ( @{$atom_tree -> {channels}} )
             {
-            #!dump($item->{title})!
-            my $json_item = { } ;
-            foreach my $key ( qw ( title author pubDate ) )
+            #!dump("Items: ". @{$channel ->{items}} )!
+            foreach my $item ( @{$channel ->{items}} )
                 {
-                $json_item -> {$key} = $item -> {$key} ;
-                }
-            # mimetype is application/json..
-            my $new_bit = $info_bite -> clone ;
-            $new_bit -> mime_type ( 'application/json' ) ;
-            $new_bit -> data ( JSON -> new -> encode($json_item) ) ;
-            $ibites -> add ( $new_bit ) ;
-            }        
+                #!dump($item->{title})!
+                my $json_item = { } ;
+                foreach my $key ( qw ( title author pubDate ) )
+                    {
+                    $json_item -> {$key} = $item -> {$key} ;
+                    }
+                # mimetype is application/json..
+                my $new_bit = $info_bite -> clone ;
+                $new_bit -> mime_type ( 'application/json' ) ;
+                $new_bit -> data ( JSON -> new -> encode($json_item) ) ;
+                $ibites -> add ( $new_bit ) ;
+                }        
+            }
         }
+    else
+        {
+        my $new_bit = $info_bite -> clone ;
+        $new_bit -> mime_type ( 'application/json' ) ;
+        $new_bit -> data ( JSON -> new -> encode($atom_tree) ) ;
+        $ibites -> add ( $new_bit ) ;
+        }
+
     return $ibites ;
     }
 

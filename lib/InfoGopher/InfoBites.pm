@@ -10,7 +10,7 @@ use Devel::StealthDebug ENABLE => $ENV{dbg_bites} || $ENV{dbg_source} ;
 use Data::Dumper;
 use Moose;
 use Try::Tiny;
-
+use Carp qw( longmess ) ;
 use InfoGopher::InfoBites ;
 
 has 'bites' => (
@@ -54,8 +54,18 @@ has 'source_id' => (
 sub add_info_bite
     {
     my ( $self, $data, $mime_type, $time_stamp, $meta) = @_ ;
+    #!dump($mime_type, $time_stamp)!
 
     $meta //= {} ;
+    if ( 'HASH' ne ref $meta )
+        {
+        print STDERR "add_info_bite" . longmess;
+        #print STDERR Dumper($data);
+        #print STDERR Dumper($mime_type);
+        #print STDERR Dumper($time_stamp);
+        #$meta = {} ;
+        exit 0 ;
+        }
 
     my $bite = InfoGopher::InfoBite -> new ( 
             data        => $data,
@@ -73,6 +83,7 @@ sub add_info_bite
 sub clone
     {
     my ( $self ) = @_ ;
+    #!dump($self->source_name)!
 
     my $new_bites = InfoGopher::InfoBites -> new
             (
@@ -88,28 +99,34 @@ sub clone
 sub transform
     {
     my ( $self, $transformer ) = @_ ;
-
+    #!dump($self->source_name)!
+    #!dump($self->count)!
+    print STDERR "XXX\n";
     my $transformed_bites  = $self -> clone () ;
-
     foreach my $ibite ( $self -> all )
         {
         my $new_bites = $transformer -> transform ($ibite) ;
+        #!dump($new_bites->count)!
         $transformed_bites -> merge ( $new_bites ) ;
         }
 
     $self -> bites ( $transformed_bites->bites ) ;
 
+    #!dump($self->count)!
+    return ;
     }
 
 # merge other infobites to this one  
 sub merge
     {
     my ( $self, $infobites ) = @_ ;
+    #!dump($self->source_name)!
 
     my $mine = $self      -> bites ;
     my $new  = $infobites -> bites ;
 
     push @$mine, @$new ;
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

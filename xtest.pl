@@ -14,12 +14,13 @@ use Data::Dumper ;
 
 use InfoGopher ;
 use InfoGopher::Essentials ;
-use InfoGopher::InfoSource::RSS ;
+use InfoGopher::InfoSource::ATOM ;
 use InfoGopher::InfoSource::Web ;
 use InfoGopher::Intention ;
 use InfoGopher::IntentionStack ;
 use InfoGopher::InfoRenderer::TextRenderer ;
 use InfoGopher::InfoTransform::HTMLExtractor ;
+use InfoGopher::InfoTransform::ATOM2JSON ;
 
 use TinyMock::HTTP ;
 
@@ -41,15 +42,18 @@ BEGIN
 
 my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
-my ( $gopher, $web ) ;
+my ( $gopher, $src, $t ) ;
 
 $port = $mock -> port ;
 
-#$web = InfoGopher::InfoSource::Web -> new( uri => 'https://www.ecos.de' ) ;
+$src = InfoGopher::InfoSource::ATOM -> new( uri => "https://krebsonsecurity.com/feed/atom/" ) ;
+$t = InfoGopher::InfoTransform::ATOM2JSON -> new ;
+$src -> transformation ( $t ) ;
 
-$web = InfoGopher::InfoSource::Web -> new( uri => "http://127.0.0.1:$port" ) ;
-$web -> fetch ;
-$web -> dump_info_bites("initial") ;
+$src -> fetch ;
+$src -> dump_info_bites("initial") ;
+
+__END__ 
 
 my $t = InfoGopher::InfoTransform::HTMLExtractor -> new ;
 
@@ -99,7 +103,7 @@ try
         $gopher -> collect() ;
         }
 
-    $gopher -> dump() ;
+    $gopher -> dump_text() ;
 
     }
 catch
@@ -117,5 +121,5 @@ Logger ( "Thats it!" ) ;
 
 END 
     { 
-    $mock -> shutdown() ; 
+    $mock -> shutdown_mock() ; 
     } ;

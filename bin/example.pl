@@ -29,17 +29,23 @@ try
     $gopher = InfoGopher -> new ;
     $rss = InfoGopher::InfoSource::RSS -> new ( uri => "https://krebsonsecurity.com/feed/") ;
     $rss -> name ('Brian') ;
+    my $rss2json = InfoGopher::InfoTransform::RSS2JSON -> new () ;
+    $rss -> transformation ( $rss2json ) ;
     $gopher -> add_info_source($rss) ;
 
-    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://www.tagesschau.de/xml/rss2") ;
+    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://www.tagesschau.de/xml/rss2" ) ;
     $rss2 -> name ('Nachrichten') ;
-    $gopher -> add_info_source($rss2) ;
+    $rss2 -> transformation ( $rss2json ) ;
+    $gopher -> add_info_source( $rss2 ) ;
 
-    ThrowException("DEMO- no such file 'bla.txt' $!") ;
+        {
+        my $i = NewIntention ( 'Demonstrate intention stack unwind' ) ;
+        ThrowException("DEMO- no such file 'bla.txt' $!") ;
+        }
     }
 catch
     {
-    my $e = $_ ;
+    my $e = NormalizeException( $_ ) ;
     UnwindIntentionStack($e -> what) ;
     exit 1 
         if ( $e -> what !~ /DEMO/ ) ;
@@ -52,12 +58,12 @@ try
         $gopher -> collect() ;
         }
 
-    $gopher -> dump() ;
+    $gopher -> dump_text () ;
 
     }
 catch
     {
-    my $e = $_ ;
+    my $e = NormalizeException($_) ;
     UnwindIntentionStack($e -> what) ;
 
     exit 1 ;
@@ -84,7 +90,7 @@ try
     }
 catch
     {
-    my $e = $_ ;
+    my $e = NormalizeException($_) ;
     UnwindIntentionStack($e -> what) ;
 
     exit 1 ;

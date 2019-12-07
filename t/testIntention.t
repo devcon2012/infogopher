@@ -59,7 +59,7 @@ ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok lvl0' ) ;
     }
 
 undef $intention ;
-InfoGopher::IntentionStack -> reset ;
+InfoGopher::IntentionStack -> reset_intention_stack ;
 ok ( ! InfoGopher::IntentionStack -> is_corrupted, 'Intention stack ok after reset' ) ;
 
 $intention = NewIntention ( 'test1c' ) ;

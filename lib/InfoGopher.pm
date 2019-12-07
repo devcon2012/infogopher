@@ -43,8 +43,11 @@ around 'add_info_source' => sub
     my ($orig, $self, $source) = @_ ;
     shift; shift ;
 
-    $source -> id ( $id_serial++ ) ;
-
+    if ( $source )
+        {
+        $source -> id ( $id_serial++ ) ;
+        }
+        
     return $self->$orig(@_);
     };
 # -----------------------------------------------------------------------------
@@ -61,11 +64,11 @@ sub collect
 
     for ( my $i=0; $i < $self->count_info_sources; $i++)
         {
-        my $source = $self -> get_info_source($i) ;
+        my $source = $self -> get_info_source( $i ) ;
 
         try
             {
-            $source -> fetch ($i) ;
+            $source -> fetch () ;
             }
         catch
             {
@@ -73,6 +76,8 @@ sub collect
             UnwindIntentionStack ( $e -> what, $i ) ;
             }
         }
+
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -98,11 +103,11 @@ sub get_all
     }
 
 # -----------------------------------------------------------------------------
-# dump - show what we got ( intended for debugging)
+# dump_text - show what we got ( intended for debugging)
 #
 #
 #
-sub dump
+sub dump_text
     {
     my ($self) = @_ ;
 
@@ -137,7 +142,7 @@ InfoGopher - Perl Moose Class to collect info bits from a variety of sources.
 
   $gopher -> add_info_source($rss) ;
   $gopher -> collect() ;
-  $gopher -> dump() ;
+  $gopher -> dump_text() ;
 
 =head1 DESCRIPTION
 

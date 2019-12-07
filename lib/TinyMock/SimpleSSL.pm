@@ -16,7 +16,7 @@ use Symbol 'gensym' ;
 use Getopt::Long ;
 
 # 
-sub _build_default_port { 7774 }
+sub _build_default_port { return 7774; }
 
 has 'crypto' => (
     documentation   => 'crypto file name base',

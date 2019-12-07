@@ -10,77 +10,13 @@ use Data::Dumper;
 use Moose;
 use Try::Tiny;
 
+with 'InfoGopher::_URI' ;
+
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
 use InfoGopher::InfoRenderer::TextRenderer ;
 
 use constant source_type => 'virtual_base_class' ;
-
-# 
-has 'uri' => (
-    documentation   => 'Information source, eg. http://xxx.. or ...',
-    is              => 'rw',
-    isa             => 'Str',
-    default         => ''
-) ;
-
-# 
-has 'host' => (
-    documentation   => 'host name extracted from uri',
-    is              => 'rw',
-    isa             => 'Str',
-    default         => 'localhost'
-) ;
-
-# 
-has 'user' => (
-    documentation   => 'user name, possibly for authentication',
-    is              => 'rw',
-    isa             => 'Str',
-    default         => ''
-) ;
-
-has 'port' => (
-    documentation   => 'port number extracted from uri',
-    is              => 'rw',
-    isa             => 'Int',
-    default         => '-1'
-) ;
-
-has 'proto' => (
-    documentation   => 'protocol (http, https, imap, ...)',
-    is              => 'rw',
-    isa             => 'Str',
-    default         => 'http'
-) ;
-
-# set name to hostname of URI, if not yet set.
-around 'uri' => sub 
-    {
-    my $orig = shift ;
-    my $self = shift ;
- 
-    if ( @_ )
-        {
-        my $newuri = shift ;
-        # imap://user@host:port/
-        # user:pw@host syntax not supported for good reason!
-        if ( $newuri =~ /([^:]+):\/\/(([^\@]+)\@){0,1}([^:\/]+):{0,1}([^\/]*)\//  )
-            {    
-            my ($proto, $user, $host, $port) = ($1, $3, $4, $5) ;
-            $self -> proto ( $proto ) if ($proto) ;
-            $self -> user  ( $user  ) if ($user) ;
-            $self -> host  ( $host  ) if ($host) ;
-            $self -> port  ( $port  ) if ($port) ;
-            }
-        return $self -> $orig( $newuri );
-        }
-    else
-        {
-        return $self -> $orig();
-        }
-    } ;
-
 
 # 
 has 'name' => (
@@ -134,14 +70,29 @@ sub _build_info_bites
     return InfoGopher::InfoBites -> new () ;
     }
 
+has 'transformation' => (
+    documentation   => 'default raw data aggregation, if any',
+    is              => 'rw',
+    isa             => 'Maybe[InfoGopher::InfoTransform]',
+) ;
+
 sub BUILD 
     {
     my $self = shift ;
 
     my $uri = $self -> uri ;
-    $self -> uri ("$uri/") ;
-
+    if ( '/' eq substr($uri, -1) )
+        {
+        $self -> uri ("$uri") ;
+        }
+    else
+        {
+        $self -> uri ("$uri/") ;
+        }
+    return;
     }
+
+
 # -----------------------------------------------------------------------------
 # add_info_bite - factory method to add a new info bite to the list
 #
@@ -191,21 +142,61 @@ sub dump_info_bites
                 }
             $last = $meta ;
             }
-        } 
+        }
+    return ;
     }
 
 # -----------------------------------------------------------------------------
+#
 # fetch - virtual method 
 #
+#   fetching obtains a fresh copy from the URI, possibly applying 
+#   
 #
 sub fetch
     {
-    my ( $self, $id ) = @_ ;
+    my ( $self) = @_ ;
 
-    die "VIRTUAL fetch in " . __PACKAGE__ . " NOT OVERLOADED" ;
+    die "VIRTUAL fetch in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
     
     }
 
 __PACKAGE__ -> meta -> make_immutable ;
 
 1;
+
+
+=head1 NAME
+
+InfoGopher::InfoSource - fetch information from a variety of sources
+
+Sources can be anything fetched via network: HTML, web cam pictures, 
+imap accounts, ...
+
+Fetching Information yields infobites, which can then be aggregated with an 
+InfoTransform object. An InfoTransform accepts only specific type of input.
+
+
+
+=head1 USAGE
+
+my $source = InfoGopher::InfoSource::RSS -> new ( uri => "https://...") ;
+$source -> name ("xx webfeed") ;
+$source -> fetch () ;
+
+=head1 TRANSFORMATIONS
+
+=head2 RSS2JSON
+
+This transformation takes a application/rss+xml infobit and transforms it into
+a list of JSO
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2019 by Klaus Ramstöck
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.26.1 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

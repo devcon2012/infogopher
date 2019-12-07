@@ -35,6 +35,10 @@ sub process
         {
         $line = substr($data, 0, 40) . "... ($type fetched \@ $time )" ;
         }
+    elsif ( $bite -> mime_type =~ /json/ )
+        {
+        $line = substr($data, 0, 80) . "... ($type fetched \@ $time )" ;
+        }
     else
         {
         my $sz = length $data ; # this is chars, not utf8 bytes ...

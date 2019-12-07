@@ -2,13 +2,14 @@
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 8;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
 use Data::Dumper ;
 
 BEGIN { use_ok('InfoGopher') };
+BEGIN { use_ok('InfoGopher::Essentials') };
 BEGIN { use_ok('InfoGopher::InfoSource::Web') };
 
 our ($mock, $port) ; 
@@ -50,8 +51,9 @@ try
     }
 catch
     {
-    note (Dumper($_)) ;
-    fail ( $_ -> what ) ;
+    my $e = NormalizeException($_) ;
+    note ( Dumper($_) ) ;
+    fail ( $e -> what ) ;
     };
 
 my $ibites = $web -> info_bites ;
@@ -62,6 +64,6 @@ exit 0 ;
 
 END 
     { 
-    $mock -> shutdown() ; 
+    $mock -> shutdown_mock() ; 
     } ;
 

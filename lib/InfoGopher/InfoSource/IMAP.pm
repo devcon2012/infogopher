@@ -48,6 +48,8 @@ sub _build_imap_client
         Ssl      => 1,
         Uid      => 1,
         );
+
+    return $imap ; 
     }
 
 # -----------------------------------------------------------------------------
@@ -116,6 +118,7 @@ sub fetch
         $self -> info_bites -> add_info_bite ( $envelope, 'application/imap-envelope', time ) ;
         }
 
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

@@ -21,8 +21,44 @@ sub wanted
         if ( /\.t$/ ) ;
     }
 
-# tar cf /tmp/bla.tar *
-# tar tf /tmp/bla.tar | grep -v /\$ | sort -f > MANIFEST 
+our @manifest ;
+sub UpdateManifest
+    {
+    push @manifest, glob '*.md' ;
+    push @manifest, glob '*.pl' ;
+    push @manifest, 'LICENSE' ;
+    push @manifest, 'Makefile.PL' ;
+    push @manifest, 'Changes' ;
+    push @manifest, '.gitignore' ;
+    push @manifest, 'TinyMock/.gitignore' ;
+
+
+    find ( sub { push @manifest, $File::Find::name if ( /\.p[lm]$/ ) ; },
+            'lib', 'TinyMock', 'bin'
+            );
+
+    find ( sub { push @manifest, $File::Find::name if ( /\.t$/ ) ; },
+            't'
+            );
+
+    find ( sub { push @manifest, $File::Find::name if ( /\.crt$/ ) ; },
+            'TinyMock'
+            );
+
+    find ( sub { push @manifest, $File::Find::name if ( /\.pem$/ ) ; },
+            'TinyMock'
+            );
+
+    push @manifest, glob 'TinyMock/content/*' ;
+    push @manifest, 'TinyMock/cryptomock.xdb' ;
+
+    open ( my $fh, ">", "MANIFEST.new")
+        or die "cannot open MANIFEST.new: $!";
+    print $fh join ("\n", sort { fc($a) cmp fc($b) } @manifest);
+    print $fh "\n";
+    close $fh ;
+    system ("diff MANIFEST MANIFEST.new") ;
+    }
 
 sub CritiqueModules
     {
@@ -32,7 +68,7 @@ sub CritiqueModules
     
     foreach my $m (@modules)
         {
-        system("perlcritic $m") 
+        system("perlcritic --stern $m")       # --stern ./. --gentle 
             and print STDERR "ERROR in $m\n" ;
         }
 
@@ -79,3 +115,4 @@ WriteMakefile(
 
 CritiqueModules() ;
 
+UpdateManifest() ;

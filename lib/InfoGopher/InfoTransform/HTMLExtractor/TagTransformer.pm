@@ -54,7 +54,7 @@ sub process
     my $bites ; 
 
     my $style = $self -> style ;
-    my %styles = map { lc $_ , 1} split (',', $style) ;
+    my %styles = map { ( (lc $_) , 1) } split (',', $style) ;
  
     if ( $styles{href} )
         {

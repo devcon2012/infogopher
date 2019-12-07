@@ -1,7 +1,9 @@
-package InfoGopher::InfoTransform::XML_RSS_Style ;
+package InfoGopher::InfoTransform::XML_ATOM_Style ;
 
-# Helper-Style for the RSS XML Parser
+# Helper-Style for the ATOM XML Parser
 # transforms the XML to a perl data structure which can be json'ed
+
+
 #
 # InfoGopher - A framework for collecting information
 #
@@ -50,7 +52,7 @@ sub Start
 
     my ($newlist, $curlist, $target );
 
-    if ( $tag eq 'rss' )
+    if ( $tag eq 'feed' )
         {
         $expat->{Tree} = $newlist = { channels => [] } ;
         push @$tagx, [ $tag, $newlist ] ;
@@ -58,7 +60,7 @@ sub Start
         push @{$expat->{Lists}}, $expat->{Curlist} ;
         return ;
         }
-    elsif ( $tag eq 'channel' )
+    elsif ( $tag eq 'author' )
         {
         $newlist = { items => [] } ;
         push @$tagx, [ $tag, $newlist ] ;
@@ -68,7 +70,7 @@ sub Start
         push @{$expat->{Lists}}, $expat->{Curlist} ;
         return ;
         }
-    elsif ( $tag eq 'item' )
+    elsif ( $tag eq 'entry' )
         {
         $newlist = { images => {} } ;
         push @$tagx, [ $tag, $newlist ] ;
@@ -77,18 +79,11 @@ sub Start
         push @{$expat->{Lists}}, $expat->{Curlist} ;
         return ;
         }
-    elsif ( $tag eq 'image' )
+    else
         {
-        $newlist = { } ;
-        push @$tagx, [ $tag, $newlist ] ;
-        push @{$super_list->{images}}, $newlist ; 
-        $expat ->{Curlist} = $newlist ;
-        push @{$expat->{Lists}}, $expat->{Curlist} ;
-        return ;
+        push @$tagx, [ $tag, undef ] ;
+        push @{$expat->{Lists}}, undef ;
         }
-
-    push @$tagx, [ $tag, undef ] ;
-    push @{$expat->{Lists}}, undef ;
     return ;
     }
  
@@ -105,6 +100,7 @@ sub End
 
     $expat->{Curlist} = pop @{ $expat->{Lists} };
     #!dump($expat->{Curlist})!
+
     return ;
     }
  
@@ -122,13 +118,11 @@ sub Char
         }
 
     return     
-        if ( $super_tag eq 'rss' ) ;
+        if ( $super_tag eq 'feed' ) ;
     return     
-        if ( $super_tag eq 'channel' ) ;
+        if ( $super_tag eq 'author' ) ;
     return     
-        if ( $super_tag eq 'item' ) ;
-    return     
-        if ( $super_tag eq 'image' ) ;
+        if ( $super_tag eq 'entry' ) ;
 
     my $tag = $super_tag ;
 
@@ -162,11 +156,11 @@ __END__
 
 =head1 NAME
 
-XML_RSS_Style - Helper for XML::Parser to read rss feeds
+XML_ATOM_Style - Helper for XML::Parser to read atom feeds
 
 =head1 SYNOPSIS
 
-    my $parser = XML::Parser -> new ( Style => 'InfoGopher::InfoTransform::XML_RSS_Style' ) ;
+    my $parser = XML::Parser -> new ( Style => 'InfoGopher::InfoTransform::XML_ATOM_Style' ) ;
 
 =head1 DESCRIPTION
 

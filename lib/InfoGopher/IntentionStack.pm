@@ -90,7 +90,8 @@ class_has '_latest' => (
 # shortcut because we cannot use Essentials here ..
 sub Logger
     {
-    InfoGopher::Logger -> log ( @_ ) ;
+    InfoGopher::Logger -> Log ( @_ ) ;
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -98,7 +99,9 @@ sub Logger
 #
 sub freeze
     {
-    shift -> _frozen(1) ;
+    my ($self) = @_ ;
+    $self -> _frozen(1) ;
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -106,7 +109,7 @@ sub freeze
 #
 sub thaw
     {
-    my $self = shift ;
+    my ($self) = @_ ;
 
     $self -> _frozen(0) ;
     for ( my $i=0; $i < $self -> queue_size; $i++ )
@@ -122,6 +125,7 @@ sub thaw
         }
     $self -> clear_queue ;
 
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -143,23 +147,24 @@ sub summary
 #
 sub is_corrupted
     {
-    my ($self ) = @_ ; 
+    my ( $self ) = @_ ; 
     return $self -> _corrupted  ;
     }
 
 # -----------------------------------------------------------------------------
-# reset - cleanup after corruption
+# reset_intention_stack - cleanup after corruption
 #
 #
-sub reset
+sub reset_intention_stack
     {
-    my ($self ) = @_ ; 
+    my ( $self ) = @_ ; 
     $self -> delete_summaries ;
     $self -> clear_intentions ;
     $self -> clear_queue ;
     $self -> _corrupted (0) ;
     $self -> _frozen (0) ;
     $self -> _zombie ( $self -> _latest ) ;
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -191,6 +196,7 @@ sub add
         $self -> add_intention ($id) ;
         $self -> set_summary ( $id, $summary ) ;
         }
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -205,7 +211,8 @@ sub format_summary
     {
     my ($self, $prefix, $summary) = @_ ; 
 
-    my $id = sprintf("%04d", $summary -> serial) ;
+    #my $id = sprintf("%04d", $summary -> serial) ;
+    my $id = sprintf("%02d", $self -> count_intentions ) ;
     my $text = $summary -> what ;
     my $t = $summary -> timestamp ;
 
@@ -244,6 +251,7 @@ sub remove
         my $msg = $self -> format_summary ( "End  ", $summary ) ;
         Logger ( $msg ) ;        
         }
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -275,11 +283,14 @@ sub unwind
 
     Logger( "Exception: $msg" ) ;
 
+    my $queue_size = $self -> queue_size ;
+
     my @stack ;
     for( my $i = $self -> count_intentions-1; $i>=0; $i-- )
         {
         my $summary =  $self -> get_summary ( $self -> get_intention($i) ) ;
         my $line =  "$i: " . $summary -> what ." (". localtime($summary -> timestamp) .")." ;
+        $line .= "<< (CATCHED HERE)" if ( $queue_size-- == 0 ) ;
         Logger( $line ) ;
         push @stack, $line ;
         }

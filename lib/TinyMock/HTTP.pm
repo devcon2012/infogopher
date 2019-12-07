@@ -13,7 +13,10 @@ extends 'TinyMock::Simple' ;
 
 use Data::Dumper ;
 
-sub _build_default_port { 7080 }
+our $shutdown ;
+$SIG{USR1} = sub { $shutdown = 1; } ;
+
+sub _build_default_port { return 7080; }
 
 sub build_server_socket
     {
@@ -43,15 +46,10 @@ sub accept_fail_msg
     return "Failed to accept on " . shift -> port ;
     }
 
-our $shutdown ;
-
-
 sub run
     {
     my ( $self, $server, $listen_message ) = @_ ;
     
-    $SIG{USR1} = sub { $shutdown = 1; } ;
-
     my ( $connection, $sockaddr) ;
     while ( 1 )
         {
@@ -96,8 +94,7 @@ sub get_response
 
 sub handle_request
     {
-    my $self = shift ;
-    my ($connection, $request) = @_ ;
+    my ($self, $connection, $request) = @_ ;
 
     my $response = $self -> get_response() ;
 

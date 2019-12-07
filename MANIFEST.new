@@ -48,6 +48,7 @@ t/Logger.t
 t/testBites.t
 t/testIntention.t
 t/testRSSSource.t
+t/testTransform.t
 t/testWebSource.t
 TinyMock/.gitignore
 TinyMock/content/four_o_four

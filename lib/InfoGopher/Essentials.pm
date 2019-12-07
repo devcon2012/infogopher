@@ -13,7 +13,7 @@ use InfoGopher::IntentionStack ;
 use InfoGopher::Logger ;
 
 use Exporter 'import';
-our @EXPORT = qw( ThrowException NewIntention Logger UnwindIntentionStack ) ;
+our @EXPORT = qw( ThrowException NewIntention Logger UnwindIntentionStack NormalizeException ) ;
 
 sub NewIntention
     {
@@ -28,9 +28,19 @@ sub ThrowException
     die $e ;
     }
 
+sub NormalizeException
+    {
+    my $what = shift ;
+
+    return $what 
+        if ( ref $what ) ;
+
+    return InfoGopher::Exception -> new ( what => $what ) ;
+    }
+
 sub Logger
     {
-    InfoGopher::Logger -> log ( @_ ) ;
+    InfoGopher::Logger -> Log ( @_ ) ;
     }
 
 sub UnwindIntentionStack

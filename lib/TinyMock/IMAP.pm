@@ -19,7 +19,7 @@ use Symbol 'gensym' ;
 use Getopt::Long ;
 
 # 
-sub _build_default_port { 993 }
+sub _build_default_port { return 993; }
 
 sub accept_fail_msg 
     {

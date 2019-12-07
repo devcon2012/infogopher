@@ -20,14 +20,15 @@ sub Usage
     print "    --crypto     =xxx            basename for certificate/key (if TLS)\n" ;
     print "    --log        =yyy            protocol log file\n" ;
     print "    --help\n" ;
+    return ;
     }
 
 TinyMock::main() ;
+
 sub main
     {
-
     GetOptions(@$options) ;
-
     run() ;
+    return ;
     }
 

@@ -59,7 +59,7 @@ catch
 my $ibites = $rss -> info_bites ;
 
 note ( "iBites:" . $ibites -> count) ;
-ok ( 3 == $ibites -> count, "got exactly one ibite" ) ;
+ok ( 1 == $ibites -> count, "got exactly one ibite" ) ;
 ok ( 'RSSTest' eq $ibites -> source_name, "name matches" ) ;
 ok ( 7 == $ibites -> source_id, "id matches" ) ;
 
@@ -69,6 +69,6 @@ exit 0 ;
 
 END 
     { 
-    $mock -> shutdown() ; 
+    $mock -> shutdown_mock() ; 
     } ;
 

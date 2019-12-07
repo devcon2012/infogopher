@@ -60,7 +60,7 @@ has 'port' => (
     isa             => 'Int',
     builder         => '_build_default_port',
 ) ;
-sub _build_default_port { 7773 }
+sub _build_default_port { return 7773; }
 
 has 'response' => (
     documentation   => 'mock response control file',
@@ -76,8 +76,7 @@ has 'data_received' => (
 ) ;
 
 our $shutdown ;
-
-# BEGIN { $SIG{USR1} = sub { $shutdown = 1; }
+BEGIN { $SIG{USR1} = sub { $shutdown = 1; } }
 
 # -----------------------------------------------------------------------------
 # responsefile - filename where mock reads how to respond 
@@ -113,10 +112,11 @@ sub set_responsefile_content
         close $fh ;
         }
 
-    open ( my $fh, ">", "$root/$response_file") 
+    open ( my $fh, ">", "$root/$response_file" ) 
         or die "cannot open $root/$response_file: $!" ;
     print $fh $content;
     close $fh ;
+    return ;
     }
 
 # -----------------------------------------------------------------------------
@@ -184,12 +184,12 @@ sub setup
     }
 
 # -----------------------------------------------------------------------------
-# shutdown - shutdown mock child
+# shutdown_mock - shutdown mock child
 #
 # ret   undef - no child
 #       child pid
 
-sub shutdown
+sub shutdown_mock
     {
     my ($self) = @_ ;
 
@@ -227,6 +227,7 @@ sub build_server_socket
         $port ++ ;
         $self -> port ($port) ;
         }
+    return ;
     }
 
 sub accept_fail_msg 
@@ -239,8 +240,6 @@ sub accept_fail_msg
 sub run
     {
     my ($self, $s_socket, $listen_message ) = @_ ;
-
-    $SIG{USR1} = sub { $shutdown = 1; } ;
     
     while ( 1 )
         {
@@ -278,7 +277,8 @@ sub run
 
 sub DESTROY
     {
-    shift -> shutdown ;
+    shift -> shutdown_mock ;
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;
