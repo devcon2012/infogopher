@@ -101,7 +101,6 @@ sub transform
     my ( $self, $transformer ) = @_ ;
     #!dump($self->source_name)!
     #!dump($self->count)!
-    print STDERR "XXX\n";
     my $transformed_bites  = $self -> clone () ;
     foreach my $ibite ( $self -> all )
         {

@@ -97,7 +97,7 @@ WriteMakefile(
                             'HTTP::Request' => 6, 
                             'HTTP::Status' => 6,
                             'IO::Socket::SSL' => 2,
-                            'JSON' => 2.9,
+                            'JSON::MaybeXS' => 1.0,
                             'LWP' => 1,
                             'Mail::IMAPClient' => 1,
                             'Moose' => 2, 

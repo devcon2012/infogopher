@@ -10,7 +10,7 @@ use FindBin;
 use lib "$FindBin::Bin/../blib/lib";
 
 use Try::Tiny ;
-use JSON ;
+use JSON::MaybeXS ;
 
 use InfoGopher ;
 use InfoGopher::Essentials ;

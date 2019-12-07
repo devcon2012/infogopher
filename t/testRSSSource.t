@@ -1,19 +1,30 @@
-
 use strict;
 use warnings;
 
-use Test::More tests => 10;
+use Test::More tests => 16;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
 use Data::Dumper ;
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# testRSSSource - test RSS from Mock server
+#  * create a rss infosource
+#  * fetch mock rss, test mime type, etc.
+#  * create RSS2JSON Transform
+#  * fetch again, test transformed results
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 BEGIN { use_ok('InfoGopher') };
+BEGIN { use_ok('InfoGopher::Essentials') };
 BEGIN { use_ok('InfoGopher::InfoSource::RSS') };
 
 our $mock ;
-our $port ; # firt port tried
+our $port ; 
 
+# setup mock http server
 BEGIN 
     {
     $mock = TinyMock::HTTP -> new ( ) ; # _verbose => 1 
@@ -24,12 +35,16 @@ BEGIN
     InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
     } ;
 
-# make test TEST_VERBOSE=1 TEST_FILES='t/testSources/RSS.t'
-# make testdb TEST_FILE=t/testSources/RSS.t
-#########################
+#
+# make test TEST_VERBOSE=1 TEST_FILES='t/testRSSSource.t'
+# make testdb TEST_FILE=t/testRSSSource.t
 
 use constant RSSName => 'RSSTest' ;
 use constant RSSId => 7 ;
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+my $intention = NewIntention ( 'testRSSSource' ) ;
 
 $port = $mock -> port ;
 
@@ -52,16 +67,48 @@ try
     }
 catch
     {
-    note (Dumper($_)) ;
-    fail ( $_ -> what ) ;
-    };
+    my $e = NormalizeException( $_ );
+    note ( Dumper($e) ) ;
+    fail ( $e -> what ) ;
+    } ;
 
 my $ibites = $rss -> info_bites ;
 
 note ( "iBites:" . $ibites -> count) ;
 ok ( 1 == $ibites -> count, "got exactly one ibite" ) ;
+
+    {
+    my $ibite = $ibites -> get(0) ;
+    ok ( 'application/rss+xml' eq $ibite ->mime_type , "mime type ok" ) ;
+    }
+
+ok ( 1 == $ibites -> count, "got exactly one ibite" ) ;
 ok ( 'RSSTest' eq $ibites -> source_name, "name matches" ) ;
 ok ( 7 == $ibites -> source_id, "id matches" ) ;
+
+my $t = InfoGopher::InfoTransform::RSS2JSON -> new () ;
+$rss -> transformation ( $t ) ;
+
+try
+    {
+    $rss -> fetch() ;
+    ok(1, "fetch RSS ok again.");
+    }
+catch
+    {
+    my $e = NormalizeException( $_ );
+    note ( Dumper($e) ) ;
+    fail ( $e -> what ) ;
+    } ;
+
+$ibites = $rss -> info_bites ;
+note ( "iBites:" . $ibites -> count) ;
+ok ( 3 == $ibites -> count, "got exactly three ibites" ) ;
+
+    {
+    my $ibite = $ibites -> get(0) ;
+    ok ( 'application/json' eq $ibite -> mime_type , "mime type ok" ) ;
+    }
 
 ok (1, "End reached") ;
 

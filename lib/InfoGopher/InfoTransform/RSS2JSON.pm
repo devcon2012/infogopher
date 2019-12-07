@@ -12,7 +12,7 @@ use Try::Tiny;
 extends 'InfoGopher::InfoTransform' ;
 
 use XML::Parser ;
-use JSON ;
+use JSON::MaybeXS ;
 
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
