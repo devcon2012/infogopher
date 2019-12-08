@@ -39,8 +39,8 @@ BEGIN
 # make test TEST_VERBOSE=1 TEST_FILES='t/testRSSSource.t'
 # make testdb TEST_FILE=t/testRSSSource.t
 
-use constant RSSName => 'RSSTest' ;
-use constant RSSId => 7 ;
+use constant RSSName => 'RSSTest' . time ;
+use constant RSSId => int(rand(100)) ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -83,8 +83,8 @@ ok ( 1 == $ibites -> count, "got exactly one ibite" ) ;
     }
 
 ok ( 1 == $ibites -> count, "got exactly one ibite" ) ;
-ok ( 'RSSTest' eq $ibites -> source_name, "name matches" ) ;
-ok ( 7 == $ibites -> source_id, "id matches" ) ;
+ok ( RSSName eq $ibites -> source_name, "name matches" ) ;
+ok ( RSSId == $ibites -> source_id, "id matches" ) ;
 
 my $t = InfoGopher::InfoTransform::RSS2JSON -> new () ;
 $rss -> transformation ( $t ) ;

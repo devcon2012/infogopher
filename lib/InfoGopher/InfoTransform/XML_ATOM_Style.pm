@@ -54,35 +54,43 @@ sub Start
 
     if ( $tag eq 'feed' )
         {
-        $expat->{Tree} = $newlist = { channels => [] } ;
+        $expat->{Tree} = $newlist = { entries => [] } ;
         push @$tagx, [ $tag, $newlist ] ;
-        $expat->{Curlist} = $newlist -> {channels} ;
+        $expat->{Curlist} = $newlist -> {entries} ;
         push @{$expat->{Lists}}, $expat->{Curlist} ;
-        return ;
         }
     elsif ( $tag eq 'author' )
         {
-        $newlist = { items => [] } ;
+        $newlist = { } ;
         push @$tagx, [ $tag, $newlist ] ;
-        push @{$super_list->{channels}}, $newlist ; 
-        #!dump($super_list->{channels})!
+        $super_list->{author_info} = $newlist ; 
         $expat -> {Curlist} = $newlist ;
         push @{$expat->{Lists}}, $expat->{Curlist} ;
-        return ;
         }
     elsif ( $tag eq 'entry' )
         {
-        $newlist = { images => {} } ;
+        $newlist = { } ;
         push @$tagx, [ $tag, $newlist ] ;
-        push @{$super_list->{items}}, $newlist ; 
+        push @{$super_list->{entries}}, $newlist ; 
         $expat ->{Curlist} = $newlist ;
         push @{$expat->{Lists}}, $expat->{Curlist} ;
-        return ;
         }
     else
         {
         push @$tagx, [ $tag, undef ] ;
         push @{$expat->{Lists}}, undef ;
+        }
+
+    if ( 0 )
+        {
+        my $super = $tagx->[-1] ;
+        my ($super_tag, $super_list) ;
+        if (ref $super)
+            {
+            ($super_tag, $super_list) = ($super->[0], $super->[1]); 
+            }
+
+        print STDERR "open $tag - $super_tag:\n" ;
         }
     return ;
     }
@@ -95,11 +103,19 @@ sub End
     #!dump("Close $tag")!
 
     my $tagx = $expat->{TagStack} ;
-    pop @$tagx ;
 
+    my $super = $tagx->[-1] ;
+    my ($super_tag, $super_list) ;
+    if (ref $super)
+        {
+        ($super_tag, $super_list) = ($super->[0], $super->[1]); 
+        }
 
+    # print STDERR "close $tag - $super_tag:" ;
+
+    pop @$tagx; 
     $expat->{Curlist} = pop @{ $expat->{Lists} };
-    #!dump($expat->{Curlist})!
+    #--  dump($expat->{Curlist})!
 
     return ;
     }

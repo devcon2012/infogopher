@@ -1,0 +1,140 @@
+200 HTTP/1.0 200 OK
+Content-Type: application/atom+xml; charset=utf-8
+Content-Language: de
+
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de">
+	<id>https://de.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom</id>
+	<title>Die Artikel des Tages der Wikipedia</title>
+	<link rel="self" type="application/atom+xml" href="https://de.wikipedia.org/w/api.php?action=featuredfeed&amp;feed=featured&amp;feedformat=atom"/>
+	<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Wikipedia:Hauptseite"/>
+	<updated>2019-12-07T21:59:29Z</updated>
+	<subtitle>Die exzellenten Artikel auf Wikipedia</subtitle>
+	<generator>MediaWiki 1.35.0-wmf.5</generator>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191201000000/de</id>
+		<title>Am 1. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191201000000/de"/>
+		<updated>2019-12-01T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif&quot; class=&quot;image&quot; title=&quot;Siegel Arnolfs: links um 890, rechts um 896&quot;&gt;&lt;img alt=&quot;Siegel Arnolfs: links um 890, rechts um 896&quot; src=&quot;//upload.wikimedia.org/wikipedia/de/thumb/5/50/Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif/179px-Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif&quot; decoding=&quot;async&quot; width=&quot;179&quot; height=&quot;86&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/de/thumb/5/50/Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif/269px-Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif 1.5x, //upload.wikimedia.org/wikipedia/de/thumb/5/50/Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif/358px-Siegel_Kaiser_s_Arnulf_von_K%C3%A4rnten.gif 2x&quot; data-file-width=&quot;550&quot; data-file-height=&quot;265&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;b&gt;&lt;a href=&quot;/wiki/Arnolf_von_K%C3%A4rnten&quot; title=&quot;Arnolf von Kärnten&quot;&gt;Arnolf von Kärnten&lt;/a&gt;&lt;/b&gt; (auch Arnulf, Arnold; * um 850; † 8. Dezember 899 in Regensburg) aus dem Adels&amp;#173;ge&amp;#173;schlecht der Karo&amp;#173;linger war ab 887 König des Ost&amp;#173;fran&amp;#173;ken&amp;#173;reiches und von 896 bis 899 römischer Kaiser. Arnolfs Vor&amp;#173;gänger Karl III. („der Dicke“) vereinte für kurze Zeit alle drei Teil&amp;#173;reiche und damit das Reich Karls des Großen unter seiner Herrschaft. Ange&amp;#173;sichts der sich ab&amp;#173;zeich&amp;#173;nenden Regie&amp;#173;rungs&amp;#173;unfä&amp;#173;higkeit Karls konnte ihn Arnolf mit Hilfe der Bayern, Franken, Sachsen, Thüringer und Alemannen stürzen und selbst die Königs&amp;#173;würde über&amp;#173;nehmen. Arnolf beschränkte sich auf das Ost&amp;#173;reich seines Groß&amp;#173;vaters, Ludwigs des Deut&amp;#173;schen, während in den übrigen Teilen des Franken&amp;#173;reiches andere Große die Königs&amp;#173;würde bean&amp;#173;spruch&amp;#173;ten. Ab 888 konnte Arnolf seine Herr&amp;#173;schaft über Loth&amp;#173;ringen wie auch Reichs&amp;#173;italien festigen. Mit seinem Sieg an der Dijle bei Löwen 891 fanden die Norman&amp;#173;nen&amp;#173;über&amp;#173;fälle auf das Ost&amp;#173;franken&amp;#173;reich ein Ende. Die dadurch im Norden er&amp;#173;reichte Stabi&amp;#173;lität förderte den Auf&amp;#173;stieg der Liudol&amp;#173;finger, die wenige Jahr&amp;#173;zehnte später die Königs&amp;#173;familie im Reich stellten. Arnolfs Pakt mit den Ungarn, die im 10. Jahr&amp;#173;hundert zur größten Bedro&amp;#173;hung für das Ost&amp;#173;franken&amp;#173;reich werden sollten, verdüs&amp;#173;terte sein Bild in der Nachwelt. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Arnolf_von_K%C3%A4rnten&quot; title=&quot;Arnolf von Kärnten&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt; 
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191202000000/de</id>
+		<title>Am 2. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191202000000/de"/>
+		<updated>2019-12-02T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:Domestic_white_rabbit_sitting_in_a_meadow.jpg&quot; class=&quot;image&quot; title=&quot;Weißes Hauskaninchen&quot;&gt;&lt;img alt=&quot;Weißes Hauskaninchen&quot; src=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Domestic_white_rabbit_sitting_in_a_meadow.jpg/131px-Domestic_white_rabbit_sitting_in_a_meadow.jpg&quot; decoding=&quot;async&quot; width=&quot;131&quot; height=&quot;118&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Domestic_white_rabbit_sitting_in_a_meadow.jpg/197px-Domestic_white_rabbit_sitting_in_a_meadow.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Domestic_white_rabbit_sitting_in_a_meadow.jpg/262px-Domestic_white_rabbit_sitting_in_a_meadow.jpg 2x&quot; data-file-width=&quot;387&quot; data-file-height=&quot;348&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;b&gt;&lt;a href=&quot;/wiki/Mary_Cover_Jones&quot; title=&quot;Mary Cover Jones&quot;&gt;Mary Cover Jones&lt;/a&gt;&lt;/b&gt; (*&amp;#160;1. Septem&amp;#173;ber 1896 in Johnstown, Pennsyl&amp;#173;vania; †&amp;#160;22. Juli 1987 in Santa Barbara, Kalifor&amp;#173;nien) war eine US-amerika&amp;#173;nische Entwick&amp;#173;lungs&amp;#173;psycho&amp;#173;login, die an der Univer&amp;#173;sity of California, Berkeley, mehrere Lang&amp;#173;zeit&amp;#173;studien zur Entwick&amp;#173;lung von Jugend&amp;#173;lichen durch&amp;#173;führte. Mit ihrer berühm&amp;#173;testen und meist&amp;#173;zitier&amp;#173;ten Studie über den Fall Peter wurde sie zu einer Weg&amp;#173;berei&amp;#173;terin im Bereich der Verhal&amp;#173;tens&amp;#173;thera&amp;#173;pie. Peter litt an einer Phobie vor pelzi&amp;#173;gen Objek&amp;#173;ten, vor allem vor Kanin&amp;#173;chen. Jones nutzte die Metho&amp;#173;den der sozia&amp;#173;len Nachah&amp;#173;mung und der direk&amp;#173;ten Kondi&amp;#173;tionie&amp;#173;rung: Peter wurde mit Kindern zusam&amp;#173;men&amp;#173;gebracht, die keine Angst vor Kanin&amp;#173;chen hatten. Wäh&amp;#173;rend er mit diesen Kindern spielte, war zeit&amp;#173;weise ein weißes Kanin&amp;#173;chen im selben Raum. Peters Angst vor dem Tier nahm allmäh&amp;#173;lich ab. Irgend&amp;#173;wann tole&amp;#173;rierte Peter die An&amp;#173;wesen&amp;#173;heit des Tieres und war sogar fähig, es zu berüh&amp;#173;ren und auf seinem Schoß sitzen zu lassen. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Mary_Cover_Jones&quot; title=&quot;Mary Cover Jones&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191203000000/de</id>
+		<title>Am 3. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191203000000/de"/>
+		<updated>2019-12-03T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg&quot; class=&quot;image&quot; title=&quot;Broschüre „Gleiches Recht, Frauenstimmrecht. Wacht auf Ihr deutschen Frauen aller Stände aller Parteien!“ (1907) des Deutschen Verbands für Frauenstimmrecht&quot;&gt;&lt;img alt=&quot;Broschüre „Gleiches Recht, Frauenstimmrecht. Wacht auf Ihr deutschen Frauen aller Stände aller Parteien!“ (1907) des Deutschen Verbands für Frauenstimmrecht&quot; src=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg/104px-Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg&quot; decoding=&quot;async&quot; width=&quot;104&quot; height=&quot;147&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg/156px-Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg/208px-Broschuere_Deutscher_Verband_f%C3%BCr_Frauenstimmrecht_1907.jpg 2x&quot; data-file-width=&quot;2003&quot; data-file-height=&quot;2835&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+Die &lt;b&gt;&lt;a href=&quot;/wiki/Frauenstimmrechtsbewegung_in_Deutschland&quot; title=&quot;Frauenstimmrechtsbewegung in Deutschland&quot;&gt;Frauenstimmrechtsbewegung in Deutschland&lt;/a&gt;&lt;/b&gt; ent&amp;#173;wickelte sich ab den 1890er Jahren, als zum einen das allge&amp;#173;meine Wahl&amp;#173;recht für Männer auf die politi&amp;#173;sche Agenda kam und zum anderen die Frauen&amp;#173;bewe&amp;#173;gung durch die Be&amp;#173;schluss&amp;#173;fassung des Bürger&amp;#173;lichen Gesetz&amp;#173;buches (BGB) die Erfah&amp;#173;rung machte, dass die Anlie&amp;#173;gen der Frauen nicht gehört wurden. Der Begriff der Stimm&amp;#173;rechts&amp;#173;bewe&amp;#173;gung wird allge&amp;#173;mein auf einen Teil der bürger&amp;#173;lichen Frauen&amp;#173;bewe&amp;#173;gung bezogen. Doch auch die sozia&amp;#173;listi&amp;#173;sche Frauen&amp;#173;bewe&amp;#173;gung setzte sich für das Frauen&amp;#173;wahl&amp;#173;recht ein, wobei beide Seiten auf die gegen&amp;#173;seitige Abgren&amp;#173;zung Wert legten. Mit der Grün&amp;#173;dung des Deut&amp;#173;schen Vereins für Frauen&amp;#173;stimm&amp;#173;recht 1902 in Ham&amp;#173;burg be&amp;#173;gann die Organi&amp;#173;sations&amp;#173;phase der Bewe&amp;#173;gung. Nach der Liberali&amp;#173;sie&amp;#173;rung der Vereins&amp;#173;gesetze 1908 nahm die Zahl der Stimm&amp;#173;rechts&amp;#173;vereine und der darin enga&amp;#173;gierten Frauen stark zu. Welches Frauen&amp;#173;wahlrecht gefor&amp;#173;dert wurde, wurde kontro&amp;#173;vers disku&amp;#173;tiert, was schließ&amp;#173;lich zu einer Zersplit&amp;#173;terung der regio&amp;#173;nalen und loka&amp;#173;len Stimm&amp;#173;rechts&amp;#173;vereine in mehrere Dach&amp;#173;verbände führte. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Frauenstimmrechtsbewegung_in_Deutschland&quot; title=&quot;Frauenstimmrechtsbewegung in Deutschland&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191204000000/de</id>
+		<title>Am 4. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191204000000/de"/>
+		<updated>2019-12-04T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:Costa_Allegra_(ship,_1969)_IMO_6916885;_in_Split,_2011-10-27_(2).jpg&quot; class=&quot;image&quot; title=&quot;Die „Costa Allegra“ in Split, Oktober 2011&quot;&gt;&lt;img alt=&quot;Die „Costa Allegra“ in Split, Oktober 2011&quot; src=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/6/67/Costa_Allegra_%28ship%2C_1969%29_IMO_6916885%3B_in_Split%2C_2011-10-27_%282%29.jpg/152px-Costa_Allegra_%28ship%2C_1969%29_IMO_6916885%3B_in_Split%2C_2011-10-27_%282%29.jpg&quot; decoding=&quot;async&quot; width=&quot;152&quot; height=&quot;101&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/6/67/Costa_Allegra_%28ship%2C_1969%29_IMO_6916885%3B_in_Split%2C_2011-10-27_%282%29.jpg/228px-Costa_Allegra_%28ship%2C_1969%29_IMO_6916885%3B_in_Split%2C_2011-10-27_%282%29.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/6/67/Costa_Allegra_%28ship%2C_1969%29_IMO_6916885%3B_in_Split%2C_2011-10-27_%282%29.jpg/304px-Costa_Allegra_%28ship%2C_1969%29_IMO_6916885%3B_in_Split%2C_2011-10-27_%282%29.jpg 2x&quot; data-file-width=&quot;2456&quot; data-file-height=&quot;1632&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+Die &lt;i&gt;&lt;b&gt;&lt;a href=&quot;/wiki/Costa_Allegra&quot; title=&quot;Costa Allegra&quot;&gt;Costa Allegra&lt;/a&gt;&lt;/b&gt;&lt;/i&gt; war ein Kreuz&amp;#173;fahrt&amp;#173;schiff der italieni&amp;#173;schen Reede&amp;#173;rei Costa Crociere. Sie wurde im Jahr 1969 als Con&amp;#173;tainer&amp;#173;schiff gebaut und unter dem Namen &lt;i&gt;Annie Johnson&lt;/i&gt; für den schwedi&amp;#173;schen Betreiber Rederi AB Nordstjernan in Dienst ge&amp;#173;stellt. Nach&amp;#173;dem das Schiff Mitte der 1980er Jahre aufge&amp;#173;legt worden war und mehr&amp;#173;fach den Eigner gewech&amp;#173;selt hatte, be&amp;#173;gann im Jahr 1990 der Komplett&amp;#173;umbau zu einem Kreuz&amp;#173;fahrt&amp;#173;schiff auf der Werft T.&amp;#160;Mariotti in Genua. 1992 wurde das Schiff als &lt;i&gt;Costa Allegra&lt;/i&gt; wieder in Fahrt gebracht, nach&amp;#173;dem bereits zwei Jahre zuvor das Schwes&amp;#173;ter&amp;#173;schiff &lt;i&gt;Axel Johnson&lt;/i&gt; unter dem Namen &lt;i&gt;Costa Marina&lt;/i&gt; einen ähnli&amp;#173;chen Umbau erhalten hatte. Charak&amp;#173;teris&amp;#173;tische Merk&amp;#173;male waren die zylinder&amp;#173;förmi&amp;#173;gen Schorn&amp;#173;steine und das ver&amp;#173;glaste Heck, was der &lt;i&gt;Costa Allegra&lt;/i&gt; den Bei&amp;#173;namen „Kristall&amp;#173;schiff“ ein&amp;#173;brachte. Nach einem Brand im Maschinen&amp;#173;raum auf See Ende Februar 2012 wurde die &lt;i&gt;Costa Allegra&lt;/i&gt; als Total&amp;#173;verlust abge&amp;#173;schrie&amp;#173;ben und im Herbst 2012 in der Türkei verschrottet. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Costa_Allegra&quot; title=&quot;Costa Allegra&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191205000000/de</id>
+		<title>Am 5. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191205000000/de"/>
+		<updated>2019-12-05T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg&quot; class=&quot;image&quot; title=&quot;Hennes Weisweiler im Vorbereitungstrainingslager Schöneck 1970&quot;&gt;&lt;img alt=&quot;Hennes Weisweiler im Vorbereitungstrainingslager Schöneck 1970&quot; src=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/4/49/Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg/105px-Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg&quot; decoding=&quot;async&quot; width=&quot;105&quot; height=&quot;146&quot; class=&quot;thumbborder&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/4/49/Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg/158px-Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/4/49/Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg/210px-Hennes_Weisweiler_im_Vorbereitungstrainingslager_Sch%C3%B6neck.jpg 2x&quot; data-file-width=&quot;628&quot; data-file-height=&quot;876&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;b&gt;&lt;a href=&quot;/wiki/Hennes_Weisweiler&quot; title=&quot;Hennes Weisweiler&quot;&gt;Hennes Weisweiler&lt;/a&gt;&lt;/b&gt; (*&amp;#160;5. Dezem&amp;#173;ber 1919 in Lechenich; †&amp;#160;5. Juli 1983 in Aesch bei Birmens&amp;#173;dorf) war ein deut&amp;#173;scher Fußball&amp;#173;spieler und -trainer. Unter der Ausbil&amp;#173;dungs&amp;#173;leitung von Sepp Herber&amp;#173;ger erwarb er als Spieler des 1.&amp;#160;FC Köln im Winter 1947/48 die Trainer&amp;#173;lizenz. Von 1957 bis 1970 leitete er Lehr&amp;#173;gänge an der Deut&amp;#173;schen Sport&amp;#173;hoch&amp;#173;schule Köln zur Ausbil&amp;#173;dung von Fußball&amp;#173;lehrern. Durch seine Erfolge mit Borus&amp;#173;sia Mön&amp;#173;chen&amp;#173;glad&amp;#173;bach, mit denen er zwischen 1970 und 1975 drei Meisterschaften und je einmal den DFB-Pokal und den UEFA-Cup gewann, galt Weisweiler in jener Zeit als einer der besten Vereins&amp;#173;trainer welt&amp;#173;weit. Mit dem 1.&amp;#160;FC Köln, dessen Maskott&amp;#173;chen und Wappen&amp;#173;tier, der Geiß&amp;#173;bock Hennes, seit 1950 nach Weiswei&amp;#173;ler be&amp;#173;nannt ist, feierte er 1977 den Gewinn des DFB-Pokals und im Jahr darauf mit dem Double den bis&amp;#173;lang größ&amp;#173;ten Erfolg der Vereins&amp;#173;ge&amp;#173;schichte. Drei Wochen, nachdem er im Juni 1983 auch in der Schweiz mit dem Grass&amp;#173;hopper Club Zürich das Double geholt hatte, starb Weisweiler an einem Herzinfarkt. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Hennes_Weisweiler&quot; title=&quot;Hennes Weisweiler&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191206000000/de</id>
+		<title>Am 6. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191206000000/de"/>
+		<updated>2019-12-06T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:6-dec-Plaque.jpg&quot; class=&quot;image&quot; title=&quot;Gedenktafel für die 14 Opfer des Amoklaufs an der Polytechnischen Hochschule Montréal 1989&quot;&gt;&lt;img alt=&quot;Gedenktafel für die 14 Opfer des Amoklaufs an der Polytechnischen Hochschule Montréal 1989&quot; src=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/6-dec-Plaque.jpg/118px-6-dec-Plaque.jpg&quot; decoding=&quot;async&quot; width=&quot;118&quot; height=&quot;129&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/e/e5/6-dec-Plaque.jpg/177px-6-dec-Plaque.jpg 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/e/e5/6-dec-Plaque.jpg/236px-6-dec-Plaque.jpg 2x&quot; data-file-width=&quot;1200&quot; data-file-height=&quot;1316&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+Der &lt;b&gt;&lt;a href=&quot;/wiki/Amoklauf_an_der_Polytechnischen_Hochschule_Montr%C3%A9al&quot; title=&quot;Amoklauf an der Polytechnischen Hochschule Montréal&quot;&gt;Amok&amp;#173;lauf an der Poly&amp;#173;techni&amp;#173;schen Hoch&amp;#173;schule Montréal&lt;/a&gt;&lt;/b&gt;, auch bekannt als Montréal-Massa&amp;#173;ker, geschah am 6.&amp;#160;Dezem&amp;#173;ber 1989 an der École poly&amp;#173;tech&amp;#173;nique de Montréal in Montréal, Kanada. Der &lt;span style=&quot;white-space:nowrap&quot;&gt;25-&lt;/span&gt;jährige Marc Lépine tötete 14 Frauen und ver&amp;#173;letzte 14 weitere Personen, darun&amp;#173;ter vier Männer, bevor er sich selbst das Leben nahm. Mit der Begrün&amp;#173;dung, er würde den „Femi&amp;#173;nis&amp;#173;mus be&amp;#173;kämpfen“, betrat Lépine ver&amp;#173;schie&amp;#173;dene Räume des Gebäu&amp;#173;des und schoss gezielt auf Frauen. Der Amok&amp;#173;lauf dauerte knapp 20 Minuten. Lépine hinter&amp;#173;ließ einen Ab&amp;#173;schieds&amp;#173;brief, in dem er behaup&amp;#173;tete, Feminis&amp;#173;tinnen hätten sein Leben ruiniert und das Massa&amp;#173;ker habe politi&amp;#173;sche Motive. Der Amok&amp;#173;lauf wurde auf&amp;#173;grund von Lépines Äuße&amp;#173;run&amp;#173;gen und dem Ge&amp;#173;schlecht der Opfer als eine anti&amp;#173;feminis&amp;#173;tische Attacke und als ein „Hate crime“ gegen Frauen aufge&amp;#173;fasst, als ein von Hass moti&amp;#173;viertes Ver&amp;#173;brechen. Feminis&amp;#173;tinnen und Poli&amp;#173;tiker sehen das Massa&amp;#173;ker als Aus&amp;#173;druck des größe&amp;#173;ren gesell&amp;#173;schaft&amp;#173;lichen Pro&amp;#173;blems von Gewalt gegen Frauen. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Amoklauf_an_der_Polytechnischen_Hochschule_Montr%C3%A9al&quot; title=&quot;Amoklauf an der Polytechnischen Hochschule Montréal&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+	<entry>
+		<id>https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191207000000/de</id>
+		<title>Am 7. Dezember auf Wikipedia exzellenter Artikel</title>
+		<link rel="alternate" type="text/html" href="https://de.wikipedia.org/wiki/Spezial:Feedobjekt/featured/20191207000000/de"/>
+		<updated>2019-12-07T00:00:00Z</updated>
+
+		<summary type="html">&lt;div class=&quot;mw-parser-output&quot;&gt;&lt;div style=&quot;width:50%;&quot;&gt;
+&lt;div id=&quot;hauptseite&quot; class=&quot;hauptseite-links&quot;&gt;
+&lt;div style=&quot;background-color:#D8E8FF; border:1px solid #8898BF; font-size:1em; font-weight:bold; margin:0; padding:0.1em 0.8em;&quot;&gt;&amp;#160;&lt;/div&gt;
+&lt;div class=&quot;inhalt&quot;&gt;&lt;div style=&quot;float:left; padding-top:0.5em; padding-right:0.5em;&quot;&gt;&lt;a href=&quot;/wiki/Datei:Timor_-_Indonesian_Invasion_de2018.png&quot; class=&quot;image&quot; title=&quot;Verlauf der indonesischen Invasion (1975–1979)&quot;&gt;&lt;img alt=&quot;Verlauf der indonesischen Invasion (1975–1979)&quot; src=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Timor_-_Indonesian_Invasion_de2018.png/160px-Timor_-_Indonesian_Invasion_de2018.png&quot; decoding=&quot;async&quot; width=&quot;160&quot; height=&quot;96&quot; srcset=&quot;//upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Timor_-_Indonesian_Invasion_de2018.png/240px-Timor_-_Indonesian_Invasion_de2018.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Timor_-_Indonesian_Invasion_de2018.png/320px-Timor_-_Indonesian_Invasion_de2018.png 2x&quot; data-file-width=&quot;3088&quot; data-file-height=&quot;1852&quot; /&gt;&lt;/a&gt;&lt;/div&gt;
+Heute vor 44 Jahren begann Indo&amp;#173;ne&amp;#173;sien mit der &lt;b&gt;&lt;a href=&quot;/wiki/Operation_Seroja&quot; title=&quot;Operation Seroja&quot;&gt;Operation Seroja&lt;/a&gt;&lt;/b&gt; die offene Inva&amp;#173;sion von Ost&amp;#173;timor. Kriegs&amp;#173;schiffe beschos&amp;#173;sen die Haupt&amp;#173;stadt Dili und Truppen lande&amp;#173;ten mit Booten und Fall&amp;#173;schir&amp;#173;men. Zuvor hatten die Indone&amp;#173;sier bereits als einhei&amp;#173;mische Miliz getarnt das Grenz&amp;#173;gebiet besetzt. Die FRETILIN leistete in der bishe&amp;#173;rigen portugie&amp;#173;sischen Kolonie mit Guerilla&amp;#173;metho&amp;#173;den Wider&amp;#173;stand und versam&amp;#173;melte große Teile der Bevölke&amp;#173;rung in Wider&amp;#173;stands&amp;#173;basen. Hunger, Krank&amp;#173;hei&amp;#173;ten und Kampf&amp;#173;hand&amp;#173;lun&amp;#173;gen forder&amp;#173;ten auch unter den Zivi&amp;#173;lis&amp;#173;ten große Ver&amp;#173;luste. Am 26.&amp;#160;März 1979 wurde die Opera&amp;#173;tion Seroja für abge&amp;#173;schlos&amp;#173;sen und das annektierte Ost&amp;#173;timor von Indone&amp;#173;sien für befrie&amp;#173;det erklärt. Später flammte der Wider&amp;#173;stand wieder auf. Bis zum Abzug der Indone&amp;#173;sier 1999 starben zwischen 102.800 und 183.000 Ost&amp;#173;timore&amp;#173;sen. Mindes&amp;#173;tens 3600 indone&amp;#173;sische Solda&amp;#173;ten kamen ums Leben. Die Opera&amp;#173;tion Seroja war die größte indone&amp;#173;sische Militär&amp;#173;opera&amp;#173;tion aller Zeiten und der Beginn der größten humani&amp;#173;tären Tragö&amp;#173;die in der Ge&amp;#173;schichte Osttimors. &lt;small&gt;&amp;#160;– &lt;a href=&quot;/wiki/Operation_Seroja&quot; title=&quot;Operation Seroja&quot;&gt;&lt;span style=&quot;white-space:nowrap&quot;&gt;Zum Artikel …&lt;/span&gt;&lt;/a&gt;&lt;/small&gt;&lt;div style=&quot;clear:left;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</summary>
+		<author><name></name></author>
+		
+	</entry>
+</feed>

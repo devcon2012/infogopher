@@ -58,7 +58,7 @@ sub transform
         }
     catch
         {
-        # ... so we translate this to an exception
+        # ... so we translate this to an exception 
         ThrowException("Invalid XML received: " . $_) ;
         } ;
 
@@ -66,25 +66,20 @@ sub transform
 
     if ( $self -> get_option('split') )
         {
-        #!dump("Channels: ". @{$atom_tree -> {channels}} )!
-        foreach my $channel ( @{$atom_tree -> {channels}} )
+        foreach my $entry ( @{$atom_tree ->{entries}} )
             {
-            #!dump("Items: ". @{$channel ->{items}} )!
-            foreach my $item ( @{$channel ->{items}} )
+            #!dump($entry->{title})!
+            my $json_item = { } ;
+            foreach my $key ( qw ( title link id updated summary content ) )
                 {
-                #!dump($item->{title})!
-                my $json_item = { } ;
-                foreach my $key ( qw ( title author pubDate ) )
-                    {
-                    $json_item -> {$key} = $item -> {$key} ;
-                    }
-                # mimetype is application/json..
-                my $new_bit = $info_bite -> clone ;
-                $new_bit -> mime_type ( 'application/json' ) ;
-                $new_bit -> data ( JSON -> new -> encode($json_item) ) ;
-                $ibites -> add ( $new_bit ) ;
-                }        
-            }
+                $json_item -> {$key} = $entry -> {$key} ;
+                }
+            # mimetype is application/json..
+            my $new_bit = $info_bite -> clone ;
+            $new_bit -> mime_type ( 'application/json' ) ;
+            $new_bit -> data ( JSON -> new -> encode($json_item) ) ;
+            $ibites -> add ( $new_bit ) ;
+            }        
         }
     else
         {

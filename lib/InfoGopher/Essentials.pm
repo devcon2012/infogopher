@@ -40,12 +40,12 @@ sub NormalizeException
 
 sub Logger
     {
-    InfoGopher::Logger -> Log ( @_ ) ;
+    return InfoGopher::Logger -> Log ( @_ ) ;
     }
 
 sub UnwindIntentionStack
     {
-    InfoGopher::IntentionStack -> unwind( @_ ) ;
+    return InfoGopher::IntentionStack -> unwind( @_ ) ;
     }
 
 1;

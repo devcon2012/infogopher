@@ -131,9 +131,13 @@ sub _add_infobite_maybe
             }
         $self -> _add_infobite_maybe ($ibites, $c, $bite) if ( ref $c ) ;
         }
+    return ;
     }
 
+__PACKAGE__ -> meta -> make_immutable ;
+
 1 ;
+
 =head1 USAGE
 
 my $linkextractor = InfoGopher::InfoTransform::HTMLExtractor -> new ( ) ;

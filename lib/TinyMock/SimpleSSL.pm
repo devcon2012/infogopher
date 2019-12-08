@@ -77,7 +77,7 @@ sub build_server_socket
         $port ++ ;
         $self -> port ( $port ) ;
         }
-
+    return ;
     }
 
 sub accept_fail_msg 

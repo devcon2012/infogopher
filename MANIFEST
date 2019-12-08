@@ -45,11 +45,15 @@ README.md
 t/Essentials.t
 t/InfoGopher.t
 t/Logger.t
+t/testATOMSource.t
 t/testBites.t
 t/testIntention.t
 t/testRSSSource.t
+t/testTransform.t
 t/testWebSource.t
 TinyMock/.gitignore
+TinyMock/content/ATOM
+TinyMock/content/ATOM_Wiki
 TinyMock/content/four_o_four
 TinyMock/content/HTML
 TinyMock/content/INVALID_RSS

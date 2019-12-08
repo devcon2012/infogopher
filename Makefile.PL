@@ -57,7 +57,7 @@ sub UpdateManifest
     print $fh join ("\n", sort { fc($a) cmp fc($b) } @manifest);
     print $fh "\n";
     close $fh ;
-    system ("diff MANIFEST MANIFEST.new") ;
+    system ("echo 'MANIFEST changes:' ; diff MANIFEST MANIFEST.new") ;
     }
 
 sub CritiqueModules

@@ -16,7 +16,7 @@ use InfoGopher::InfoBites ;
 
 
 has 'style' => (
-    documentation   => 'hashref of transform style',
+    documentation   => 'string of transform styles',
     is              => 'rw',
     isa             => 'Str',
     lazy            => 1,
@@ -39,6 +39,7 @@ sub _build_style
         }
     return $text ;
     }
+
 # -----------------------------------------------------------------------------
 # process - process one prefiltered tag
 #
@@ -92,6 +93,29 @@ sub process
     return $bites ;
     }
 
+__PACKAGE__ -> meta -> make_immutable ;
+
 1 ;
 
-__PACKAGE__ -> meta -> make_immutable ;
+
+=head1 NAME
+
+InfoGopher::InfoTransform::HTMLExtractor::TagTransformer - extract bits from HTML
+
+=head1 USAGE
+
+my $source = InfoGopher::HTTPInfoSource -> new ( uri => "https://...") ;
+my $t = InfoGopher::InfoTransform::HTMLExtractor::TagTransformer -> new ( ) ;
+$source -> transormation ( $t ) ;
+$source -> name ("News page") ;
+$source -> fetch () ;
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2019 by Klaus Ramstöck
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.26.1 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

@@ -14,10 +14,14 @@ use InfoGopher::InfoBite ;
 
 use constant source_type => 'virtual_base_class' ;
 
-
+# options
+#
+#   split - split into many tiny bits, a rss feed to items, an imap to single mails...
+# 
 has 'options' => (
     documentation   => 'Transformation options getter/setter',
     is              => 'rw',
+    lazy            => 1 ,
     isa             => 'HashRef[Str]',
     traits          => ['Hash'],
     default         => sub { {} },
@@ -28,6 +32,13 @@ has 'options' => (
         delete_options  => 'clear'
         },
     ) ;
+
+sub BUILD
+    {
+    my ( $self ) = @_ ;
+    $self -> set_option ('split', '1') ;
+    return ;
+    }
 
 # -----------------------------------------------------------------------------
 # transform
@@ -72,7 +83,12 @@ Transformations accept only specific mime-types.
 =head2 RSS2JSON
 
 This transformation takes an application/rss+xml infobit and transforms it into
-JSON.
+JSON, either one JSON for all the feed items or on ibite per item
+
+=head2 ATOM2JSON
+
+This transformation takes an application/atom+xml infobit and transforms it into
+JSON, either one JSON for all the feed entries or on ibite per item
 
 =head2 HTMLExtractor
 

@@ -66,7 +66,7 @@ sub setup_server
         $self -> port ( $port ) ;
 
         }
-
+    return ;
     }
 
 sub accept_fail_msg 

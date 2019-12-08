@@ -1,0 +1,38 @@
+200 HTTP/1.0 200 OK
+Content-Type: application/atom+xml; charset=utf-8
+Content-Language: de
+
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Autor des Weblogs</name>
+  </author>
+  <title>Titel des Weblogs</title>
+  <id>urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6</id>
+  <updated>2003-12-14T10:20:09Z</updated>
+
+  <entry>
+    <title>Titel des Weblog-Eintrags 1</title>
+    <link href="http://example.org/2003/12/13/atom-beispiel"/>
+    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa61</id>
+    <updated>2003-12-13T18:30:01Z</updated>
+    <summary>Zusammenfassung des Weblog-Eintrags 1</summary>
+    <content>Volltext des Weblog-Eintrags 1</content>
+  </entry>
+  <entry>
+    <title>Titel des Weblog-Eintrags 2</title>
+    <link href="http://example.org/2003/12/14/atom-beispiel"/>
+    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa62</id>
+    <updated>2003-12-13T18:30:02Z</updated>
+    <summary>Zusammenfassung des Weblog-Eintrags 2</summary>
+    <content>Volltext des Weblog-Eintrags 2</content>
+  </entry>
+  <entry>
+    <title>Titel des Weblog-Eintrags 3</title>
+    <link href="http://example.org/2003/12/13/atom-beispiel"/>
+    <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa63</id>
+    <updated>2003-12-13T18:30:03Z</updated>
+    <summary>Zusammenfassung des Weblog-Eintrags 3</summary>
+    <content>Volltext des Weblog-Eintrags 3</content>
+  </entry>
+</feed>

@@ -31,7 +31,6 @@ has 'xml_parser' => (
 sub _build_xml_parser
     {
     return XML::Parser -> new( Style => 'InfoGopher::InfoTransform::XML_RSS_Style' ) ;
-    #return XML::Parser -> new( Style => 'Tree' ) ;
     }
 
 # -----------------------------------------------------------------------------
@@ -69,25 +68,36 @@ sub transform
 
     my $ibites = InfoGopher::InfoBites -> new () ;
 
-    #!dump("Channels: ". @{$tree -> {channels}} )!
-    foreach my $channel ( @{$tree -> {channels}} )
+    if ( $self -> get_option('split') )
         {
-        #!dump("Items: ". @{$channel ->{items}} )!
-        foreach my $item ( @{$channel ->{items}} )
+        #!dump("Channels: ". @{$tree -> {channels}} )!
+        foreach my $channel ( @{$tree -> {channels}} )
             {
-            #!dump($item->{title})!
-            my $json_item = { } ;
-            foreach my $key ( qw ( title author pubDate ) )
+            #!dump("Items: ". @{$channel ->{items}} )!
+            foreach my $item ( @{$channel ->{items}} )
                 {
-                $json_item -> {$key} = $item -> {$key} ;
-                }
-            # mimetype is application/json..
-            my $new_bit = $info_bite -> clone ;
-            $new_bit -> mime_type ( 'application/json' ) ;
-            $new_bit -> data ( JSON -> new -> encode($json_item) ) ;
-            $ibites -> add ( $new_bit ) ;
-            }        
+                #!dump($item->{title})!
+                my $json_item = { } ;
+                foreach my $key ( qw ( title author pubDate ) )
+                    {
+                    $json_item -> {$key} = $item -> {$key} ;
+                    }
+                # mimetype is application/json..
+                my $new_bit = $info_bite -> clone ;
+                $new_bit -> mime_type ( 'application/json' ) ;
+                $new_bit -> data ( JSON -> new -> encode($json_item) ) ;
+                $ibites -> add ( $new_bit ) ;
+                }        
+            }
         }
+    else
+        {
+        my $new_bit = $info_bite -> clone ;
+        $new_bit -> mime_type ( 'application/json' ) ;
+        $new_bit -> data ( JSON -> new -> encode($tree) ) ;
+        $ibites -> add ( $new_bit ) ;
+        }
+        
     return $ibites ;
     }
 

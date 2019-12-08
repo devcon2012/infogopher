@@ -5,7 +5,7 @@ package InfoGopher::InfoSource::ATOM ;
 #
 # See RFC 4287 - https://tools.ietf.org/html/rfc4287
 #
-# InfoGopher - A framework for collection information
+# InfoGopher - A framework for collecting information
 #
 #   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
 #
@@ -53,7 +53,8 @@ sub fetch
             $self -> raw, 
             'application/atom+xml',
             time ) ;
-
+    
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;
