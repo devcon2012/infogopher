@@ -28,6 +28,11 @@ use InfoGopher::InfoTransform::RSS2JSON ;
 extends 'InfoGopher::HTTPSInfoSource' ;
 with 'InfoGopher::InfoSource::_InfoSource' ;
 
+sub _build_expected_mimetype
+    {
+    return 'application/rss+xml' ;
+    }
+
 # -----------------------------------------------------------------------------
 # fetch - get fresh copy from RSS InfoSource
 #

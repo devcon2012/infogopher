@@ -14,7 +14,7 @@ use InfoGopher::InfoBite ;
 
 use constant source_type => 'virtual_base_class' ;
 
-# options
+# options - mostly flags finetuning transform behaviour 
 #
 #   split - split into many tiny bits, a rss feed to items, an imap to single mails...
 # 
@@ -22,22 +22,26 @@ has 'options' => (
     documentation   => 'Transformation options getter/setter',
     is              => 'rw',
     lazy            => 1 ,
-    isa             => 'HashRef[Str]',
+    isa             => 'HashRef[Any]',
     traits          => ['Hash'],
-    default         => sub { {} },
+    builder         => '_default_transform_options',
     handles         => {
-        set_option      => 'set',
-        get_option      => 'get',
-        delete_option   => 'delete',
-        delete_options  => 'clear'
+        _set_option      => 'set',
+        delete_option    => 'delete',
+        get_option       => 'get',
+        has_option       => 'exists',
+        clear_options    => 'clear'
         },
     ) ;
-
-sub BUILD
+sub _default_transform_options
     {
-    my ( $self ) = @_ ;
-    $self -> set_option ('split', '1') ;
-    return ;
+    return { split => 1 };
+    }
+sub set_option
+    {
+    my ( $self, $option, $val ) = @_ ;
+    $val //= 1;
+    return $self -> _set_option ($option, $val);
     }
 
 # -----------------------------------------------------------------------------

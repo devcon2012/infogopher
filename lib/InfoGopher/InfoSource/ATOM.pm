@@ -27,6 +27,10 @@ use InfoGopher::Essentials ;
 extends 'InfoGopher::HTTPSInfoSource' ;
 with 'InfoGopher::InfoSource::_InfoSource' ;
 
+sub _build_expected_mimetype
+    {
+    return 'application/atom+xml' ;
+    }
 
 # -----------------------------------------------------------------------------
 # fetch - get fresh copy from ATOM InfoSource

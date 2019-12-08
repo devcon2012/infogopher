@@ -33,6 +33,17 @@ sub _build_user_agent
     $ua -> agent ( "InfoGopher" ) ;
     return $ua;
 }
+has 'expected_mimetype' => (
+    documentation   => '(undef if any mimetype ok)',
+    is              => 'rw',
+    isa             => 'Maybe[Str]',
+    lazy            => 1,
+    builder         => '_build_expected_mimetype',
+) ;
+sub _build_expected_mimetype
+    {
+    return ;
+    }
 
 has 'request' => (
     documentation   => 'http request',
@@ -74,6 +85,14 @@ sub get_http
         {
         my $what = "http error: " . $res -> status_line . " msg:" . $res -> code ;
         ThrowException($what) ;
+        }
+        
+    my $t = $self -> expected_mimetype ;
+    if ( $t )
+        {
+        my ($t2, $dummy) = split( ';', $res -> header ('Content-Type') );
+        Logger("WARN: expected content $t, but got $t2") 
+            if ( $t ne $t2 ) ;
         }
 
     return $res ;

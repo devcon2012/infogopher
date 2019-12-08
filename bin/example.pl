@@ -15,29 +15,34 @@ use JSON::MaybeXS ;
 use InfoGopher ;
 use InfoGopher::Essentials ;
 use InfoGopher::InfoSource::RSS ;
+use InfoGopher::InfoTransform::RSS2JSON ;
+use InfoGopher::InfoSource::ATOM ;
+use InfoGopher::InfoTransform::ATOM2JSON ;
 use InfoGopher::Intention ;
 use InfoGopher::IntentionStack ;
 
 my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
-my ( $gopher, $rss, $rss2 ) ;
+my ( $gopher, $atom, $rss2 ) ;
 
 try
     {
     my $i = NewIntention ( 'Construct an InfoGopher' ) ;
 
     $gopher = InfoGopher -> new ;
-    $rss = InfoGopher::InfoSource::RSS -> new ( uri => "https://krebsonsecurity.com/feed/") ;
-    $rss -> name ('Brian') ;
-    my $rss2json = InfoGopher::InfoTransform::RSS2JSON -> new () ;
-    $rss -> transformation ( $rss2json ) ;
-    $gopher -> add_info_source($rss) ;
+    $atom = InfoGopher::InfoSource::ATOM -> new ( uri => 'http://blogzinet.free.fr/atom.php' ) ;
+    $atom -> name ('blogzinet') ;
+    my $atom2json = InfoGopher::InfoTransform::ATOM2JSON -> new () ;
+    $atom2json -> set_option('split');
+    $atom -> transformation ( $atom2json ) ;
+    $gopher -> add_info_source($atom) ;
 
-    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => "http://www.tagesschau.de/xml/rss2" ) ;
+    $rss2 = InfoGopher::InfoSource::RSS -> new ( uri => 'http://www.tagesschau.de/xml/rss2' ) ;
     $rss2 -> name ('Nachrichten') ;
+    my $rss2json = InfoGopher::InfoTransform::RSS2JSON -> new () ;
+    $rss2json -> set_option('split');
     $rss2 -> transformation ( $rss2json ) ;
     $gopher -> add_info_source( $rss2 ) ;
-
         {
         my $i = NewIntention ( 'Demonstrate intention stack unwind' ) ;
         ThrowException("DEMO- no such file 'bla.txt' $!") ;
@@ -58,7 +63,7 @@ try
         $gopher -> collect() ;
         }
 
-    $gopher -> dump_text () ;
+    $gopher -> dump_text () ; # for debugging 
 
     }
 catch
@@ -69,34 +74,50 @@ catch
     exit 1 ;
     };
 
-try
+while ( 1 )
     {
-    my $i = NewIntention ( 'Show results' ) ;
-
-    my $bites_list = $gopher -> get_all ;
-    foreach my $infobites ( @$bites_list )
+    try
         {
-        print STDERR "Results from " . $infobites -> source_name . "\n";
-        foreach my $infobite ( $infobites -> all )
+        my $i = NewIntention ( 'Show results' ) ;
+
+        my $bites_list = $gopher -> get_all ;
+        foreach my $infobites ( @$bites_list )
             {
-            print "  Infobite type " . $infobite -> mime_type . "\n" ;
-            print "  Infobite from " . localtime ($infobite -> time_stamp ) . "\n" ;
-            print "  Infobite size " . (length $infobite -> data ) . " chars\n" ;
-#            my $data = JSON -> new -> utf8 -> decode ($infobite -> data) ; Houston, we have a problem
-            my $data = JSON -> new -> decode ($infobite -> data) ;
-            print "  RSS Title: " . $data -> {title} . "\n\n" ;
-            } 
+            print "Results from " . $infobites -> source_name . "\n";
+            my $count = 0 ;
+            foreach my $infobite ( $infobites -> all )
+                {
+                # print "  Infobite type " . $infobite -> mime_type . "\n" ;
+                # print "  Infobite from " . localtime ($infobite -> time_stamp ) . "\n" ;
+                # print "  Infobite size " . (length $infobite -> data ) . " chars\n" ;
+    #            my $data = JSON -> new -> utf8 -> decode ($infobite -> data) ; Houston, we have a problem
+                my $data = JSON -> new -> decode ($infobite -> data) ;
+                my $t = $data -> {title} ;
+                next if ( ! $t ) ;
+                print "  Title: $t\n" ;
+                last if (++$count == 3 ) ;
+                } 
+            print "\n\n" ;
+            }
         }
+    catch
+        {
+        my $e = NormalizeException($_) ;
+        UnwindIntentionStack($e -> what) ;
+
+        exit 1 ;
+
+        };
+    print "Enter to update, X to exit\n" ;
+    my $l = <> ;
+    last if ( $l =~ /X/i ) ;
+
+        {
+        my $i = NewIntention( 'collect info bits' ) ;
+        $gopher -> collect() ;
+        }
+    
     }
-catch
-    {
-    my $e = NormalizeException($_) ;
-    UnwindIntentionStack($e -> what) ;
-
-    exit 1 ;
-
-    };
-
 undef $i ;
 
 Logger ( "Thats it!" ) ;

@@ -136,6 +136,15 @@ sub get_https
         ThrowException($what) ;
         }
 
+    my $t = $self -> expected_mimetype ;
+    if ( $t )
+        {
+        my ($t2, $dummy) = split( ';', $res -> header ('Content-Type') );
+        Logger("WARN: expected content $t, but got $t2") 
+            if ( $t ne $t2 ) ;
+        }
+
+
     return $res ;
     }
 
