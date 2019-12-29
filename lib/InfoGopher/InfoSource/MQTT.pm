@@ -237,15 +237,15 @@ sub subscribe
 
     my $i = NewIntention ( "Subscribe MQTT: $topic" ) ;
 
-    #ThrowException("Missing topic") 
-    #    if ( ! $topic ) ;
+    ThrowException("Missing topic") 
+        if ( ! $topic ) ;
 
     my $cv ;
 
     try 
         {
         $cv = $self -> listener -> subscribe( 
-                                topic => $self -> topic, 
+                                topic => $topic, 
                                 callback => sub 
                                     {
                                     $self -> subscriber_callback( @_ ) ;
@@ -266,8 +266,9 @@ sub subscribe
     my $listen_coro = new Coro sub  
         {
         $cv -> recv ;
-        #SLogger ("$topic done.") ;
+        Logger ("InfoGopher::InfoSource::MQTT: $topic done.") ;
         } ;
+
     $listen_coro -> ready ;
 
     $self -> coro_listener ( $listen_coro ) ;
@@ -316,7 +317,6 @@ sub fetch
 
     return ;
     }
-
 
 __PACKAGE__ -> meta -> make_immutable ;
 

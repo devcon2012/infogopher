@@ -228,7 +228,7 @@ sub build_server_socket
                 Listen => 5,
                 Timeout => $self -> timeout ,
                 Reuse => 1
-            ) or print "failed to listen on 127.0.0.1:$port: $! - try next\n" ;
+            ) or print "INFO: failed to listen on 127.0.0.1:$port: $! - try next\n" ;
 
         return ( $socket, "Listening 127.0.0.1:$port\n") 
             if ( $socket );

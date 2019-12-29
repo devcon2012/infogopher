@@ -67,6 +67,9 @@ sub NormalizeException
     return $what 
         if ( ref $what =~ /InfoGopher::Exception/ ) ;
 
+    return InfoGopher::Exception -> new ( what => $what )
+        if ( ! ref $what ) ;
+
     return InfoGopher::Exception -> new ( what => Dumper($what) ) ;
     }
 

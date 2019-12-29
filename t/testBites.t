@@ -11,7 +11,7 @@ BEGIN { use_ok('InfoGopher::InfoBites') };
 
 BEGIN 
     { 
-    open( my $loghandle, ">", "testInfoBites.log" ) 
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
         or die "cannot open log: $!" ;
     InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
     } ;

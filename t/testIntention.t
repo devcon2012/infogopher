@@ -18,7 +18,7 @@ BEGIN
     { 
     require InfoGopher::Logger;
 
-    open( my $loghandle, ">", "testIntention.log" ) 
+     open( my $loghandle, ">>", "testInfoGopher.log" ) 
         or die "cannot open log: $!" ;
 
     InfoGopher::Logger::handle ('InfoGopher::Logger', $loghandle ) ;

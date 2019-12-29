@@ -70,7 +70,7 @@ sub build_server_socket
                 SSL_cert_file   => $crt,
                 SSL_key_file    => $key,
                 Reuse => 1
-            ) or warn "failed to create SSL socket on $port: $! ($SSL_ERROR) " ;
+            ) or warn "INFO: failed to create SSL socket on $port: $! ($SSL_ERROR) - try next" ;
 
         return ( $socket, "Listening on 127.0.0.1:$port, cert/key basename $crypto\n" )
             if ( $socket ) ;

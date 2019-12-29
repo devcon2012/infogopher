@@ -57,7 +57,7 @@ sub setup_server
                 SSL_hostname => 'localhost',
                 SSL_cert_file => $crt,
                 SSL_key_file  => $key,
-                ) or print "failed to HTTPS listen on $port: $! - try next\n" ;
+                ) or print "INFO: failed to HTTPS listen on $port: $! - try next\n" ;
 
         return ($server, "HTTPS ($crypto) Listening on 127.0.0.1:$port\n") 
             if ( $server );

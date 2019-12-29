@@ -30,7 +30,7 @@ sub build_server_socket
                 (
                 LocalAddr => '127.0.0.1',
                 LocalPort => $self -> port,
-                ) or print "failed to HTTP listen on $port: $! - try next\n" ;
+                ) or print "INFO: failed to HTTP listen on $port: $! - try next\n" ;
 
         return ($server, "HTTP Listening 127.0.0.1:$port\n") 
             if (ref $server) ;
@@ -53,7 +53,7 @@ sub run
     my ( $connection, $sockaddr) ;
     while ( 1 )
         {
-        print STDERR "$$: $listen_message" 
+        print STDERR "INFO: $$: $listen_message" 
             if ($self -> _verbose ) ;
 
         ( $connection, $sockaddr ) = $server -> accept ;
@@ -64,7 +64,7 @@ sub run
             if ( ! $connection ) ;
 
         my ($client_port, $client_address) = sockaddr_in $sockaddr ;
-        print STDERR "connection from $client_address:$client_port\n"
+        print STDERR "INFO: connection from $client_address:$client_port\n"
             if ($self -> _verbose ) ;;
 
         last if ( ! $self -> handle_connect( $connection ) ) ;
@@ -75,7 +75,7 @@ sub run
     undef $connection ;
     undef $server ;
     
-    print STDERR "End HTTP Server\n" 
+    print STDERR "INFO: End HTTP Server\n" 
         if ($self -> _verbose ) ;
         
     exit 0 ;

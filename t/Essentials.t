@@ -8,6 +8,8 @@ use warnings ;
 use Test::More tests => 5 ;
 
 use Try::Tiny ;
+use Data::Dumper ;
+
 
 BEGIN { use_ok('InfoGopher::Essentials') } ;
 
@@ -27,7 +29,7 @@ try
 catch
     {
     my $e = $_ ;
-    note( ref $e ) ;
+    # print STDERR Dumper ( $e ) ;
     ok ( 'InfoGopher::Exception' eq ref $e , 'Exception has proper type') ;
     ok ( 'XX' eq $e -> what , 'Exception has proper what' ) ;
     };
@@ -48,8 +50,7 @@ try
 catch
     {
     my $e = $_ ;
-    note( ref $e ) ;
-    note( $e->what ) ;
+    # print STDERR Dumper ( $e ) ;
     ok ( 'InfoGopher::Exception' eq ref $e , 'Exception has proper type') ;
     like ( $e -> what, qr/^Killed by death/, 'Exception has proper what' ) ;
     };
