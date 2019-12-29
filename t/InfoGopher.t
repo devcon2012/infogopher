@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 6;
+use Test::More tests => 7;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
@@ -10,6 +10,7 @@ use Try::Tiny ;
 BEGIN { use_ok('InfoGopher') } ;
 BEGIN { use_ok('InfoGopher::InfoSource::RSS') } ;
 BEGIN { use_ok('InfoGopher::InfoRenderer::TextRenderer') } ;
+BEGIN { use_ok('InfoGopher::Essentials') } ;
 
 our $mock ;
 
@@ -17,11 +18,15 @@ BEGIN
     { 
     $mock = TinyMock::HTTP -> new ();
     $mock -> setup('four_o_four', 7081) ; 
+    } ;
 
-    open( my $loghandle, ">", "testInfoGopher.log" ) 
+# setup logging
+BEGIN 
+    {
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
         or die "cannot open log: $!" ;
     InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
-
+    Logger('Test ' . __PACKAGE__ ) ;
     } ;
 
 # make test TEST_VERBOSE=1 TEST_FILES='t/InfoGopher.t'

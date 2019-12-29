@@ -38,7 +38,7 @@ sub build_server_socket
         $self -> port ($port) ;
         #warn "port changed to $port" ;
         } 
-
+    return ;
     }
 
 sub accept_fail_msg 

@@ -9,6 +9,15 @@ BEGIN { use_ok('InfoGopher::Logger') };
 BEGIN { use_ok('InfoGopher::Essentials') };
 BEGIN { unlink "testlogger.log" ; } ;
 
+# setup logging
+BEGIN 
+    {
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
+        or die "cannot open log: $!" ;
+    InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
+    Logger('Test ' . __PACKAGE__ ) ;
+    } ;
+
 # make testdb TEST_FILE=t/Logger.t
 #########################
 
@@ -30,7 +39,8 @@ note ("test log creation") ;
     close ( $loghandle) ;
     ok ( 1, "log closed" ) ;
 
-    ok ( -r "testlogger.log" , "log created ")
+    ok ( -r "testlogger.log" , "log created ") ;
+
     }
 
 note ("test log content") ;

@@ -12,8 +12,23 @@ use InfoGopher::Intention ;
 use InfoGopher::IntentionStack ;
 use InfoGopher::Logger ;
 
+use AnyEvent ;
+
 use Exporter 'import';
-our @EXPORT = qw( ThrowException NewIntention Logger UnwindIntentionStack NormalizeException ) ;
+our @EXPORT = qw( ThrowException NewIntention Logger UnwindIntentionStack NormalizeException ASleep) ;
+
+use Data::Dumper ;
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# -----------------------------------------------------------------------------
+#
+# NewIntention - push new intention on stack
+#   
+# in    $what   intention message for user
+#
 
 sub NewIntention
     {
@@ -21,31 +36,78 @@ sub NewIntention
     return InfoGopher::Intention -> new( what => $what ) ;
     }
 
+
+# -----------------------------------------------------------------------------
+#
+# ThrowException - shortcut to create and throw an exception
+#   
+# in    $what  string or exception object
+#
+
 sub ThrowException
     {
     my $what = shift ;
-    my $e = InfoGopher::Exception -> new ( what => $what ) ;
-    die $e ;
+
+    die NormalizeException($what) ;
+
     }
+
+
+# -----------------------------------------------------------------------------
+#
+# NormalizeException - transform into an InfoGopher::Exception if not yet one
+#   
+# in    $what  
+#
 
 sub NormalizeException
     {
     my $what = shift ;
 
     return $what 
-        if ( ref $what ) ;
+        if ( ref $what =~ /InfoGopher::Exception/ ) ;
 
-    return InfoGopher::Exception -> new ( what => $what ) ;
+    return InfoGopher::Exception -> new ( what => Dumper($what) ) ;
     }
+
+
+# -----------------------------------------------------------------------------
+#
+# Logger - 
+#   
+# in    $what  logged text
+#
 
 sub Logger
     {
     return InfoGopher::Logger -> Log ( @_ ) ;
     }
 
+
+# -----------------------------------------------------------------------------
+#
+# UnwindIntentionStack - dump intention stack in catch {}
+#   
+# in    $msg    info msg for dumping
+#
+
 sub UnwindIntentionStack
     {
     return InfoGopher::IntentionStack -> unwind( @_ ) ;
+    }
+
+# -----------------------------------------------------------------------------
+#
+# ASleep - asyncron sleep
+#
+#
+
+sub ASleep
+    {
+    my ( $timeout ) = @_ ;
+    my $s = AnyEvent -> condvar ;
+    my $w = AnyEvent -> timer (after => $timeout, cb => sub { $s -> send } ) ;
+    $s -> recv ;
     }
 
 1;

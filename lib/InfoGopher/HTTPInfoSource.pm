@@ -17,7 +17,9 @@ use InfoGopher::Essentials ;
 
 extends 'InfoGopher::InfoSource' ;
 
-use constant source_type => 'virtual_base_class' ;
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 has 'user_agent' => (
     documentation   => 'http request user agent',
@@ -33,6 +35,7 @@ sub _build_user_agent
     $ua -> agent ( "InfoGopher" ) ;
     return $ua;
 }
+
 has 'expected_mimetype' => (
     documentation   => '(undef if any mimetype ok)',
     is              => 'rw',
@@ -66,12 +69,25 @@ has 'response' => (
     default         => undef ,
 ) ;
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# get_http - perform http request, check result
+#
+# in    [$req]   http request, defaults to $self -> request
+#       [$ua]    user agent, defaults to $self -> user_agent
+#
+# ret   $response   http response object
+
 sub get_http
     {
     my ($self, $req, $ua) = @_ ;
 
-    $ua  //= $self -> user_agent ;
     $req //= $self -> request ;
+    $ua  //= $self -> user_agent ;
 
     my $res = $ua->request($req) ;
     $self -> response ( $res ) ;
@@ -101,3 +117,29 @@ sub get_http
 __PACKAGE__ -> meta -> make_immutable ;
 
 1;
+
+
+
+=head1 NAME
+
+InfoGopher::HTTPInfoSource - virtual base class for all http based infosources
+
+=head1 USAGE
+
+my $source = InfoGopher::HTTPInfoSource -> new ( uri => "http://...") ;
+$source -> name ("xx webfeed") ;
+$source -> fetch () ;
+
+A HTTP Infosource intentionaly contains no authentication method to discourage
+unencrypted submission of credentials.
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2019 by Klaus Ramstöck
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.26.1 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
+

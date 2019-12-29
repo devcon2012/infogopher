@@ -23,13 +23,18 @@ use InfoGopher::IntentionStack ;
 
 my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
-my ( $gopher, $atom, $rss2 ) ;
+my ( $gopher, $atom, $rss2, $mqtt ) ;
 
 try
     {
     my $i = NewIntention ( 'Construct an InfoGopher' ) ;
 
     $gopher = InfoGopher -> new ;
+
+    $mqtt = InfoGopher::InfoSource::MQTT -> new ( uri => 'mqtt://localhost/gopher' ) ;
+    $mqtt -> name ('MQTT Gopher') ;
+    $gopher -> add_info_source($mqtt) ;
+
     $atom = InfoGopher::InfoSource::ATOM -> new ( uri => 'http://blogzinet.free.fr/atom.php' ) ;
     $atom -> name ('blogzinet') ;
     my $atom2json = InfoGopher::InfoTransform::ATOM2JSON -> new () ;
@@ -87,10 +92,7 @@ while ( 1 )
             my $count = 0 ;
             foreach my $infobite ( $infobites -> all )
                 {
-                # print "  Infobite type " . $infobite -> mime_type . "\n" ;
-                # print "  Infobite from " . localtime ($infobite -> time_stamp ) . "\n" ;
-                # print "  Infobite size " . (length $infobite -> data ) . " chars\n" ;
-    #            my $data = JSON -> new -> utf8 -> decode ($infobite -> data) ; Houston, we have a problem
+                # my $data = JSON -> new -> utf8 -> decode ($infobite -> data) ; Houston, we have a problem
                 my $data = JSON -> new -> decode ($infobite -> data) ;
                 my $t = $data -> {title} ;
                 next if ( ! $t ) ;

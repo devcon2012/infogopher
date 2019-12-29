@@ -19,8 +19,8 @@ BEGIN
     $mock = TinyMock::HTTP -> new ( ) ; # _verbose => 1 
     $mock -> setup('HTML', 7080) ; 
 
-    open( my $loghandle, ">", "testInfoGopher.log" ) 
-        or die "cannot open log: $!" ;
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
+         or die "cannot open log: $!" ;
     InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
     } ;
 

@@ -1,10 +1,10 @@
 package InfoGopher::InfoSink ;
 
-# InfoGopher::InfoSink describes receiver of infobites
+# InfoGopher::InfoSink describes a receiver of infobites
 # see pod at the end of this file.
 
 #
-# InfoGopher - A framework for collection information
+# InfoGopher - A framework for collecting information
 #
 #   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
 #
@@ -26,7 +26,43 @@ use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
 
-use constant source_type => 'virtual_base_class' ;
+with 'InfoGopher::_URI' ; 
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+has 'info_bites' => (
+    documentation   => 'info_bites to be sent',
+    is              => 'rw',
+    isa             => 'InfoGopher::InfoBites',
+    lazy            => 1,
+    builder         => '_build_info_bites',
+) ;
+sub _build_info_bites
+    {
+    return InfoGopher::InfoBites -> new () ;
+    }
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# -----------------------------------------------------------------------------
+#
+# push_info - virtual method to send infobites to receiver
+#   
+# in    [$infobites]    defaults to member infobites  
+#
+sub push_info
+    {
+    my ( $self, $infobites ) = @_ ;
+
+    $infobites //= $self -> info_bites ;
+
+    die "VIRTUAL push_info in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
+    
+    }
 
 
 __PACKAGE__ -> meta -> make_immutable ;
@@ -36,9 +72,10 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::InfoSink - Receiver of aggregated information
+InfoGopher::InfoSink - virtual base class for receivers of aggregated information
 
-Typically an email account receiving periodic updates
+could be:
+* an email account receiving periodic updates
 
 =head1 USAGE
 

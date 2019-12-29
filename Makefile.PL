@@ -1,5 +1,5 @@
 #
-# InfoGopher - A framework for collection information
+# InfoGopher - A framework for collecting information
 #
 #   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
 #
@@ -85,28 +85,39 @@ sub CritiqueModules
     
     }
 
+sub PrintInfo
+    {
+    print "Run some tests verbose:\n" ;
+    print "make test TEST_VERBOSE=1 TEST_FILES='t/testInfoBites.t'\n" ;
+    print "Run one test for debugging:\n" ;
+    print "make testdb TEST_FILE=t/testInfoBites.t\n" ;
+    }
+
 WriteMakefile(
     NAME              => 'InfoGopher',
     VERSION_FROM      => 'lib/InfoGopher.pm', 
     PREREQ_PM         => {
-                            'Data::Dumper' => 2,
-                            'Devel::StealthDebug' => 1,
-                            'Getopt::Long' => 2,
-                            'HTML::Tree' => 5,
-                            'HTTP::Daemon' => 6, 
-                            'HTTP::Request' => 6, 
-                            'HTTP::Status' => 6,
-                            'IO::Socket::SSL' => 2,
-                            'JSON::MaybeXS' => 1.0,
-                            'LWP' => 1,
-                            'Mail::IMAPClient' => 1,
-                            'Moose' => 2, 
-                            'Moose::Role' => 1,
+                            'Authen::SASL'          => 1,
+                            'Data::Dumper'          => 2,
+                            'Devel::StealthDebug'   => 1,
+                            'Getopt::Long'          => 2,
+                            'HTML::Tree'            => 5,
+                            'HTTP::Daemon'          => 6, 
+                            'HTTP::Request'         => 6, 
+                            'HTTP::Status'          => 6,
+                            'IO::Socket::SSL'       => 2,
+                            'JSON::MaybeXS'         => 1.0,
+                            'LWP'                   => 1,
+                            'Mail::Mailer'          => 2.2,
+                            'Mail::IMAPClient'      => 1,
+                            'Moose'                 => 2, 
+                            'Moose::Role'           => 1,
                             'MooseX::ClassAttribute' => 0.2,
-                            'Try::Tiny' => 0.28,
-                            'URI' => 0.3,
-                            'XML::Parser' => 2,
-                            'HTTP::CookieJar::LWP' => 0.008
+                            'Readonly'              => 2,
+                            'Try::Tiny'             => 0.28,
+                            'URI'                   => 0.3,
+                            'XML::Parser'           => 2,
+                            'HTTP::CookieJar::LWP'  => 0.008
                          }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/InfoGopher.pm', # retrieve abstract from module
     AUTHOR            => 'Klaus Ramstöck <klaus@ramstoeck.name>',
@@ -116,3 +127,5 @@ WriteMakefile(
 CritiqueModules() ;
 
 UpdateManifest() ;
+
+PrintInfo() ;

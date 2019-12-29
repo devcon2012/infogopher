@@ -31,15 +31,16 @@ BEGIN
     {
     $mock = TinyMock::HTTP -> new ( ) ; # _verbose => 1 
     $mock -> setup('ATOM', 7080) ; 
-
-    open( my $loghandle, ">", "testInfoGopher.log" ) 
-        or die "cannot open log: $!" ;
-    InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
     } ;
 
-#
-# make test TEST_VERBOSE=1 TEST_FILES='t/testATOMSource.t'
-# make testdb TEST_FILE=t/testATOMSource.t
+# setup logging
+BEGIN 
+    {
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
+        or die "cannot open log: $!" ;
+    InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
+    Logger('Test ' . __PACKAGE__ ) ;
+    } ;
 
 use constant ATOMName => 'ATOMTest' . time  ;
 use constant ATOMId => int(rand(100)) ;

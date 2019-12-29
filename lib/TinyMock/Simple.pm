@@ -14,7 +14,7 @@ use IO::Socket::INET;
 use FindBin ;
 
 use Data::Dumper ;
-use constant timeout => 3 ;
+
 use Symbol 'gensym' ;
 use Getopt::Long ;
 
@@ -52,6 +52,15 @@ class_has '_verbose' => (
     isa             => 'Str',
     default         => sub { 0 },
 ) ;
+
+# 
+has 'timeout' => (
+    documentation   => 'mock listen timeout',
+    is              => 'rw',
+    isa             => 'Int',
+    builder         => '_build_timeout',
+) ;
+sub _build_timeout { return 5; }
 
 # 
 has 'port' => (

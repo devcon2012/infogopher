@@ -16,12 +16,15 @@ lib/InfoGopher/InfoRenderer/_InfoRenderer.pm
 lib/InfoGopher/InfoRenderer/RawRenderer.pm
 lib/InfoGopher/InfoRenderer/TextRenderer.pm
 lib/InfoGopher/InfoSink.pm
+lib/InfoGopher/InfoSink/EmailReceiver.pm
 lib/InfoGopher/InfoSource.pm
 lib/InfoGopher/InfoSource/_InfoSource.pm
 lib/InfoGopher/InfoSource/ATOM.pm
 lib/InfoGopher/InfoSource/IMAP.pm
+lib/InfoGopher/InfoSource/MQTT.pm
 lib/InfoGopher/InfoSource/RSS.pm
 lib/InfoGopher/InfoSource/Web.pm
+lib/InfoGopher/InfoSubscriber.pm
 lib/InfoGopher/InfoTransform.pm
 lib/InfoGopher/InfoTransform/ATOM2JSON.pm
 lib/InfoGopher/InfoTransform/HTMLExtractor.pm
@@ -47,7 +50,9 @@ t/InfoGopher.t
 t/Logger.t
 t/testATOMSource.t
 t/testBites.t
+t/testEmailReceiver.t
 t/testIntention.t
+t/testMQTT.t
 t/testRSSSource.t
 t/testTransform.t
 t/testWebSource.t

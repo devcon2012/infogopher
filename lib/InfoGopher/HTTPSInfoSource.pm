@@ -18,10 +18,22 @@ use InfoGopher::Essentials ;
 
 extends 'InfoGopher::HTTPInfoSource' ;
 
-use constant source_type => 'virtual_base_class' ;
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# overload to require credentials
-use constant needs_credentials => undef ;
+# overload _build_needs_credentials to require credentials
+has 'needs_credentials' => (
+    documentation   => 'predicate determining if this needs user/pw or ..',
+    is              => 'ro',
+    isa             => 'Bool',
+    lazy            => 1,
+    builder         => '_build_needs_credentials',
+) ;
+sub _build_needs_credentials
+    {
+    return 0;
+    }
 
 has 'cookie_jar' => (
     documentation   => 'http request cookie jar',
@@ -70,6 +82,19 @@ has 'login_url' => (
     default         => ''
 ) ;
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# --------------------------------------------------------------------------------------------------------------------
+# login - login to site: send a http request, store token or ... in cookie jar
+#       this will force the user agent to only accept https and disallow untrusted sites.
+#
+# in    $request    http request prepared with credentials (username/pw)
+#
+# ret   $response   http response object
+
 sub login
     {
     my ( $self, $request ) = @_ ;
@@ -77,8 +102,8 @@ sub login
     my $ua = $self -> user_agent ;
 
     # if we need to login:
-    # we allow no unencrypted connections
-    # we allow no untrusted sources
+    #  + we allow no unencrypted connections
+    #  + we allow no untrusted sources
     $ua -> protocols_allowed( [ 'https' ] ) ;
     $self -> allow_untrusted ( 0 ) ;
 
@@ -97,6 +122,14 @@ sub login
 
     return $res ;    
     }
+
+# --------------------------------------------------------------------------------------------------------------------
+# get_https - configure ca store, perform https request, check result
+#
+# in    [$req]   http request, defaults to $self -> request
+#       [$ua]    user agent, defaults to $self -> user_agent
+#
+# ret   $response   http response object
 
 sub get_https
     {
@@ -144,10 +177,33 @@ sub get_https
             if ( $t ne $t2 ) ;
         }
 
-
     return $res ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;
 
 1;
+
+
+
+=head1 NAME
+
+InfoGopher::HTTPSInfoSource - virtual base class for all https based infosources
+(based on InfoGopher::HTTPInfoSource)
+
+=head1 USAGE
+
+my $source = InfoGopher::HTTPSInfoSource -> new ( uri => "https://...") ;
+
+class contains a cookie jar + user/pw store to keep track of credentials.
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2019 by Klaus Ramstöck
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.26.1 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
+

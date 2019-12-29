@@ -4,7 +4,7 @@ package InfoGopher::InfoSource::IMAP ;
 # IMAP: See RFC3501 - https://tools.ietf.org/html/rfc3501
 
 #
-# InfoGopher - A framework for collection information
+# InfoGopher - A framework for collecting information
 #
 #   (c) Klaus Ramstöck klaus@ramstoeck.name 2019
 #

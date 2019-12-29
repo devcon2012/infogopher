@@ -14,7 +14,6 @@ use IO::File ;
 use IO::Socket::SSL ;
 
 use Data::Dumper ;
-use constant timeout => 3 ;
 use Symbol 'gensym' ;
 use Getopt::Long ;
 

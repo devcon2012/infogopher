@@ -30,7 +30,7 @@ BEGIN
     $mock = TinyMock::HTTP -> new ( ) ; # _verbose => 1 
     $mock -> setup('RSS', 7080) ; 
 
-    open( my $loghandle, ">", "testInfoGopher.log" ) 
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
         or die "cannot open log: $!" ;
     InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
     } ;

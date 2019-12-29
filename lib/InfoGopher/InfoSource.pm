@@ -16,8 +16,6 @@ use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
 use InfoGopher::InfoRenderer::TextRenderer ;
 
-use constant source_type => 'virtual_base_class' ;
-
 # 
 has 'name' => (
     documentation   => 'Information source name (for display only)',
@@ -105,7 +103,8 @@ sub BUILD
 #
 sub add_info_bite
     {
-    my $self = shift ;
+    my ($self) = @_ ;
+    shift ;
 
     return $self -> info_bites -> add_info_bite( @_ ) ;
 
@@ -150,7 +149,8 @@ sub dump_info_bites
 #
 # fetch - virtual method 
 #
-#   fetching obtains a fresh copy from the URI, possibly applying 
+#   fetching obtains a fresh copy from the URI, applying 
+#       defined transformations
 #   
 #
 sub fetch

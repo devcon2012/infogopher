@@ -14,13 +14,7 @@ use Data::Dumper ;
 
 use InfoGopher ;
 use InfoGopher::Essentials ;
-use InfoGopher::InfoSource::ATOM ;
-use InfoGopher::InfoSource::Web ;
-use InfoGopher::Intention ;
-use InfoGopher::IntentionStack ;
-use InfoGopher::InfoRenderer::TextRenderer ;
-use InfoGopher::InfoTransform::HTMLExtractor ;
-use InfoGopher::InfoTransform::ATOM2JSON ;
+use InfoGopher::InfoSource::MQTT ;
 
 use TinyMock::HTTP ;
 
@@ -28,8 +22,8 @@ our ($mock, $port) ;
 
 BEGIN 
     { 
-    $mock = TinyMock::HTTP -> new ();
-    $mock -> setup('HTML', 7080) ;
+    # $mock = TinyMock::HTTP -> new ();
+    # $mock -> setup('HTML', 7080) ;
     } ;
 
 BEGIN 
@@ -40,18 +34,126 @@ BEGIN
     # InfoGopher::Logger -> handle ( $loghandle ) ;
     } ;
 
+
+
+# -----------------------------------------------------------------------------
+#
+# error_handler
+#
+#
+sub error_handler
+    {
+    my ($fatal, $message) = @_ ;
+    #!dump($fatal, $message)!
+    ThrowException($message) ;
+    return ;
+    }
+
+# -----------------------------------------------------------------------------
+#
+# class method subscriber_callback - receive messages
+#
+# in    $topic
+#       $message
+#
+# throws if topic cannot be mapped to an object
+#
+sub subscriber_callback
+    {
+    my ($topic, $message) = @_;
+    #!dump($topic, $message)!
+
+    print STDERR "$topic: $message\n" ;
+    return ;
+    }
+
+
+if ( 0 )
+    {
+    my $host = "localhost" ;
+    my $port = 1883  ;
+
+    my %par = 
+        (
+        host        => $host,
+        port        => $port,
+        timeout     => 10,
+        on_error    => \&mqtt_error_handler,
+        ) ;
+
+    #!dump(\%par)!
+    my $mqtt = AnyEvent::MQTT -> new( %par ) ;
+
+    my $cv = $mqtt-> subscribe( 
+                        topic => "bla", 
+                        callback => \&subscriber_callback
+                            ) ;
+    die "subscribe failed" if ( ! $cv ) ;
+    my $qos = $cv -> recv ;
+    print STDERR "QoS: $qos\n" ;
+
+    while ( 1 )
+        {
+        my $quit = AnyEvent::CondVar -> new ;
+        $quit -> recv ;
+        }
+
+    }
+
 my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
-my ( $gopher, $src, $t ) ;
+    {
 
-$port = $mock -> port ;
+    my ( $gopher, $src, $t ) ;
 
-$src = InfoGopher::InfoSource::ATOM -> new( uri => "https://krebsonsecurity.com/feed/atom/" ) ;
-$t = InfoGopher::InfoTransform::ATOM2JSON -> new ;
-$src -> transformation ( $t ) ;
+    try 
+        {
+        $src = InfoGopher::InfoSource::MQTT -> new( uri => "mqtt://127.0.0.1/bla/fasel" ) ;
+        }
+    catch
+        {
+        my $e = NormalizeException($_) ;
+        UnwindIntentionStack($e -> what) ;
 
-$src -> fetch ;
-$src -> dump_info_bites("initial") ;
+        exit 1 ;
+        } ;
+
+    try 
+        {
+        while ( 1 )
+            {
+            ASleep ( 1 ) ;
+            $src -> fetch ;
+            $src -> dump_info_bites( "initial" ) ;
+            my $bites = $src -> info_bites ;
+            last if ( $bites -> count > 2 ) ;
+            system("mosquitto_pub -t bla/fasel/ -m 'haha' ") 
+                if ( 10 > int ( rand (300) ) ) ;
+            }
+        }
+    catch
+        {
+        my $e = NormalizeException( $_ ) ;
+        UnwindIntentionStack ( $e -> what ) ;
+        exit 1 ;
+        } ;
+    
+    try
+        {
+        my $i = NewIntention ( 'Cleanup InfoGopher' ) ;
+        #$src -> unsubscribe ;
+        undef $src ;
+        }
+    catch
+        {
+        my $e = NormalizeException( $_ ) ;
+        UnwindIntentionStack ( $e -> what ) ;
+        exit 1 ;
+        } ;
+
+    }
+
+exit 0 ;
 
 __END__ 
 

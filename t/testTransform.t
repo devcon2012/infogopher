@@ -2,16 +2,22 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More tests => 3 ;
 
 use Try::Tiny ;
 use Data::Dumper ;
 
+BEGIN { use_ok('InfoGopher::Essentials') };
 BEGIN { use_ok('InfoGopher::InfoTransform::HTMLExtractor::TagTransformer') };
 
-# make test TEST_VERBOSE=1 TEST_FILES='t/testTransform.t'
-# make testdb TEST_FILE=t/testTransform.t
-#########################
+# setup logging
+BEGIN 
+    {
+    open( my $loghandle, ">>", "testInfoGopher.log" ) 
+        or die "cannot open log: $!" ;
+    InfoGopher::Logger::handle ( 'InfoGopher::Logger', $loghandle ) ;
+    Logger('Test ' . __PACKAGE__ ) ;
+    } ;
 
 my $t = InfoGopher::InfoTransform::HTMLExtractor::TagTransformer -> new ;
 my $style = $t -> style ;

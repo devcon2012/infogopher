@@ -11,7 +11,10 @@ use MooseX::ClassAttribute ;
 # use InfoGopher::Essentials ; # dont - creates recursion ..
 use InfoGopher::IntentionSummary ;
 
-# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class_has '_stack' => (
     documentation   => 'Intention id stack',
     is              => 'rw',
@@ -87,6 +90,10 @@ class_has '_latest' => (
     default         => sub { -1 },
     ) ;
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # shortcut because we cannot use Essentials here ..
 sub Logger
     {
@@ -142,7 +149,7 @@ sub summary
     }
 
 # -----------------------------------------------------------------------------
-# reset - cleanup after corruption
+# is_corrupted - precdicate to determine if reset_intention_stack is needed
 #
 #
 sub is_corrupted
@@ -200,7 +207,7 @@ sub add
     }
 
 # -----------------------------------------------------------------------------
-# format_summary
+# format_summary - format intention summary for use in unwind()
 #
 # in    $prefix
 #       $intention_summary
@@ -272,14 +279,13 @@ sub remove_id
     }
 
 # -----------------------------------------------------------------------------
-# unwind - dump intention stack. will thaw afterwards
+# unwind - dump intention stack. will thaw afterwards, used in catch {}
 #
 # in    $msg - msg printed before dump
-#       $i - intention in the unwinding context (not yet used)
 #
 sub unwind
     {
-    my ($self, $msg, $i) = @_ ;
+    my ($self, $msg) = @_ ;
 
     Logger( "Exception: $msg" ) ;
 
