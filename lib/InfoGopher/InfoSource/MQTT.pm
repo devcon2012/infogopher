@@ -1,4 +1,4 @@
-package InfoGopher::InfoSubscriber::MQTT ;
+package InfoGopher::InfoSource::MQTT ;
 
 #
 # InfoGopher - A framework for collecting information

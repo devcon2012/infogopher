@@ -17,7 +17,7 @@ use Data::Dumper ;
 
 BEGIN { use_ok('InfoGopher') };
 BEGIN { use_ok('InfoGopher::Essentials') };
-BEGIN { use_ok('InfoGopher::InfoSource::MQTT') };
+BEGIN { use_ok('InfoGopher::InfoSubscriber::MQTT') };
 
 our ( $mock, $port ) = (undef, 1883); 
 our ( $MQTTName, $MQTTId) = ( 'MQTTTest' . time, int(rand(100)) ) ;
@@ -56,7 +56,7 @@ SKIP: {
     skip "MQTT: $@", 7 if $@;
 
     my $gopher = InfoGopher -> new ;
-    my $mqtt = InfoGopher::InfoSource::MQTT -> new ( 
+    my $mqtt = InfoGopher::InfoSubscriber::MQTT -> new ( 
             uri      => "mqtt://127.0.0.1:$port/topic",
             name     => $MQTTName,
             id       => $MQTTId) ;

@@ -14,7 +14,7 @@ use Data::Dumper ;
 
 use InfoGopher ;
 use InfoGopher::Essentials ;
-use InfoGopher::InfoSource::MQTT ;
+use InfoGopher::InfoSubscriber::MQTT ;
 
 use TinyMock::HTTP ;
 
@@ -108,7 +108,7 @@ my $i = NewIntention ( 'Demonstrate InfoGopher use' ) ;
 
     try 
         {
-        $src = InfoGopher::InfoSource::MQTT -> new( uri => "mqtt://127.0.0.1/bla/fasel" ) ;
+        $src = InfoGopher::InfoSubscriber::MQTT -> new( uri => "mqtt://127.0.0.1/bla/fasel" ) ;
         }
     catch
         {

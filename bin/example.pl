@@ -31,7 +31,7 @@ try
 
     $gopher = InfoGopher -> new ;
 
-    $mqtt = InfoGopher::InfoSource::MQTT -> new ( uri => 'mqtt://localhost/gopher' ) ;
+    $mqtt = InfoGopher::InfoSubscriber::MQTT -> new ( uri => 'mqtt://localhost/gopher' ) ;
     $mqtt -> name ('MQTT Gopher') ;
     $gopher -> add_info_source($mqtt) ;
 
