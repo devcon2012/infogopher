@@ -116,6 +116,7 @@ WriteMakefile(
                             'Readonly'              => 2,
                             'Try::Tiny'             => 0.28,
                             'URI'                   => 0.3,
+                            'URL::Encode'           => 0.03,
                             'XML::Parser'           => 2,
                             'HTTP::CookieJar::LWP'  => 0.008
                          }, # e.g., Module::Name => 1.1

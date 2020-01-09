@@ -18,6 +18,8 @@ use namespace::autoclean ;
 use Devel::StealthDebug ENABLE => $ENV{dbg_rc} || $ENV{dbg_source} ;
 use Data::Dumper ;
 
+use URL::Encode qw ( url_encode ) ;
+
 use Moose ;
 use Try::Tiny ;
 
@@ -30,6 +32,18 @@ with 'InfoGopher::InfoSource::_InfoSource' ;
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+has 'auth_token' => (
+    documentation   => 'rocketchat auth token',
+    is              => 'rw',
+    isa             => 'Maybe[Str]',
+) ;
+
+has 'auth_user' => (
+    documentation   => 'rocketchat auth token user',
+    is              => 'rw',
+    isa             => 'Maybe[Str]',
+) ;
 
 sub _build_expected_mimetype
     {
@@ -51,9 +65,19 @@ sub fetch
     my $name = $self -> name ;
     my $i = NewIntention ( "Fetch RocketChat $name:" . $self -> uri ) ;
 
-    $self -> get_https ;
+    my $req = $self -> request ;
+    $req -> header ( 'X-Auth-Token' => $self -> auth_token ) ;
+    $req -> header ( 'X-User-Id' => $self -> auth_user ) ;
+    $req -> header ( 'Content-type' => 'application/json' ) ;
 
-    $self -> info_bites -> clear() ;
+    my $query = 'query={"text": "rocket", "type": "users", "workspace": "local"}' ;
+    $req -> uri ( $self -> uri . "?" . url_encode($query) ) ;
+
+    my $ua  = $self -> user_agent ;
+
+    $self -> get_https ( $req, $ua ) ;
+
+    $self -> info_bites -> clear () ;
 
     # copy my id to bites so consumer can later track its source
     $self -> info_bites -> source_name ( $self -> name ) ;
