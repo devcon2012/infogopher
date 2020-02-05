@@ -13,7 +13,10 @@ use Data::Dumper;
 use Moose;
 use Try::Tiny;
 
-# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 has 'data' => (
     documentation   => 'Raw information data',
     is              => 'rw',
@@ -44,15 +47,34 @@ has 'time_stamp' => (
     default         => sub { time ;}
 ) ;
 
+has 'cloned' => (
+    documentation   => 'Timestamp this was cloned, zero for original bits',
+    is              => 'rw',
+    isa             => 'Int',
+    default         => 0
+) ;
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# -----------------------------------------------------------------------------
+#
+# clone - create new InfoBite with same mime_type and time_stamp ( but empty data )
+#
+# ret $info_bite
 #
 
 sub clone 
     {
     my ($self) = @_ ;
 
-    my $clone = InfoGopher::InfoBite -> new ;
-    $clone -> time_stamp ( $self -> time_stamp ) ;
-    $clone -> mime_type ( $self -> mime_type ) ;
+    my $clone = InfoGopher::InfoBite -> new (
+        time_stamp  => $self -> time_stamp,
+        mime_type   => $self -> mime_type,
+        cloned      => time 
+    ) ;
 
     return $clone ;
     }

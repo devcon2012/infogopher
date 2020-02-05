@@ -1,4 +1,4 @@
-package InfoGopher::InfoSink ;
+package InfoGopher::InfoSink::JSONReceiver ;
 
 # InfoGopher::InfoSink describes a receiver of infobites
 # see pod at the end of this file.
@@ -19,77 +19,47 @@ use namespace::autoclean;
 use Devel::StealthDebug ENABLE => $ENV{dbg_sink} ;
 
 use Data::Dumper;
-use Moose;
-use Try::Tiny;
+use Moose ;
+use Try::Tiny ;
+use JSON::MaybeXS ;
 
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
+use InfoGopher::InfoRenderer::RawRenderer ;
 
-with 'InfoGopher::_URI' ; 
+extends 'InfoGopher::InfoSink::PerlReceiver' ;
+with 'InfoGopher::_URI' ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-has 'info_bites' => (
-    documentation   => 'info_bites to be sent',
+has 'json' => (
+    documentation   => 'target file handle',
     is              => 'rw',
-    isa             => 'InfoGopher::InfoBites',
+    isa             => 'Str',
     lazy            => 1,
-    builder         => '_build_info_bites',
+    default         => ''
 ) ;
-sub _build_info_bites
-    {
-    return InfoGopher::InfoBites -> new () ;
-    }
-
-has 'info_renderer' => (
-    documentation   => 'transform infobites to a type suit for this receiver (defaults to a raw renderer)',
-    is              => 'rw',
-    isa             => 'InfoGopher::InfoRenderer',
-    lazy            => 1,
-    builder         => '_build_info_renderer',
-) ;
-sub _build_info_renderer
-    {
-    return InfoGopher::InfoRenderer::RawRenderer -> new ;
-    }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Methods 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 # -----------------------------------------------------------------------------
 #
-# filter_input_infobites - weed out infobites not of interest. Takes all, overload if this is not what you want
-#   
-# in    $infobites
-
-sub filter_input_infobites
-    {
-    my ( $self, $infobites ) = @_ ;
-
-    $self -> infobites ( $infobites ) ;
-
-    return ;    
-    }
-
-# -----------------------------------------------------------------------------
-#
-# push_infos - virtual method to send infobites to a receiver
+# push_info - virtual method to send infobites to receiver
 #   
 # in    [$infobites]    defaults to member infobites  
 #
-sub push_infos
+sub push_info
     {
     my ( $self, $infobites ) = @_ ;
 
-    $infobites //= $self -> info_bites ;
-
-    die "VIRTUAL push_info in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
-    
+    $self -> SUPER::push_info( $infobites ) ;
+    my $json = JSON -> new -> encode ( $self -> target_variable ) ;
+    $self -> json ( $json ) ;
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;
@@ -99,10 +69,8 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::InfoSink - virtual base class for receivers of aggregated information
+InfoGopher::InfoSink::JSONReceiver - save infobites to json
 
-could be:
-* an email account receiving periodic updates
 
 =head1 USAGE
 

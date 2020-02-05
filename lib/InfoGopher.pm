@@ -7,7 +7,7 @@ use strict;
 use warnings;
 use Moose ;
 
-# ABSTRACT: a high-level bot framework for collecting information bits
+# ABSTRACT: a high-level framework for collecting information, aggregating it and delivering the result elsewhere
 
 our $VERSION = '0.05';
 
@@ -16,7 +16,11 @@ use InfoGopher::Essentials ;
 use Try::Tiny ;
 use Data::Dumper ;
 
-# 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Just so I dont forget:
 # https://metacpan.org/pod/Moose::Meta::Attribute::Native::Trait::Array
 # https://metacpan.org/pod/Moose::Meta::Attribute::Native::Trait::Hash
 #
@@ -25,7 +29,7 @@ has 'info_sources' => (
     is              => 'rw',
     isa             => 'ArrayRef[InfoGopher::InfoSource]',
     traits          => ['Array'],
-    default         => sub {[]},
+    default         => sub { [] },
     handles => 
         {
         all_info_sources    => 'elements',
@@ -50,6 +54,29 @@ around 'add_info_source' => sub
         
     return $self->$orig(@_);
     };
+
+has 'info_sinks' => (
+    documentation   => 'Array of info sinks',
+    is              => 'rw',
+    isa             => 'ArrayRef[InfoGopher::InfoSink]',
+    traits          => ['Array'],
+    default         => sub { [] },
+    handles => 
+        {
+        all_info_sinks    => 'elements',
+        add_info_sink     => 'push',
+        get_info_sink     => 'get',
+        count_info_sinks  => 'count',
+        has_info_sinks    => 'count',
+        has_no_info_sinks => 'is_empty',
+        clear_info_sinks  => 'clear',
+        },
+    ) ;
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # -----------------------------------------------------------------------------
 # collect - trigger fetch for all info sources
 #
@@ -81,6 +108,40 @@ sub collect
     }
 
 # -----------------------------------------------------------------------------
+# push_infos - push infobites collected to sinks
+#
+#
+#
+sub push_infos
+    {
+    my ($self) = @_ ;
+
+    my $n = $self->count_info_sinks ;
+    my $i = NewIntention ( "Pushing bits to $n sinks" ) ;
+
+    my $infos = $self -> get_all ;
+
+    for ( my $i=0; $i < $self->count_info_sinks; $i++)
+        {
+        my $sink = $self -> get_info_sink( $i ) ;
+
+        $sink -> filter_input_infobites( $infos ) ;
+
+        try
+            {
+            $sink -> push_infos () ;
+            }
+        catch
+            {
+            my $e = $_ ;
+            UnwindIntentionStack ( $e -> what, $i ) ;
+            }
+        }
+
+    return ;
+    }
+
+# -----------------------------------------------------------------------------
 #
 # get_all - assemble list of all InfoBites
 #
@@ -99,6 +160,9 @@ sub get_all
         push @results, $source -> info_bites ;
         }
 
+    my $count = scalar @results ;
+
+    Logger( "We have $count infobites in total", $i ) ;
     return \@results ;
     }
 

@@ -111,6 +111,7 @@ sub ASleep
     my $s = AnyEvent -> condvar ;
     my $w = AnyEvent -> timer (after => $timeout, cb => sub { $s -> send } ) ;
     $s -> recv ;
+    return ;
     }
 
 1;

@@ -1,4 +1,4 @@
-package InfoGopher::InfoSink::EmailReceiver ;
+package InfoGopher::InfoSink::MQTTReceiver ;
 
 # InfoGopher::InfoSink describes a receiver of infobites
 # see pod at the end of this file.
@@ -16,14 +16,11 @@ use strict ;
 use warnings ;
 use utf8 ;
 use namespace::autoclean;
-use Devel::StealthDebug ENABLE => $ENV{dbg_sink} ;
+use Devel::StealthDebug ENABLE => $ENV{dbg_mqtt} | $ENV{dbg_src} ;
 
 use Data::Dumper;
 use Moose;
 use Try::Tiny;
-use Mail::Mailer ;
-# not used directly, but by Mail::Mailer
-use Authen::SASL ;
 
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
@@ -36,45 +33,6 @@ with 'InfoGopher::_URI' ;
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-has 'email_sender' => (
-    documentation   => 'SMTP server used',
-    is              => 'rw',
-    isa             => 'Str',
-    default         => 'infogopher@localhost'
-) ;
-has 'smtp_server' => (
-    documentation   => 'SMTP server used',
-    is              => 'rw',
-    isa             => 'Str',
-) ;
-has 'smtp_user' => (
-    documentation   => 'SMTP credentials: user',
-    is              => 'rw',
-    isa             => 'Str',
-) ;
-has 'smtp_pw' => (
-    documentation   => 'SMTP credentials: pw',
-    is              => 'rw',
-    isa             => 'Str',
-) ;
-
-has 'mailer' => (
-    documentation   => 'mail sender',
-    is              => 'rw',
-    isa             => 'Mail::Mailer',
-    lazy            => 1,
-    builder         => '_build_info_bites',
-) ;
-sub _build_mailer
-    {
-    my ($self) = @_ ;
-
-    my $server = $self -> smtp_server or ThrowException(__PACKAGE__ . ' is missing smtp_server');
-    my $auth   = [ $self -> smtp_user, $self -> smtp_pw ] ;
-    my $method = $ENV{DEBUG_INFOGOPHER} ? 'testfile' : 'smtp' ;
-
-    return Mail::Mailer -> new ( $method, StartTLS => 1, Server => $server, Auth => $auth ) ;
-    }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Methods 
@@ -92,30 +50,19 @@ sub push_info
 
     $infobites //= $self -> info_bites ;
 
-    my ($receiver) = ( $self -> uri =~ /mailto:(.+)/ ) ; 
-
     my $n = $infobites -> count ;
-    my $i = NewIntention ( "Send infobites $n to $receiver" ) ;
-
-    my $mailer  = $self -> mailer ;
-    my $headers =
-        {
-            From    => $self -> email_sender,
-            To      => $receiver,
-            Subject => $self -> subject,
-        } ;
-
-    $mailer -> open($headers) ;
+    my $i = NewIntention ( "Send $n infobites to variable" ) ;
 
     my $renderer = $self -> info_renderer ;
-
+ 
+    my $target = [] ;
     foreach ( $infobites -> all )
         { 
-        print $mailer $renderer -> process( $_)  ;
+        my $data = $renderer -> process( $_)  ;
+        push @$target, $data ;
         }
 
-    $mailer -> close () ;
-
+    
     return ;
     }
 
@@ -126,7 +73,7 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::InfoSink::EmailReceiver - send infobites via email
+InfoGopher::InfoSink::MQTTReceiver - send infobites via MQTT
 
 
 =head1 USAGE

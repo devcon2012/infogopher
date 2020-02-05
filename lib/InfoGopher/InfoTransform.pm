@@ -11,6 +11,7 @@ use Try::Tiny;
 
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
+use InfoGopher::InfoRenderer::RawRenderer ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
@@ -46,6 +47,20 @@ sub set_option
     return $self -> _set_option ($option, $val);
     }
 
+has 'renderer' => (
+    documentation   => 'infobit renderer',
+    is              => 'rw',
+    lazy            => 1 ,
+    isa             => 'InfoGopher::InfoRenderer',
+    builder         => '_default_renderer',
+    ) ;
+sub _default_renderer
+    {
+    my ($self) = @_ ;
+    return InfoGopher::InfoRenderer::RawRenderer -> new ;
+    }
+
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Methods 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,16 +88,14 @@ __END__
 
 =head1 NAME
 
-InfoGopher::InfoTransform - extract, resize, transmogrify info bits (aggregation)
-
-
-
+InfoGopher::InfoTransform - extract, transmogrify or .. info bits (aggregation)
 
 =head1 USAGE
 
 my $transformation = InfoGopher::InfoTransform -> new () ;
 
 my $infobits = $transformation -> transform ($infobit) 
+
 
 $infobits -> transform ( $transformer ) ;
 

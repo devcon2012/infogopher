@@ -1,4 +1,4 @@
-package InfoGopher::InfoSink::EmailReceiver ;
+package InfoGopher::InfoSink::FileReceiver ;
 
 # InfoGopher::InfoSink describes a receiver of infobites
 # see pod at the end of this file.
@@ -21,9 +21,6 @@ use Devel::StealthDebug ENABLE => $ENV{dbg_sink} ;
 use Data::Dumper;
 use Moose;
 use Try::Tiny;
-use Mail::Mailer ;
-# not used directly, but by Mail::Mailer
-use Authen::SASL ;
 
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
@@ -36,45 +33,45 @@ with 'InfoGopher::_URI' ;
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-has 'email_sender' => (
-    documentation   => 'SMTP server used',
-    is              => 'rw',
-    isa             => 'Str',
-    default         => 'infogopher@localhost'
-) ;
-has 'smtp_server' => (
-    documentation   => 'SMTP server used',
-    is              => 'rw',
-    isa             => 'Str',
-) ;
-has 'smtp_user' => (
-    documentation   => 'SMTP credentials: user',
-    is              => 'rw',
-    isa             => 'Str',
-) ;
-has 'smtp_pw' => (
-    documentation   => 'SMTP credentials: pw',
-    is              => 'rw',
-    isa             => 'Str',
-) ;
 
-has 'mailer' => (
-    documentation   => 'mail sender',
+has 'file_name' => (
+    documentation   => 'target file name',
     is              => 'rw',
-    isa             => 'Mail::Mailer',
+    isa             => 'Str',
     lazy            => 1,
-    builder         => '_build_info_bites',
+    builder         => '_build_file_name' ,
 ) ;
-sub _build_mailer
+sub _build_file_name
     {
-    my ($self) = @_ ;
-
-    my $server = $self -> smtp_server or ThrowException(__PACKAGE__ . ' is missing smtp_server');
-    my $auth   = [ $self -> smtp_user, $self -> smtp_pw ] ;
-    my $method = $ENV{DEBUG_INFOGOPHER} ? 'testfile' : 'smtp' ;
-
-    return Mail::Mailer -> new ( $method, StartTLS => 1, Server => $server, Auth => $auth ) ;
+    my ( $self ) = @_ ;
+    return "/tmp/INFOSINK-FILERECEIVER-$$-" . int( rand (100000) )  ;
     }
+
+has 'file_handle' => (
+    documentation   => 'target file handle',
+    is              => 'rw',
+    lazy            => 1,
+    builder         => '_build_file_handle' ,
+) ;
+sub _build_file_handle
+    {
+    my ( $self ) = @_ ;
+    my $fn = $self -> file_name ;
+    open ( my $fh, '>', $fn ) 
+        or ThrowException( "Cannot open $fn for write: $!" ) ;
+    return $fh ;
+    }
+
+around 'path' => sub 
+    {
+    my ($orig, $self, $newid) = @_ ;
+    shift; shift ;
+
+    #!dump($newid)!
+    $self -> file_name ( "$newid" ) ;
+
+    return $self->$orig(@_) ;
+    };
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Methods 
@@ -92,29 +89,20 @@ sub push_info
 
     $infobites //= $self -> info_bites ;
 
-    my ($receiver) = ( $self -> uri =~ /mailto:(.+)/ ) ; 
-
+    my ($fn, $fh) = ( $self -> file_name, $self -> _build_file_handle ) ;
     my $n = $infobites -> count ;
-    my $i = NewIntention ( "Send infobites $n to $receiver" ) ;
-
-    my $mailer  = $self -> mailer ;
-    my $headers =
-        {
-            From    => $self -> email_sender,
-            To      => $receiver,
-            Subject => $self -> subject,
-        } ;
-
-    $mailer -> open($headers) ;
+    my $i = NewIntention ( "Send $n infobites to file $fn" ) ;
 
     my $renderer = $self -> info_renderer ;
 
     foreach ( $infobites -> all )
         { 
-        print $mailer $renderer -> process( $_)  ;
+        my $data = $renderer -> process( $_)  ;
+        #!dump($data)!
+        print $fh $data  ;
         }
 
-    $mailer -> close () ;
+    close ($fh) ;
 
     return ;
     }
@@ -126,7 +114,7 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::InfoSink::EmailReceiver - send infobites via email
+InfoGopher::InfoSink::FileReceiver - save infobites to file
 
 
 =head1 USAGE

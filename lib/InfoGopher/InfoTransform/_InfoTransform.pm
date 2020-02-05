@@ -1,6 +1,6 @@
-package InfoGopher::InfoRenderer::_InfoRenderer ;
+package InfoGopher::InfoTransform::_InfoTransform ;
 
-# role to prevent instantiation of an incomplete InfoRenderer ;
+# role to prevent instantiation of an incomplete InfoTransform ;
 
 use Moose::Role ;
  
@@ -12,16 +12,12 @@ __END__
 
 =head1 NAME
 
-_InfoRenderer - Role to prevent instantiation of an incomplete InfoGopher::InfoRenderer
+_InfoTransform - Role to prevent instantiation of an incomplete InfoTransform 
 
 =head1 METHODS
 
 my $data = process ($bite) - process one InfoGopher::InfoBite and return plain data in 
 some format we want.
-
-=head1 SEE ALSO
-
-InfoGopher::InfoRenderer
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -21,9 +21,16 @@ sub _build_log_destination
     return *STDERR ;
     }
 
+# -----------------------------------------------------------------------------
+#
+# Log - log what we have to say
+#   
+# in    $msg            log message, will end in $class -> handle
+#       [$intention]    context of this message
+
 sub Log
     {
-    my ($self, $msg) = @_  ;
+    my ($self, $msg, $intention) = @_  ;
 
     # print STDERR longmess if ( ! $msg ) ;
     my $fh = $self -> handle ;

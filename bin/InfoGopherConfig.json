@@ -1,0 +1,24 @@
+{
+    "name":"infoBoard",
+    "logfile" : "infogopherlog",
+    "sources" :
+        [
+            {
+            "name" : "ECOSWiki",
+            "module" : "InfoGopher::InfoSource::RSS",
+            "url" : "https://wiki.i.ecos.de",
+            "update_interval" : 60
+            }
+        ],
+    "sinks" :
+        [
+            {
+            "name" : "EmailDistributor",
+            "push_interval" : 60
+            },
+            {
+            "name" : "ChatBot",
+            "push_interval" : 60
+            }
+        ]
+}

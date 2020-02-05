@@ -17,6 +17,7 @@ use Try::Tiny;
 use InfoGopher::Essentials ;
 
 extends 'InfoGopher::HTTPInfoSource' ;
+with 'InfoGopher::_HTTPS' ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 

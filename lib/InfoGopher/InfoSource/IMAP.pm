@@ -43,7 +43,7 @@ sub _build_imap_client
     # dont set the host - this will autoconnect ...
     my $imap = Mail::IMAPClient -> new(
         User     => $self -> user,
-        Password => $self -> pw,
+        Password => $self -> login_pw,
         Port     => $self -> port,
         Ssl      => 1,
         Uid      => 1,

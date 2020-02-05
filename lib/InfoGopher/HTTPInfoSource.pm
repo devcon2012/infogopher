@@ -16,25 +16,12 @@ use HTTP::Request ;
 use InfoGopher::Essentials ;
 
 extends 'InfoGopher::InfoSource' ;
+with 'InfoGopher::_HTTP' ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-has 'user_agent' => (
-    documentation   => 'http request user agent',
-    is              => 'rw',
-    isa             => 'Maybe[LWP::UserAgent]',
-    lazy            => 1,
-    builder         => '_build_user_agent',
-) ;
-sub _build_user_agent
-{
-    my $self = shift ;
-    my $ua = LWP::UserAgent -> new ;
-    $ua -> agent ( "InfoGopher" ) ;
-    return $ua;
-}
 
 has 'expected_mimetype' => (
     documentation   => '(undef if any mimetype ok)',
@@ -47,27 +34,6 @@ sub _build_expected_mimetype
     {
     return ;
     }
-
-has 'request' => (
-    documentation   => 'http request',
-    is              => 'rw',
-    isa             => 'Maybe[HTTP::Request]',
-    lazy            => 1,
-    builder         => '_build_request',
-) ;
-sub _build_request
-{
-    my $self = shift ;
-    my $r = HTTP::Request -> new ( GET => $self -> uri ) ;
-    return $r ;
-}
-
-has 'response' => (
-    documentation   => 'http response',
-    is              => 'rw',
-    isa             => 'Maybe[HTTP::Response]',
-    default         => undef ,
-) ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Methods 

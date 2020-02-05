@@ -284,7 +284,7 @@ sub run
     exit 0 ;
     }
 
-sub DESTROY
+sub DEMOLISH
     {
     shift -> shutdown_mock ;
     return ;

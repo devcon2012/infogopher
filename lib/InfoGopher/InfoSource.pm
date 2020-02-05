@@ -25,6 +25,21 @@ has 'name' => (
 ) ;
 
 # 
+has 'module_name' => (
+    documentation   => 'just to allow this when we produce from json',
+    is              => 'rw',
+    isa             => 'Maybe[Str]',
+) ;
+
+# 
+has 'update_interval' => (
+    documentation   => 'recommended update interval for InfoGopher',
+    is              => 'rw',
+    isa             => 'Int',
+    default         => 60,
+) ;
+
+# 
 has 'id' => (
     documentation   => 'id from InfoGopher',
     is              => 'rw',

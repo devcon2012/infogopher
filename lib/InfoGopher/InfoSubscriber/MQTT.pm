@@ -41,19 +41,6 @@ class_has '_throwme' => (
     lazy            => 1,
 ) ;
 
-class_has 'topic2self' => (
-    documentation   => 'mqtt topic subscribed',
-    is              => 'rw',
-    isa             => 'HashRef',
-    default         => sub {{}} ,
-    traits          => ['Hash'],
-    handles         => {
-        set_topic_self      => 'set',
-        clear_topic_self    => 'delete',
-        get_topic_self      => 'get',
-        },
-) ;
-
 # 
 has 'topic' => (
     documentation   => 'mqtt topic subscribed',
@@ -202,7 +189,7 @@ sub error_handler
 
 # -----------------------------------------------------------------------------
 #
-# class method subscriber_callback - receive messages
+# subscriber_callback - receive messages
 #
 # in    $topic
 #       $message
@@ -263,11 +250,11 @@ sub subscribe
         ThrowException($_) ;
         } ;
 
-    my $listen_coro = new Coro sub  
+    my $listen_coro = Coro -> new ( sub  
         {
         $cv -> recv ;
         Logger ("InfoGopher::InfoSubscriber::MQTT: $topic done.") ;
-        } ;
+        } ) ;
 
     $listen_coro -> ready ;
 

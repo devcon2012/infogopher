@@ -1,10 +1,10 @@
-package InfoGopher::InfoRenderer::_InfoRenderer ;
+package InfoGopher::InfoSink::_InfoSink ;
 
-# role to prevent instantiation of an incomplete InfoRenderer ;
+# role to prevent instantiation of an incomplete InfoSink ;
 
 use Moose::Role ;
  
-requires 'process' ;
+requires 'push_info' ;
 
 1;
 
@@ -12,12 +12,10 @@ __END__
 
 =head1 NAME
 
-_InfoRenderer - Role to prevent instantiation of an incomplete InfoGopher::InfoRenderer
+_InfoSink - Role to prevent instantiation of an incomplete InfoGopher::InfoSink
 
 =head1 METHODS
 
-my $data = process ($bite) - process one InfoGopher::InfoBite and return plain data in 
-some format we want.
 
 =head1 SEE ALSO
 
