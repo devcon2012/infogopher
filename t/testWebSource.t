@@ -42,7 +42,7 @@ my $web = InfoGopher::InfoSource::Web -> new (
 
 ok ( SourceName eq $web -> name , 'Name ok' ) ;
 ok ( SourceId   eq $web -> id , 'ID ok' ) ;
-ok ( "http://127.0.0.1:$port/" eq $web -> uri , 'URI ok' . $web -> uri ) ;
+ok ( "http://127.0.0.1:$port" eq $web -> uri , 'URI ok' . $web -> uri ) ;
 
 try
     {

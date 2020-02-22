@@ -11,6 +11,9 @@ use MooseX::ClassAttribute ;
 # use InfoGopher::Essentials ; # dont - creates recursion ..
 use InfoGopher::IntentionSummary ;
 
+use Carp qw( longmess ) ;
+our @CARP_NOT;
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,6 +72,18 @@ class_has '_frozen' => (
     default         => sub { 0 },
     ) ;
 
+class_has '_frozen_stack' => (
+    documentation   => 'longmess at freeze location',
+    is              => 'rw',
+    isa             => 'Str',
+    builder         => '_build_frozen_stack',
+    ) ;
+sub _build_frozen_stack
+    {
+    @CARP_NOT = qw( InfoGopher::Exception ) ;
+    return ;
+    }
+
 class_has '_corrupted' => (
     documentation   => 'Intention stack corrupted flag (popped non-top element)',
     is              => 'rw',
@@ -108,6 +123,7 @@ sub freeze
     {
     my ($self) = @_ ;
     $self -> _frozen(1) ;
+    $self -> _frozen_stack ( longmess ) ;
     return ;
     }
 
@@ -131,6 +147,8 @@ sub thaw
             }
         }
     $self -> clear_queue ;
+
+    $self -> _frozen_stack ( '' ) ;
 
     return ;
     }
@@ -264,17 +282,24 @@ sub remove
 # -----------------------------------------------------------------------------
 # remove_id - pop intention stack
 #
-# in    $id - intention id
+# in    [$id] - intention id to be popped, must be on top if given
+#
+# ret   true    ok, top element popped
+#       false   fail, tried to pop non-top element
 #
 sub remove_id
     {
     my ($self, $id) = @_ ; 
 
     my $id2 = $self -> get_intention( -1 ) ;
+    $id //= $id2 ;
+
     $self -> pop_intention () ;
     $self -> delete_summary ( $id ) ;
+
     $self -> _corrupted(1) 
         if ( ! ($id == $id2) ) ;
+
     return  ( $id == $id2 )  ;
     }
 
@@ -282,6 +307,9 @@ sub remove_id
 # unwind - dump intention stack. will thaw afterwards, used in catch {}
 #
 # in    $msg - msg printed before dump
+#
+# ret   ( @intention_stack, $longmess ) if wantarray
+#        @intention_stack
 #
 sub unwind
     {
@@ -301,8 +329,13 @@ sub unwind
         push @stack, $line ;
         }
 
+    my $trace = $self -> _frozen_stack ;
+
     $self -> thaw ;
     
+    return (\@stack, $trace) 
+        if ( wantarray ) ;
+
     return \@stack ;
     }
 

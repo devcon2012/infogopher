@@ -25,7 +25,7 @@ use InfoGopher::Essentials ;
 
 use InfoGopher::InfoTransform::RSS2JSON ;
 
-extends 'InfoGopher::HTTPSInfoSource' ;
+extends 'InfoGopher::InfoSource::HTTPSInfoSource' ;
 with 'InfoGopher::InfoSource::_InfoSource' ;
 
 sub _build_expected_mimetype

@@ -10,6 +10,7 @@ use Moose;
 use Try::Tiny;
 
 extends 'InfoGopher::InfoTransform' ;
+with 'InfoGopher::InfoTransform::_InfoTransform' ;
 
 use XML::Parser ;
 use JSON::MaybeXS ;

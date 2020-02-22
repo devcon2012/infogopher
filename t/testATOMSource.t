@@ -61,7 +61,7 @@ my $ATOM = InfoGopher::InfoSource::ATOM -> new (
 
 ok ( ATOMName eq $ATOM -> name , 'Name ok' ) ;
 ok ( ATOMId   eq $ATOM -> id , 'ID ok' ) ;
-ok ( "http://127.0.0.1:$port/" eq $ATOM -> uri , 'URI ok' ) ;
+ok ( "http://127.0.0.1:$port" eq $ATOM -> uri , 'URI ok' ) ;
 
 try
     {

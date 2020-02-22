@@ -21,7 +21,7 @@ with 'InfoGopher::InfoRenderer::_InfoRenderer' ;
 #
 # ret $info - rendered info bite
 #
-sub process
+sub render
     {
     my ($self, $bite) = @_ ;
     return $bite -> data ;

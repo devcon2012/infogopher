@@ -1,7 +1,7 @@
 package InfoGopher::_URI ;
 
-#
-#
+# see below for docu and copyright information
+# tests: implicit with tests for HTTP / HTTPS / .. InfoSources
 #
 
 use strict ;
@@ -14,6 +14,7 @@ has 'uri' => (
     documentation   => 'Information source, eg. http://xxx.. or ...',
     is              => 'rw',
     isa             => 'Str',
+    trigger         => \&_parse_uri,
     default         => ''
 ) ;
 
@@ -55,31 +56,22 @@ has 'proto' => (
 ) ;
 
 # set name to hostname of URI, if not yet set.
-around 'uri' => sub 
+sub _parse_uri
     {
-    my $orig = shift ;
-    my $self = shift ;
+    my ($self, $uri, $old_uri) = @_ ;
  
-    if ( @_ )
-        {
-        my $newuri = shift ;
-        # imap://user@host:port/
-        # user:pw@host syntax not supported for good reason!
-        if ( $newuri =~ /([^:]+):\/\/(([^\@]+)\@){0,1}([^:\/]+):{0,1}([^\/]*)\/(.*)/  )
-            {    
-            my ($proto, $user, $host, $port, $path) = ($1, $3, $4, $5, $6) ;
-            $self -> proto ( $proto ) if ($proto) ;
-            $self -> user  ( $user  ) if ($user) ;
-            $self -> host  ( $host  ) if ($host) ;
-            $self -> port  ( $port  ) if ($port) ;
-            $self -> path  ( $path  ) if ($path) ;
-            }
-        return $self -> $orig( $newuri );
+    if ( $uri =~ /([^:]+):\/\/(([^\@]+)\@){0,1}([^:\/]+):{0,1}([^\/]*)\/(.*)/  )
+        {    
+        my ($proto, $user, $host, $port, $path) = ($1, $3, $4, $5, $6) ;
+        $self -> proto ( $proto ) if ($proto) ;
+        $self -> user  ( $user  ) if ($user) ;
+        $self -> host  ( $host  ) if ($host) ;
+        $self -> port  ( $port  ) if ($port) ;
+        $self -> path  ( $path  ) if ($path) ;
         }
-    else
-        {
-        return $self -> $orig();
-        }
+
+    return ;
+
     } ;
 
 1;

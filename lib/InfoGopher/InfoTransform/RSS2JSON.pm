@@ -18,6 +18,9 @@ use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoTransform::XML_RSS_Style ;
 
+extends 'InfoGopher::InfoTransform' ;
+with 'InfoGopher::InfoTransform::_InfoTransform' ;
+
 # RSS XML Example: https://de.wikipedia.org/wiki/RSS_(Web-Feed)
 # application/rss+xml
 has 'xml_parser' => (

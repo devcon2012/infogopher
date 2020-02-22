@@ -1,4 +1,4 @@
-package InfoGopher::HTTPInfoSource ;
+package InfoGopher::InfoSource::HTTPInfoSource ;
 
 use strict ;
 use warnings ;
@@ -60,7 +60,7 @@ sub get_http
 
     if ( $res -> is_success )
         {
-        $self -> last_fetch(time) ;
+        $self -> last_network_activity(time) ;
         $self -> raw ( $res -> decoded_content ) ;
         }
     else
@@ -88,11 +88,11 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::HTTPInfoSource - virtual base class for all http based infosources
+InfoGopher::InfoSource::HTTPInfoSource - virtual base class for all http based infosources
 
 =head1 USAGE
 
-my $source = InfoGopher::HTTPInfoSource -> new ( uri => "http://...") ;
+my $source = InfoGopher::InfoSource::HTTPInfoSource -> new ( uri => "http://...") ;
 $source -> name ("xx webfeed") ;
 $source -> fetch () ;
 

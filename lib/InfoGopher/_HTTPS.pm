@@ -1,7 +1,7 @@
 package InfoGopher::_HTTPS ;
 
-#
-#
+# see below for docu and copyright information
+# tests: implicit with tests for HTTPS InfoSources
 #
 
 use strict ;

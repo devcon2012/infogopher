@@ -10,155 +10,32 @@ use Data::Dumper;
 use Moose;
 use Try::Tiny;
 
+use InfoGopher::InfoDivergence ;
+use InfoGopher::InfoTransform::AsIs ;
+
+extends 'InfoGopher::InfoDivergence' ;
 with 'InfoGopher::_URI' ;
 
-use InfoGopher::InfoBites ;
-use InfoGopher::InfoBite ;
-use InfoGopher::InfoRenderer::TextRenderer ;
-
-# 
-has 'name' => (
-    documentation   => 'Information source name (for display only)',
-    is              => 'rw',
-    isa             => 'Maybe[Str]',
-    default         => ''
-) ;
-
-# 
-has 'module_name' => (
-    documentation   => 'just to allow this when we produce from json',
-    is              => 'rw',
-    isa             => 'Maybe[Str]',
-) ;
-
-# 
-has 'update_interval' => (
-    documentation   => 'recommended update interval for InfoGopher',
-    is              => 'rw',
-    isa             => 'Int',
-    default         => 60,
-) ;
-
-# 
-has 'id' => (
-    documentation   => 'id from InfoGopher',
-    is              => 'rw',
-    isa             => 'Maybe[Str]',
-    default         => -1 
-) ;
-around 'id' => sub 
-    {
-    my ($orig, $self, $newid) = @_ ;
-    shift; shift ;
-
-    #!dump($newid)!
-    $self -> info_bites -> source_id ( $newid ) ;
-
-    return $self->$orig(@_);
-    };
-
-has 'raw' => (
-    documentation   => 'Raw data obtained',
-    is              => 'rw',
-    isa             => 'Maybe[Str]',
-    default         => ''
-) ;
-
-has 'last_fetch' => (
-    documentation   => 'Timestamp last raw data obtained',
-    is              => 'rw',
-    isa             => 'Int',
-    default         => 0
-) ;
-
-has 'info_bites' => (
-    documentation   => 'info_bites obtained',
-    is              => 'rw',
-    isa             => 'InfoGopher::InfoBites',
-    lazy            => 1,
-    builder         => '_build_info_bites',
-) ;
-sub _build_info_bites
-    {
-    return InfoGopher::InfoBites -> new () ;
-    }
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Members 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 has 'transformation' => (
-    documentation   => 'default raw data aggregation, if any',
+    documentation   => 'default raw data aggregation on input, if any',
     is              => 'rw',
     isa             => 'Maybe[InfoGopher::InfoTransform]',
+    lazy            => 1,
+    builder         => '_build_transform'
 ) ;
-
-sub BUILD 
+sub _build_transform
     {
-    my $self = shift ;
-
-    my $uri = $self -> uri ;
-    if ( '/' eq substr($uri, -1) )
-        {
-        $self -> uri ("$uri") ;
-        }
-    else
-        {
-        $self -> uri ("$uri/") ;
-        }
-    return;
+    return InfoGopher::InfoTransform::AsIs -> new ;
     }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# -----------------------------------------------------------------------------
-# add_info_bite - factory method to add a new info bite to the list
-#
-# in    $data
-#       $mime_type
-#       $time_stamp
-#       $meta
-#
-# ret   $bite
-#
-sub add_info_bite
-    {
-    my ($self) = @_ ;
-    shift ;
-
-    return $self -> info_bites -> add_info_bite( @_ ) ;
-
-    }
-
-
-# -----------------------------------------------------------------------------
-# dump_info_bites - dump into bites as text (for debugging)
-#
-#
-sub dump_info_bites
-    {
-    my ( $self, $msg ) = @_ ;
-
-    my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
-
-    my $n = $self -> info_bites -> count ;
-    print STDERR "$msg ($n)\n";
-
-    my $last =0 ;
-    foreach ( $self -> info_bites -> all )
-        {
-        print STDERR $renderer -> process ($_) . "\n" ;
-        my $meta = $_ -> meta_infos ;
-        if ( keys %$meta )
-            {
-            if ( $meta == $last)
-                {
-                print STDERR "  META: (same)\n" ;
-                }
-            else
-                {
-                print STDERR "  META: " . Dumper ( $meta ) ;
-                }
-            $last = $meta ;
-            }
-        }
-    return ;
-    }
 
 # -----------------------------------------------------------------------------
 #
@@ -170,7 +47,7 @@ sub dump_info_bites
 #
 sub fetch
     {
-    my ( $self) = @_ ;
+    my ( $self ) = @_ ;
 
     die "VIRTUAL fetch in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
     

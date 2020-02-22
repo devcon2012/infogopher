@@ -30,12 +30,13 @@ ok ( $bite -> meta_infos -> {filename} eq 'test.txt', 'ibite meta ok' ) ;
 ok ( $bite -> mime_type eq 'text', 'ibite mimetype ok' ) ;
 ok ( $bite -> data eq 'Hello InfoGopher!', 'ibite data ok' ) ;
 ok ( $bite -> time_stamp - $timestamp <=1, 'ibite timestamp ok' ) ;
-ok ( ! $bite -> cloned, 'ibite clone timestamp ok' ) ;
 
 sleep 2 ;
 my $bite2 = $bite -> clone ;
 ok ( ! defined $bite2 -> meta_infos -> {filename} , 'ibite2 meta ok' ) ;
 ok ( $bite2 -> mime_type eq 'text', 'ibite2 mimetype ok' ) ;
+ok ( $bite2 -> cloned, 'ibite2 cloned ok' ) ;
+
 ok ( $bite2 -> data eq '', 'ibite2 data ok' ) ;
 ok ( $bite2 -> time_stamp == $bite -> time_stamp, 'ibite2 timestamp ok' ) ;
 ok ( $bite2 -> cloned >= $bite -> time_stamp + 2, 'ibite2 clone timestamp ok' ) ;

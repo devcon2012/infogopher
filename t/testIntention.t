@@ -88,6 +88,16 @@ SKIP:
         } ;
     }
 
+try 
+    {
+    my $intention = NewIntention ( "test unwind in array context" ) ;
+    ThrowException ( 'demo' ) ;
+    }
+catch
+    {
+    my ( $intentions, $stack ) = UnwindIntentionStack ( "" ) ;
+    #diag ($stack) ;
+    } ;
+
 note ( "END" ) ;
-exit 0 ;
 

@@ -28,7 +28,7 @@ use InfoGopher::InfoBite ;
 use InfoGopher::InfoRenderer::RawRenderer ;
 
 extends 'InfoGopher::InfoSink' ;
-with 'InfoGopher::_URI' ;
+#with qw( InfoGopher::_URI InfoGopher::InfoSink::_InfoSink) ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
@@ -47,12 +47,6 @@ sub _build_file_name
     return "/tmp/INFOSINK-FILERECEIVER-$$-" . int( rand (100000) )  ;
     }
 
-has 'file_handle' => (
-    documentation   => 'target file handle',
-    is              => 'rw',
-    lazy            => 1,
-    builder         => '_build_file_handle' ,
-) ;
 sub _build_file_handle
     {
     my ( $self ) = @_ ;
@@ -93,14 +87,10 @@ sub push_info
     my $n = $infobites -> count ;
     my $i = NewIntention ( "Send $n infobites to file $fn" ) ;
 
-    my $renderer = $self -> info_renderer ;
+    my $renderer = $self -> renderer ;
 
-    foreach ( $infobites -> all )
-        { 
-        my $data = $renderer -> process( $_)  ;
-        #!dump($data)!
-        print $fh $data  ;
-        }
+    my $data = $renderer -> render_all ( $infobites )  ;
+    print $fh $data  ;
 
     close ($fh) ;
 

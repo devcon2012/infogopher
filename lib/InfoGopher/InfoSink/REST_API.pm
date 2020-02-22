@@ -114,7 +114,7 @@ sub post_https
 
     if ( $res -> is_success )
         {
-        $self -> last_fetch(time) ;
+        $self -> last_network_activity(time) ;
         $self -> raw ( $res -> decoded_content ) ;
         }
     else

@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 8;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
@@ -34,9 +34,13 @@ BEGIN
 #########################
 
 my $gopher = InfoGopher -> new ;
-my $rss = InfoGopher::InfoSource::RSS -> new ( uri => "http://127.0.0.1:7081") ;
+my $rss = InfoGopher::InfoSource::RSS -> new ( 
+            name => 'RSS', 
+            uri => "http://127.0.0.1:7081") ;
 
 $gopher -> add_info_source($rss) ;
+isa_ok( $gopher -> find_source_byname('RSS'), 'InfoGopher::InfoSource::RSS', "Found source by name" ) ;
+
 try
     {
     $gopher -> collect() ;
@@ -58,11 +62,12 @@ try
     }
 catch
     {
+    diag ($_) ;
     fail ( "gopher choked" ) ;
     } ;
 
 my $renderer = InfoGopher::InfoRenderer::TextRenderer -> new ;
-ok (1, 'got a renderer' ) ;
+isa_ok ($renderer, 'InfoGopher::InfoRenderer::TextRenderer' , 'got a renderer' ) ;
 
 my @result = $gopher -> get_all( $renderer ) ;
 ok ( 1 == scalar @result, "exactly one result" ) ;

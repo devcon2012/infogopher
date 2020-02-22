@@ -1,13 +1,18 @@
+#
+# test factory: creating an InfoGopher from JSON cfg
+#
 
 use strict;
 use warnings;
 
-use Test::More tests => 6 ;
+use Test::More tests => 9 ;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
 
 use Data::Dumper ;
+
+# make test TEST_VERBOSE=1 TEST_FILES='t/Factory.t'
 
 BEGIN 
     {
@@ -25,20 +30,24 @@ BEGIN
     Logger('Test ' . __PACKAGE__ ) ;
     } ;
 
-# make test TEST_VERBOSE=1 TEST_FILES='t/Factory.t'
-# make testdb TEST_FILE=t/Factory.t
-#########################
 
 my $json = <<'END_JSON';
 {
-    "name":"infoBoard",
-    "xlogfile" : "testInfoGopher.log",
+    "logfile" : "testInfoGopher.log",
+    "infogopher" :
+        {
+        "name" : "infoBoard"
+        },
+    "infogradient" :
+        {
+        "name" : "infoGradient"
+        },
     "sources" :
         [
             {
-            "name" : "",
+            "name" : "mock news rss feed",
             "module" : "InfoGopher::InfoSource::RSS",
-            "url" : "https://",
+            "url" : "https://mocknews.org/rss_feed",
             "update_interval" : 60
             }
         ],
@@ -66,11 +75,16 @@ catch
     note ( Dumper($e) ) ;
     fail ( $e -> what ) ;
     } ;
+#diag ( Dumper($gopher) ) ;
 
-ok ( 'InfoGopher' eq ref $gopher, 'Is it a gopher?' ) ;
+isa_ok ( $gopher, 'InfoGopher', 'Is it a gopher?' ) ;
 
+ok ( $gopher -> name eq 'infoBoard', 'gopher name ok' ) ;
 ok ( 1 == $gopher -> count_info_sources, "got exactly one info source" ) ;
+my $source = $gopher -> get_info_source(0) ;
+isa_ok ( $source, 'InfoGopher::InfoSource::RSS', 'Is it an RSS InfoSource?' ) ;
+
 ok ( 1 == $gopher -> count_info_sinks, "got exactly one info sink" ) ;
 
-exit 0 ;
-
+my $sink = $gopher -> get_info_sink(0) ;
+isa_ok ( $sink, 'InfoGopher::InfoSink::FileReceiver', 'Is it an FileReceiver InfoSink?' ) ;

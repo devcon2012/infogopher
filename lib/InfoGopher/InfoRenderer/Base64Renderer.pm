@@ -20,13 +20,13 @@ with 'InfoGopher::InfoRenderer::_InfoRenderer' ;
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # -----------------------------------------------------------------------------
-# process - render one bite of info
+# render - render one bite of info
 #
 # in $bite - one info bite
 #
 # ret $info - rendered info bite
 #
-sub process
+sub render
     {
     my ($self, $bite) = @_ ;
     return encode_base64 ( $bite -> data ) ;

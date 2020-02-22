@@ -21,7 +21,7 @@ use Try::Tiny ;
 
 use InfoGopher::Essentials ;
 
-extends qw( InfoGopher::HTTPSInfoSource ) ;
+extends qw( InfoGopher::InfoSource::HTTPSInfoSource ) ;
 with 'InfoGopher::InfoSource::_InfoSource' ;
 
 

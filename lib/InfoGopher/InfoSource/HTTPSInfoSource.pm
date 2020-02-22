@@ -1,4 +1,4 @@
-package InfoGopher::HTTPSInfoSource ;
+package InfoGopher::InfoSource::HTTPSInfoSource ;
 
 # extends http infosource to work with certificates and credentials
 # - adds a cookie jar
@@ -16,7 +16,7 @@ use Try::Tiny;
 
 use InfoGopher::Essentials ;
 
-extends 'InfoGopher::HTTPInfoSource' ;
+extends 'InfoGopher::InfoSource::HTTPInfoSource' ;
 with 'InfoGopher::_HTTPS' ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -112,7 +112,7 @@ sub login
 
     if ( $res -> is_success )
         {
-        $self -> last_fetch(time) ;
+        $self -> last_network_activity(time) ;
         $self -> raw ( $res -> content ) ;
         }
     else
@@ -161,7 +161,7 @@ sub get_https
 
     if ( $res -> is_success )
         {
-        $self -> last_fetch(time) ;
+        $self -> last_network_activity(time) ;
         $self -> raw ( $res -> decoded_content ) ;
         }
     else
@@ -189,12 +189,12 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::HTTPSInfoSource - virtual base class for all https based infosources
-(based on InfoGopher::HTTPInfoSource)
+InfoGopher::InfoSource::HTTPSInfoSource - virtual base class for all https based infosources
+(based on InfoGopher::InfoSource::InfoSource)
 
 =head1 USAGE
 
-my $source = InfoGopher::HTTPSInfoSource -> new ( uri => "https://...") ;
+my $source = InfoGopher::InfoSource::HTTPSInfoSource -> new ( uri => "https://...") ;
 
 class contains a cookie jar + user/pw store to keep track of credentials.
 

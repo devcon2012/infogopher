@@ -1,5 +1,7 @@
 package InfoGopher::InfoRenderer ;
 
+# see below for docu and copyright information
+# tests: testRenderer.t
 #
 # virtual baseclass for all renderers. 
 #
@@ -8,7 +10,49 @@ use strict ;
 use warnings ;
 
 use Moose;
+use InfoGopher::Essentials ;
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Methods 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# -----------------------------------------------------------------------------
+# render - render one bite of info
+#
+# in $bite - one info bite
+#
+# ret $info - rendered info bite
+#
+sub render
+    {
+    my ($self, $bite) = @_ ;
+
+    die "VIRTUAL render in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
+
+    }
+
+# -----------------------------------------------------------------------------
+# render_all - render info bites
+#
+# in    $info_bites 
+#
+# ret   $info - rendered info bites
+#
+sub render_all
+    {
+    my ( $self, $info_bites ) = @_ ;
+
+    my $n = $info_bites -> count ;
+    my $i = NewIntention ( 'Render all $n input bites' ) ;
+
+    my $data = '' ;
+    foreach my $ib ( $info_bites -> all)
+        {
+        $data .= $self -> render ( $ib ) ;
+        }
+
+    return $data ;
+    }
 
 __PACKAGE__ -> meta -> make_immutable ;
 

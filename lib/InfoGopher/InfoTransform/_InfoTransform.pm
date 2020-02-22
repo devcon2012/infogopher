@@ -4,7 +4,7 @@ package InfoGopher::InfoTransform::_InfoTransform ;
 
 use Moose::Role ;
  
-requires 'process' ;
+requires 'transform' ;
 
 1;
 

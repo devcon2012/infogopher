@@ -1,13 +1,16 @@
 package InfoGopher ;
 
 # see below for docu and copyright information
+# ABSTRACT: a high-level framework for collecting information, aggregating it and delivering the result elsewhere
+# tests: InfoGopher.t - covers  find_sink_byname
+
+# 
 
 use 5.018001;
 use strict;
 use warnings;
 use Moose ;
 
-# ABSTRACT: a high-level framework for collecting information, aggregating it and delivering the result elsewhere
 
 our $VERSION = '0.05';
 
@@ -39,6 +42,7 @@ has 'info_sources' => (
         has_info_sources    => 'count',
         has_no_info_sources => 'is_empty',
         clear_info_sources  => 'clear',
+        find_info_source    => 'grep',
         },
     ) ;
 our $id_serial = 0 ;
@@ -70,8 +74,24 @@ has 'info_sinks' => (
         has_info_sinks    => 'count',
         has_no_info_sinks => 'is_empty',
         clear_info_sinks  => 'clear',
+        find_info_sink    => 'grep',
         },
     ) ;
+
+has 'name' => (
+    documentation   => 'InfoGopher name (for user)',
+    is              => 'rw',
+    isa             => 'Str',
+    default         => '',
+    ) ;
+
+has 'gradient' => (
+    documentation   => 'InfoGradient connecting sources to sinks',
+    is              => 'rw',
+    isa             => 'Maybe[InfoGopher::InfoGradient]',
+    writer          => 'set_gradient',
+    ) ;
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Methods 
@@ -166,6 +186,7 @@ sub get_all
     return \@results ;
     }
 
+
 # -----------------------------------------------------------------------------
 # dump_text - show what we got ( intended for debugging)
 #
@@ -184,6 +205,33 @@ sub dump_text
         $source -> dump_info_bites( $intro ) ;
         }
     return \@result ;
+    }
+
+
+# -----------------------------------------------------------------------------
+# find_sink_byname - 
+#
+#
+#
+sub find_sink_byname
+    {
+    my ($self, $name) = @_ ;
+    my @list = $self -> find_info_sink ( sub { $_ -> name eq $name } ) ;
+    return $list[0] if ( 1 == scalar @list ) ;  
+    return ;
+    }
+
+# -----------------------------------------------------------------------------
+# find_source_byname - 
+#
+#
+#
+sub find_source_byname
+    {
+    my ($self, $name) = @_ ;
+    my @list = $self -> find_info_source ( sub { $_ -> name eq $name } ) ;
+    return $list[0] if ( 1 == scalar @list ) ;  
+    return ;
     }
 
 __PACKAGE__ -> meta -> make_immutable ;

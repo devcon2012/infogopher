@@ -1,8 +1,9 @@
 package InfoGopher::InfoBite ;
 
-#
-# Class to hold a information a InfoSource obtained  
-#
+# Class to hold information obtained from an InfoSource  
+# see below for docu and copyright information
+# tests: testBites.t - covers members, copy, clone, touch ...
+#       
 
 use strict ;
 use warnings ;
@@ -58,25 +59,61 @@ has 'cloned' => (
 # Methods 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# -----------------------------------------------------------------------------
+#
+# touch - update infobite timestamp
+#
+# ret   $info_bite
+#
+
+sub touch 
+    {
+    my ($self) = @_ ;
+
+    $self -> time_stamp ( time ) ;
+    return $self -> time_stamp ;
+    }
 
 # -----------------------------------------------------------------------------
 #
-# clone - create new InfoBite with same mime_type and time_stamp ( but empty data )
+# clone - create new InfoBite with same mime_type and time_stamp, but new/empty data
 #
-# ret $info_bite
+# in    [$data]     possibly new data
+#
+# ret   $info_bite
 #
 
 sub clone 
     {
-    my ($self) = @_ ;
+    my ($self, $data) = @_ ;
 
-    my $clone = InfoGopher::InfoBite -> new (
-        time_stamp  => $self -> time_stamp,
-        mime_type   => $self -> mime_type,
-        cloned      => time 
-    ) ;
+    my $clone = $self -> copy ( ) ;
+    $clone -> cloned ( time ) ; 
+    $clone -> data ( $data || '' ) ; 
 
     return $clone ;
+    }
+
+# -----------------------------------------------------------------------------
+#
+# copy - create new InfoBite with same mime_type, time_stamp and data
+#
+# in    [$data]     possibly new data
+#
+# ret   $info_bite
+#
+
+sub copy 
+    {
+    my ($self, $data) = @_ ;
+
+    my $copy = InfoGopher::InfoBite -> new (
+        time_stamp  => $self -> time_stamp,
+        mime_type   => $self -> mime_type,
+        data        => $data ? $data : $self -> data  
+    ) ;
+
+    return $copy ;
     }
 
 
@@ -92,9 +129,18 @@ InfoGopher::InfoBite - store snippets of info together with meta data
 
 =head1 USAGE
 
-An InfoBite is a small piece of information an InfoSource extracted.
+An InfoBite is a small piece of information an InfoSource extracted from some source. It consists of
+the raw data itself, a mime type, a time stamp and possibly meta information. The InfoGopher has
+functionality to fetch such bites from a wide variaty of sources, transform, filter and later render 
+them in whatever form is fit.
 
-For the RSS Example, this would be one headline.
+=head2 IMAP Example
+
+Fetching InfoBites from an IMAP Server will yield one InfoBite per EMail which will contain the subject.
+
+=head2 RSS Example
+
+For an RSS Example, the 
 
 =head1 COPYRIGHT AND LICENSE
 

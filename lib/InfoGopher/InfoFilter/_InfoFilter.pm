@@ -1,10 +1,10 @@
-package InfoGopher::InfoRenderer::_InfoRenderer ;
+package InfoGopher::InfoFilter::_InfoFilter ;
 
-# role to prevent instantiation of an incomplete InfoRenderer ;
+# role to prevent instantiation of an incomplete InfoFilter ;
 
 use Moose::Role ;
  
-requires 'render' ;
+requires 'filter' ;
 
 1;
 
@@ -12,13 +12,13 @@ __END__
 
 =head1 NAME
 
-_InfoRenderer - Role to prevent instantiation of an incomplete InfoGopher::InfoRenderer
+_InfoFilter - Role to prevent instantiation of an incomplete InfoGopher::InfoFilter
 
 =head1 SEE ALSO
 
+InfoGopher::InfoFilter
 InfoGopher::InfoRenderer
 InfoGopher::InfoTransform
-InfoGopher::InfoFilter
 
 =head1 COPYRIGHT AND LICENSE
 

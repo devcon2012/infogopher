@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 17 ;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
@@ -41,11 +41,17 @@ my $target = '' ;
 
 my $perl_sink = InfoGopher::InfoSink::PerlReceiver -> new ( target_variable => \$target ) ;
 ok ( 1, 'PerlReceiver created' ) ;
+isa_ok ( $perl_sink, 'InfoGopher::InfoSink::PerlReceiver', 'its a perlreceiver') ;
+isa_ok ( $perl_sink, 'InfoGopher::InfoSink', 'its an infosink') ;
+isa_ok ( $perl_sink, 'InfoGopher::InfoDivergence', 'its a infodivergence') ;
 
 unlink target_filename ;
 
 my $file_sink = InfoGopher::InfoSink::FileReceiver -> new ( file_name => target_filename ) ;
 ok ( 1, 'FileReceiver created' ) ;
+isa_ok ( $file_sink, 'InfoGopher::InfoSink::FileReceiver', 'its a filereceiver') ;
+isa_ok ( $file_sink, 'InfoGopher::InfoSink', 'its an infosink') ;
+isa_ok ( $file_sink, 'InfoGopher::InfoDivergence', 'its a infodivergence') ;
 
 my $bite  = InfoGopher::InfoBite -> new (mime_type => 'text', data => 'Hello Sink!' ) ;
 my $bites = InfoGopher::InfoBites -> new ;

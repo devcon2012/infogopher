@@ -11,11 +11,13 @@ lib/InfoGopher/_URI.pm
 lib/InfoGopher/Essentials.pm
 lib/InfoGopher/Exception.pm
 lib/InfoGopher/Factory.pm
-lib/InfoGopher/HTTPInfoSource.pm
-lib/InfoGopher/HTTPSInfoSource.pm
 lib/InfoGopher/InfoBite.pm
 lib/InfoGopher/InfoBites.pm
-lib/InfoGopher/InfoExporter.pm
+lib/InfoGopher/InfoDivergence.pm
+lib/InfoGopher/InfoFilter.pm
+lib/InfoGopher/InfoFilter/_InfoFilter.pm
+lib/InfoGopher/InfoFilter/PassAll.pm
+lib/InfoGopher/InfoGradient.pm
 lib/InfoGopher/InfoRenderer.pm
 lib/InfoGopher/InfoRenderer/_InfoRenderer.pm
 lib/InfoGopher/InfoRenderer/Base64Renderer.pm
@@ -32,6 +34,8 @@ lib/InfoGopher/InfoSink/REST_API.pm
 lib/InfoGopher/InfoSource.pm
 lib/InfoGopher/InfoSource/_InfoSource.pm
 lib/InfoGopher/InfoSource/ATOM.pm
+lib/InfoGopher/InfoSource/HTTPInfoSource.pm
+lib/InfoGopher/InfoSource/HTTPSInfoSource.pm
 lib/InfoGopher/InfoSource/IMAP.pm
 lib/InfoGopher/InfoSource/RocketChat.pm
 lib/InfoGopher/InfoSource/RSS.pm
@@ -42,7 +46,9 @@ lib/InfoGopher/InfoSubscriber.pm
 lib/InfoGopher/InfoSubscriber/MQTT.pm
 lib/InfoGopher/InfoTransform.pm
 lib/InfoGopher/InfoTransform/_InfoTransform.pm
+lib/InfoGopher/InfoTransform/AsIs.pm
 lib/InfoGopher/InfoTransform/ATOM2JSON.pm
+lib/InfoGopher/InfoTransform/Grep.pm
 lib/InfoGopher/InfoTransform/HTMLExtractor.pm
 lib/InfoGopher/InfoTransform/HTMLExtractor/TagTransformer.pm
 lib/InfoGopher/InfoTransform/IMAPEnvelopeParser.pm

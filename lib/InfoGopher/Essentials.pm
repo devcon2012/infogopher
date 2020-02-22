@@ -1,10 +1,14 @@
 package InfoGopher::Essentials ;
 
 # see below for docu and copyright information
-
+# tests: Essentials.t - covers NewIntention, ThrowException, NormalizeException and ASleep
+#       
 use 5.018001;
 use strict;
 use warnings;
+
+use Carp qw( longmess ) ;
+$Carp::Internal{ (__PACKAGE__) }++;
 
 # These packages must not use Essentials ...
 use InfoGopher::Exception ;
@@ -16,6 +20,11 @@ use AnyEvent ;
 
 use Exporter 'import';
 our @EXPORT = qw( ThrowException NewIntention Logger UnwindIntentionStack NormalizeException ASleep) ;
+
+#our %EXPORT_TAGS = (
+#    basic => 
+#            [ qw( ThrowException NewIntention Logger UnwindIntentionStack NormalizeException ASleep ) ]
+#            ) ;
 
 use Data::Dumper ;
 
@@ -41,28 +50,31 @@ sub NewIntention
 #
 # ThrowException - shortcut to create and throw an exception
 #   
-# in    $what  string or exception object
+# in    $what  string or exception object, Normalized before die
 #
 
 sub ThrowException
     {
     my $what = shift ;
 
-    die NormalizeException($what) ;
-
+    NormalizeException($what) -> throw ;
     }
 
 
 # -----------------------------------------------------------------------------
 #
 # NormalizeException - transform into an InfoGopher::Exception if not yet one
-#   
-# in    $what  
+#   - InfoGopher Exceptions are returned as is   
+#   - Scalars are used as "what" for a new InfoGopher::Exception
+#   - everything else is Dumped as "what" for a new InfoGopher::Exception
 #
+# in    $what_ever  a scalar, a <InfoGopher::Exception> or whatever 
+#
+# ret  <InfoGopher::Exception>
 
 sub NormalizeException
     {
-    my $what = shift ;
+    my $what = shift || '';
 
     return $what 
         if ( ref $what =~ /InfoGopher::Exception/ ) ;
@@ -103,7 +115,7 @@ sub UnwindIntentionStack
 #
 # ASleep - asyncron sleep
 #
-#
+# in    $timeout - delay in fractional seconds
 
 sub ASleep
     {
@@ -121,7 +133,7 @@ __END__
 
 =head1 NAME
 
-InfoGopher::Essentials - Intentions, Exceptions and Logging
+InfoGopher::Essentials - Intentions, Exceptions, Logging and stuff needed all of the time
 
 =head1 SYNOPSIS
 

@@ -1,10 +1,8 @@
-package InfoGopher::InfoTransform ;
+package InfoGopher::InfoFilter ;
 
 # see below for docu and copyright information
-# tests: testTransform.t
-#
-# virtual baseclass for all transformers. 
-#
+# tests: testFilter.t
+#       
 
 use strict ;
 use warnings ;
@@ -17,41 +15,10 @@ use Try::Tiny;
 
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
-use InfoGopher::InfoRenderer::RawRenderer ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Members 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-# options - mostly flags finetuning transform behaviour 
-#
-#   split - split into many tiny bits, a rss feed to items, an imap to single mails...
-# 
-has 'options' => (
-    documentation   => 'Transformation options getter/setter',
-    is              => 'rw',
-    lazy            => 1 ,
-    isa             => 'HashRef[Any]',
-    traits          => ['Hash'],
-    builder         => '_default_transform_options',
-    handles         => {
-        _set_option      => 'set',
-        delete_option    => 'delete',
-        get_option       => 'get',
-        has_option       => 'exists',
-        clear_options    => 'clear'
-        },
-    ) ;
-sub _default_transform_options
-    {
-    return { split => 1 };
-    }
-sub set_option
-    {
-    my ( $self, $option, $val ) = @_ ;
-    $val //= 1;
-    return $self -> _set_option ($option, $val);
-    }
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,43 +26,42 @@ sub set_option
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # -----------------------------------------------------------------------------
-# transform
+# filter
 #
 # in    $info_bite
 #
-# ret   $info_bites
-
-sub transform
+# ret   $info_bite or undef
+sub filter
     {
     my ( $self, $info_bite) = @_ ;
 
-    die "VIRTUAL transform in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
+    die "VIRTUAL filter in " . __PACKAGE__ . " NOT OVERLOADED IN " . ref $self ;
 
     }
 
 # -----------------------------------------------------------------------------
-# transform_all
+# filter_all
 #
 # in    $info_bites
 #
-# ret   $info_bites
+# ret   $infobites
 
-sub transform_all
+sub filter_all
     {
     my ( $self, $info_bites) = @_ ;
 
-    my $n = $info_bites -> count ;
-    my $i = NewIntention ( 'Transform all $n input bites' ) ;
+    my $filtered_bites = $info_bites -> clone ;
 
-    my $transformed_bites = $info_bites -> clone ;
     foreach my $ib ( $info_bites -> all)
         {
-        $transformed_bites -> add( $self -> transform ( $ib ) ) ;
+        my $passed = $self -> filter ( $ib ) ;
+        $filtered_bites -> add ( $passed ) 
+            if ( $passed ) ;
         }
 
-    return $transformed_bites ;
-
+    return $filtered_bites ;
     }
+
 
 __PACKAGE__ -> meta -> make_immutable ;
 
@@ -105,14 +71,9 @@ __END__
 
 =head1 NAME
 
-InfoGopher::InfoTransform - extract, transmogrify or .. info bits (aggregation)
+InfoGopher::InfoFilter - predicate to identify relevant infobites
 
-A transformation takes InfoBite(s) input and yields InfoBite(s). The intention is to aggregate
-information, change the mime type, summarize, ... A transformation usually takes place as data
-enters an InfoDivergence.
-
-A renderer on the other hand takes InfoBites and produces raw data, a perl scalar. Rendering usually 
-takes place as data leaves an InfoDivergence.
+Filtering takes place as infobites are passed from an InfoSource to an InfoSink
 
 =head1 USAGE
 

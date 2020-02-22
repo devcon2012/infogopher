@@ -104,7 +104,7 @@ InfoGopher::InfoTransform::HTMLExtractor::TagTransformer - extract bits from HTM
 
 =head1 USAGE
 
-my $source = InfoGopher::HTTPInfoSource -> new ( uri => "https://...") ;
+my $source = InfoGopher::InfoSource::InfoSource -> new ( uri => "https://...") ;
 my $t = InfoGopher::InfoTransform::HTMLExtractor::TagTransformer -> new ( ) ;
 $source -> transormation ( $t ) ;
 $source -> name ("News page") ;

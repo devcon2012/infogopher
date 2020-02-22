@@ -58,7 +58,7 @@ my $rss = InfoGopher::InfoSource::RSS -> new (
 
 ok ( RSSName eq $rss -> name , 'Name ok' ) ;
 ok ( RSSId   eq $rss -> id , 'ID ok' ) ;
-ok ( "http://127.0.0.1:$port/" eq $rss -> uri , 'URI ok' ) ;
+ok ( "http://127.0.0.1:$port" eq $rss -> uri , 'URI ok' ) ;
 
 try
     {

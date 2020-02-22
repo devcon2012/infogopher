@@ -25,7 +25,6 @@ use Try::Tiny;
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoBite ;
-use InfoGopher::InfoRenderer::RawRenderer ;
 
 extends 'InfoGopher::InfoSink' ;
 with 'InfoGopher::_URI' ;
@@ -61,19 +60,30 @@ sub push_info
     my $n = $infobites -> count ;
     my $i = NewIntention ( "Send $n infobites to variable $target" ) ;
 
-    my $renderer = $self -> info_renderer ;
+    my $renderer = $self -> renderer ;
  
     foreach ( $infobites -> all )
         { 
-        my $data = $renderer -> process( $_)  ;
+        my $data = $renderer -> render( $_)  ;
         #!dump($data)!
         if ( 'ARRAY' eq ref $target )
             {
             push @$target, $data ;
             }
-        elsif ( ! ref $data )
+        elsif ('SCALAR' eq ref $target )
             {
-            $$target .= $data ;
+            if ( ! ref $data  )
+                {
+                $$target .= $data ;
+                }
+            else
+                {
+                ThrowException( "ref data " . ref $data . " not valid for scalar reciever" ) ;
+                }
+            }
+        else
+            {
+            ThrowException ( "Not a valid target (must be ARRAY or SCALAR): " . ref $target ) ;
             }
         }
 
@@ -87,7 +97,7 @@ __PACKAGE__ -> meta -> make_immutable ;
 
 =head1 NAME
 
-InfoGopher::InfoSink::FileReceiver - save infobites to file
+InfoGopher::InfoSink::PerlReceiver - save infobites to perl reference
 
 
 =head1 USAGE
