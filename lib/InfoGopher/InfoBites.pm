@@ -13,7 +13,7 @@ use Try::Tiny;
 use Carp qw( longmess ) ;
 use InfoGopher::InfoBites ;
 
-has 'bites' => (
+has '_bites' => (
     documentation   => 'Array of info bites',
     is              => 'rw',
     isa             => 'ArrayRef[InfoGopher::InfoBite]',
@@ -109,7 +109,7 @@ sub transform
         $transformed_bites -> merge ( $new_bites ) ;
         }
 
-    $self -> bites ( $transformed_bites->bites ) ;
+    $self -> _bites ( $transformed_bites->_bites ) ;
 
     #!dump($self->count)!
     return ;
@@ -121,8 +121,8 @@ sub merge
     my ( $self, $infobites ) = @_ ;
     #!dump($self->source_name)!
 
-    my $mine = $self      -> bites ;
-    my $new  = $infobites -> bites ;
+    my $mine = $self      -> _bites ;
+    my $new  = $infobites -> _bites ;
 
     push @$mine, @$new ;
     return ;

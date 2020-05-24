@@ -165,7 +165,7 @@ sub push_infos
 #
 # get_all - assemble list of all InfoBites
 #
-# ret @bites
+# ret @bites - list with one infobites per source
 #
 sub get_all
     {

@@ -19,7 +19,17 @@ BEGIN
     Logger('Test ' . __PACKAGE__ ) ;
     } ;
 
-my $t = InfoGopher::InfoTransform::HTMLExtractor::TagTransformer -> new ;
-my $style = $t -> style ;
-ok ( $style =~ /^[a-z,]+$/, 'Style OK');
+    {
+    my $t = InfoGopher::InfoTransform::HTMLExtractor::TagTransformer -> new ;
+    my $style = $t -> style ;
+    ok ( $style =~ /^[a-z,]+$/, 'Style OK');
+    
+    }
+
+    {
+    my $t = InfoGopher::InfoTransform::XML2JSON -> new ;
+    my $style = $t -> style ;
+    ok ( $style =~ /^[a-z,]+$/, 'Style OK');
+    }
+
 exit 0 ;

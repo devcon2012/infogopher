@@ -8,6 +8,8 @@ use 5.018001;
 use strict;
 use warnings;
 
+use Devel::StealthDebug ENABLE => $ENV{dbg_factory} || $ENV{dbg_source} ;
+
 use InfoGopher ;
 use InfoGopher::InfoGradient ;
 use InfoGopher::Essentials ;
@@ -246,10 +248,10 @@ sub _produce_source_sink
     $type //= '????' ;
 
     my $data = ( ref $json ? $json : JSON -> new -> decode( $json ) ) ;
-
+    #!dump($data)!
     my $name = $data -> {name} || '(name MISSING)' ;
-    my $url  = $data -> {url} || '(url MISSING)' ;
-    my $i = NewIntention ( "Produce a new $type $name ($url)" ) ;
+    my $uri  = $data -> {uri} || '(uri MISSING)' ;
+    my $i = NewIntention ( "Produce a new $type $name ($uri)" ) ;
 
     my $module_name = $data -> {module} ;
     my $module = eval 
@@ -257,11 +259,17 @@ sub _produce_source_sink
         eval "require $module_name" ;
         return $module_name -> new ( %$data ) ;
         } ;
-
     if ( $@ )
         {
         ThrowException ( $@ ) ;
         }
+
+    my $transform_data = $data -> {transform} ;
+
+    #!dump($module)!
+    $module -> transformation ( $class -> produce_transform ( $transform_data ) ) 
+        if ( $transform_data) ;
+
 
     return $module ;
     }

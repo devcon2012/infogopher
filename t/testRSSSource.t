@@ -1,11 +1,15 @@
 use strict;
 use warnings;
+use utf8 ;
 
-use Test::More tests => 16;
+use Test::More tests => 23;
 
 use TinyMock::HTTP ;
 use Try::Tiny ;
 use Data::Dumper ;
+use JSON::MaybeXS ;
+
+use Encode qw(decode encode) ;
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -20,6 +24,8 @@ use Data::Dumper ;
 BEGIN { use_ok('InfoGopher') };
 BEGIN { use_ok('InfoGopher::Essentials') };
 BEGIN { use_ok('InfoGopher::InfoSource::RSS') };
+BEGIN { use_ok('InfoGopher::InfoTransform::RSS2JSON') };
+BEGIN { use_ok('InfoGopher::InfoTransform::XML2JSON') };
 
 our $mock ;
 our $port ; 
@@ -86,29 +92,70 @@ ok ( 1 == $ibites -> count, "got exactly one ibite" ) ;
 ok ( RSSName eq $ibites -> source_name, "name matches" ) ;
 ok ( RSSId == $ibites -> source_id, "id matches" ) ;
 
-my $t = InfoGopher::InfoTransform::RSS2JSON -> new () ;
-$rss -> transformation ( $t ) ;
-
-try
+    note ("Test RSS2JSON Transformation") ;
     {
-    $rss -> fetch() ;
-    ok(1, "fetch RSS ok again.");
+    my $t = InfoGopher::InfoTransform::RSS2JSON -> new () ;
+    $rss -> transformation ( $t ) ;
+
+    try
+        {
+        $rss -> fetch() ;
+        ok(1, "fetch RSS ok again.");
+        }
+    catch
+        {
+        my $e = NormalizeException( $_ );
+        note ( Dumper($e) ) ;
+        fail ( $e -> what ) ;
+        } ;
+
+    $ibites = $rss -> info_bites ;
+    note ( "iBites:" . $ibites -> count) ;
+    ok ( 3 == $ibites -> count, "got exactly three ibites" ) ;
+
+        {
+        my $ibite = $ibites -> get(0) ;
+        ok ( 'application/json' eq $ibite -> mime_type , "mime type ok" ) ;
+        my $data =  JSON -> new -> decode ( $ibite -> data ) ; 
+        my $title = $data->{title} ;
+        # encode changes the second argument 
+        my $title = encode('UTF-8', $title, Encode::FB_CROAK);
+        my $ref = 'Merkel fährt Merz an den Karrenbauer' ;
+        ok ( encode('UTF-8', $ref, Encode::FB_CROAK) eq $title, "UTF-8 OK" ) ;
+        ok ( 'Merkel fährt Merz an den Karrenbauer' eq $data->{title}, "Raw OK" ) ;
+        }
     }
-catch
-    {
-    my $e = NormalizeException( $_ );
-    note ( Dumper($e) ) ;
-    fail ( $e -> what ) ;
-    } ;
 
-$ibites = $rss -> info_bites ;
-note ( "iBites:" . $ibites -> count) ;
-ok ( 3 == $ibites -> count, "got exactly three ibites" ) ;
-
+    note ("Test XML2JSON Transformation") ;
     {
-    my $ibite = $ibites -> get(0) ;
-    ok ( 'application/json' eq $ibite -> mime_type , "mime type ok" ) ;
+    my $t = InfoGopher::InfoTransform::XML2JSON -> new () ;
+    $rss -> transformation ( $t ) ;
+
+    try
+        {
+        $rss -> fetch() ;
+        ok(1, "fetch RSS ok yet again.");
+        }
+    catch
+        {
+        my $e = NormalizeException( $_ );
+        note ( Dumper($e) ) ;
+        fail ( $e -> what ) ;
+        } ;
+
+    $ibites = $rss -> info_bites ;
+    note ( "iBites:" . $ibites -> count) ;
+    ok ( 1 == $ibites -> count, "got exactly one ibites" ) ;
+
+        {
+        my $ibite = $ibites -> get(0) ;
+        ok ( 'application/json' eq $ibite -> mime_type , "mime type ok" ) ;
+        my $data = JSON -> new -> decode( $ibite -> data ) ;
+        # print STDERR Dumper( $data ) ;
+        }
     }
+
+
 
 ok (1, "End reached") ;
 

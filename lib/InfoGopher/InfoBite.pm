@@ -61,6 +61,42 @@ has 'cloned' => (
 
 # -----------------------------------------------------------------------------
 #
+# is_mime_type - predicate to check if mime type matches
+#
+# in    $type, eg 'text/html'
+#
+# ret   true / false
+#
+
+sub is_mime_type 
+    {
+    my ($self, $type) = @_ ;
+
+    my @my_type = split ';', $self -> mime_type ; 
+    return $type eq $my_type[0];
+    }
+
+# -----------------------------------------------------------------------------
+#
+# is_encoding - predicate to check if encoding matches
+#   This is the encoding the server used in the *response*, the ibite is always 
+#   encoded using perls encoding.
+#
+# in    $encoding, eg 'utf-8'
+#
+# ret   true / false
+#
+
+sub is_encoding
+    {
+    my ($self, $encoding) = @_ ;
+
+    my @my_type = split ';', $self -> mime_type ; 
+    return $my_type[1] =~ /\Q$encoding\E/ ;
+    }
+
+# -----------------------------------------------------------------------------
+#
 # touch - update infobite timestamp
 #
 # ret   $info_bite
@@ -73,7 +109,6 @@ sub touch
     $self -> time_stamp ( time ) ;
     return $self -> time_stamp ;
     }
-
 # -----------------------------------------------------------------------------
 #
 # clone - create new InfoBite with same mime_type and time_stamp, but new/empty data

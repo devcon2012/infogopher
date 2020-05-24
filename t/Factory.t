@@ -47,7 +47,7 @@ my $json = <<'END_JSON';
             {
             "name" : "mock news rss feed",
             "module" : "InfoGopher::InfoSource::RSS",
-            "url" : "https://mocknews.org/rss_feed",
+            "uri" : "https://mocknews.org/rss_feed",
             "update_interval" : 60
             }
         ],

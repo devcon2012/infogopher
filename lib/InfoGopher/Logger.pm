@@ -6,9 +6,10 @@ use warnings ;
 use Moose ;
 use MooseX::ClassAttribute ;
 
-#use Carp qw( croak longmess ) ;
+use Carp qw( croak longmess ) ;
 
 # 
+# use like InfoGopher::Logger::handle ( 'InfoGopher::Logger', $handle ) ;   
 class_has 'handle' => (
     documentation   => 'logger file handle',
     is              => 'rw',

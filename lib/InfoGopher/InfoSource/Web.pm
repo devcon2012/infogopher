@@ -14,6 +14,7 @@ use utf8 ;
 use namespace::autoclean ;
 use Devel::StealthDebug ENABLE => $ENV{dbg_html} ;
 
+use Encode qw(decode encode) ;
 
 use Moose ;
 use HTML::TreeBuilder ;
@@ -23,7 +24,6 @@ use InfoGopher::Essentials ;
 
 extends qw( InfoGopher::InfoSource::HTTPSInfoSource ) ;
 with 'InfoGopher::InfoSource::_InfoSource' ;
-
 
 # -----------------------------------------------------------------------------
 # fetch - get fresh copy from the web
@@ -45,7 +45,7 @@ sub fetch
     $self -> info_bites -> source_id ( $self -> id ) ;
 
     my $newbite = $self -> add_info_bite ( 
-            $self -> raw, 
+            $response -> decoded_content ,
             $response -> header ('Content-Type') ,
             time ) ;
 

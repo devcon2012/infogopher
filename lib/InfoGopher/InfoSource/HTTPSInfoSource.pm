@@ -162,7 +162,7 @@ sub get_https
     if ( $res -> is_success )
         {
         $self -> last_network_activity(time) ;
-        $self -> raw ( $res -> decoded_content ) ;
+        $self -> raw ( $res -> content ) ;
         }
     else
         {
