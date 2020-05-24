@@ -57,6 +57,8 @@ sub process
     my $style = $self -> style ;
     my %styles = map { ( (lc $_) , 1) } split (',', $style) ;
  
+    #!dump(\%styles)!
+    
     if ( $styles{href} )
         {
         my $href = $c -> attr('href') || $c -> attr('src') ;
@@ -73,7 +75,7 @@ sub process
                 ) ;
             }
         }
-    elsif ( $styles{'text'} )
+    elsif ( $styles{text} )
         {
         # $data, $mime_type, $time_stamp, $meta)
         $bites = InfoGopher::InfoBites -> new ;

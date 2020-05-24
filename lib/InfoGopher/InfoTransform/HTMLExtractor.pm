@@ -8,12 +8,14 @@ use Devel::StealthDebug ENABLE => $ENV{dbg_transform} || $ENV{dbg_source} ;
 
 use Data::Dumper;
 use Moose;
-use HTML::TreeBuilder ;
+use HTML::TreeBuilder 5 -weak ;
 use Try::Tiny;
 
 use InfoGopher::Essentials ;
 use InfoGopher::InfoBites ;
 use InfoGopher::InfoTransform::HTMLExtractor::TagTransformer ;
+
+extends 'InfoGopher::InfoTransform' ;
 
 has 'html_parser' => (
     documentation   => 'html parser',
@@ -88,6 +90,8 @@ sub transform
 
     my $mime = $info_bite -> mime_type ;
 
+    #!dump($mime)!
+
     ThrowException("wrong mime type") 
         if ( $mime !~ 'html' ) ;
 
@@ -95,7 +99,10 @@ sub transform
 
     try 
         {
-        $self -> html_parser -> parse_content ( $info_bite -> data ) ;
+        #!dump($info_bite -> data)!
+        $self -> html_parser -> parse( $info_bite -> data ) ;
+        $self -> html_parser -> eof ;
+        # $self -> html_parser -> elementify ;
         }
     catch
         {
@@ -114,12 +121,16 @@ sub _add_infobite_maybe
     {
     my ($self, $ibites, $n, $bite) = @_ ;
 
+    #!dump($n)!
+
     foreach my $c ( $n -> content_list )
         {
+        #!dump($c)!
         next if ! ref $c ; 
         my $tag = $c -> tag ;
         my $class = $c -> attr('class') || '';
         my $id = $c -> attr('id') || '';
+
         if  ( 
                 defined $self -> wanted_tags -> {$tag} 
              && defined $self -> wanted_class -> {$class} 
@@ -129,6 +140,7 @@ sub _add_infobite_maybe
             my $add = $self -> tag2ibite -> process($c, $bite) ;
             $ibites -> merge ($add) if ($add) ;
             }
+        #!dump($c)!
         $self -> _add_infobite_maybe ($ibites, $c, $bite) if ( ref $c ) ;
         }
     return ;

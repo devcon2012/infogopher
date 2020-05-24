@@ -52,7 +52,7 @@ __END__
 
 =head1 NAME
 
-InfoGopher::InfoTransform::AsIs - trivial transform doing no changes
+InfoGopher::InfoTransform::XML2JSON - convert XML to json
 
 =head1 COPYRIGHT AND LICENSE
 

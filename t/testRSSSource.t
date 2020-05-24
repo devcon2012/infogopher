@@ -119,7 +119,7 @@ ok ( RSSId == $ibites -> source_id, "id matches" ) ;
         my $data =  JSON -> new -> decode ( $ibite -> data ) ; 
         my $title = $data->{title} ;
         # encode changes the second argument 
-        my $title = encode('UTF-8', $title, Encode::FB_CROAK);
+        $title = encode('UTF-8', $title, Encode::FB_CROAK);
         my $ref = 'Merkel fährt Merz an den Karrenbauer' ;
         ok ( encode('UTF-8', $ref, Encode::FB_CROAK) eq $title, "UTF-8 OK" ) ;
         ok ( 'Merkel fährt Merz an den Karrenbauer' eq $data->{title}, "Raw OK" ) ;

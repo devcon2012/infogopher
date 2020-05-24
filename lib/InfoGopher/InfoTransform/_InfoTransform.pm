@@ -6,6 +6,18 @@ use Moose::Role ;
  
 requires 'transform' ;
 
+has 'style' => (
+    documentation   => 'string of transform styles',
+    is              => 'rw',
+    isa             => 'Str',
+    lazy            => 1,
+    builder         => '_build_style',
+) ;
+sub _build_style
+    {
+    return '' ;
+    }
+
 1;
 
 __END__
